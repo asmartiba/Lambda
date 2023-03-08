@@ -1,0 +1,19 @@
+{
+  "name": "lambda",
+  "version": "1.0.0",
+  "description": "Lord of the Rings - IT Project",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asmartiba/Lambda.git"
+  },
+  "author": "Asmar, Dagny, Ana, David",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asmartiba/Lambda/issues"
+  },
+  "homepage": "https://github.com/asmartiba/Lambda#readme"
+}
