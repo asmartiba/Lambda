@@ -42,7 +42,6 @@ body {
     color: white;
   }
 
-  .project-icon:hover + .select-menu {
+  .project-icon:hover {
     border: 3px rgb(228, 207, 91) solid;
-    background-color: red;
   }
