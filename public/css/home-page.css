@@ -7,9 +7,6 @@ body {
     background-image: linear-gradient(to bottom, #2e314d, #340909);
     background-size: 200% 200%;
     animation: fadeGradient 5s infinite;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow-y: scroll;
     height: 200vh;
     width: 100vw;
@@ -26,4 +23,75 @@ body {
     100% {
       background-position: 0% 50%;
     }
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+  }
+
+  header nav ul  {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+  }
+
+  header nav ul a {
+    text-decoration: none;
+    color: gold;
+  }
+
+  .star {
+    scale: 1.5;
+    align-self: center;
+    margin-left: 25px;
+  }
+
+  .login__button {
+    width: 100px;
+    height: 35px;
+    color: gold;
+    border: 2px gold solid;
+    border-radius: 10%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
+
+  .login__button a {
+    text-decoration: none;
+    color: gold;
+    font-weight: 600;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .quiz__box {
+    width: 70vw;
+    height: 300px;
+    margin-top: 200px;
+    border: 2px solid greenyellow;
+  }
+
+  .characters__box {
+    width: 250px;
+    height: 450px;
+    margin-top: 200px;
+    margin-left: 200px;
+    border: 2px solid rgb(55, 212, 233);
+  }
+
+  .about__box {
+    width: 350px;
+    height: 450px;
+    margin-top: 200px;
+    margin-right: 200px;
+    border: 2px solid rgb(237, 204, 20);
   }
