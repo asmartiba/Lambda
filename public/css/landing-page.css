@@ -4,7 +4,7 @@
 }
 
 body {
-  background-image: linear-gradient(90deg, #2e314d, #4e0404);
+  background-image: linear-gradient(60deg, #2e314d, #4e0404);
   background-size: 200% 200%;
   animation: fadeGradient 5s infinite;
   display: flex;
