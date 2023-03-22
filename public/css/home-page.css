@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: linear-gradient(to bottom, #2e314d, #340909);
+    background-size: 200% 200%;
+    animation: fadeGradient 5s infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+    height: 200vh;
+    width: 100vw;
+    vertical-align: middle;
+  }
+  
+  @keyframes fadeGradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }

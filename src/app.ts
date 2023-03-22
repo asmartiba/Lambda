@@ -16,4 +16,8 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'About Us' });
 });
 
+app.get('/home', (req, res) => {
+  res.render('home');
+});
+
 export default app;

@@ -54,7 +54,7 @@ justify-content: center;
 
 .project-icon {
   width: 9vw;
-  height: 17vh;
+  height: 18vh;
   margin: 10px;
   background-color: #0e000042;
   border-radius: 50%;
@@ -72,6 +72,7 @@ justify-content: center;
 
 .project-icon:hover {
   border: 3px rgb(228, 207, 91) solid;
+  scale: 1.2;
 }
 
 .first-project {
