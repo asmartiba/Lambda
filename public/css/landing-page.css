@@ -4,7 +4,9 @@
 }
 
 body {
-  background: linear-gradient( #434547, #131616);
+  background-image: linear-gradient(90deg, #2e314d, #4e0404);
+  background-size: 200% 200%;
+  animation: fadeGradient 5s infinite;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,19 +15,46 @@ body {
   vertical-align: middle;
 }
 
+@keyframes fadeGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .select-menu {
   width: 75vw;
   height: 65vh;
-  background: linear-gradient(#a9bbaf, #1f1116);
+  background: linear-gradient(#4f6c59, #1f1116);
   border: rgb(230, 138, 78) 2px solid;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+
+.select-menu h3 {
+color: rgb(236, 219, 61);
+text-shadow: 5px 5px 5px rgba(40, 12, 104, 0.7);
+font-size: 25px;
+padding-top:25vh;
+text-align: center;
+}
+
+.projects {
+display: flex;
+justify-content: center;
+}
+
 .project-icon {
   width: 9vw;
-  height: 19vh;
+  height: 17vh;
   margin: 10px;
   background-color: #0e000042;
   border-radius: 50%;
