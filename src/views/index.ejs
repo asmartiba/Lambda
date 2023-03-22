@@ -7,57 +7,49 @@
   <body>
     <div class="select-menu">
       <a href="/lord-of-the-rings">
-        <div class="project-icon" data-bg-image="/public/img/asmar.webp">
-          project 1 
+        <div class="project-icon first-project" data-bgimg="/public/img/asmar.webp">
         </div>
       </a>
       <a href="#">
-        <div class="project-icon">
-          project 2 
+        <div class="project-icon second-project">
         </div>
       </a>
       <a href="#">
-        <div class="project-icon">
-          project 3 
+        <div class="project-icon third-project">
         </div>
       </a>
       <a href="#">
-        <div class="project-icon">
-          project 4 
+        <div class="project-icon fourth-project">
         </div>
       </a>
       <a href="#">
-        <div class="project-icon">
-          project 5 
+        <div class="project-icon fifth-project">
         </div>
       </a>
       <a href="#">
-        <div class="project-icon">
-          project 6
+        <div class="project-icon sixth-project">
         </div>
       </a>
     </div>
     <script>
-      const projectIcons = document.querySelectorAll('.project-icon');
-      projectIcons.forEach(icon => {
-        icon.addEventListener('click', () => {
-          console.log('clicked');
+          const projectIcons = document.querySelectorAll('.project-icon');
+              projectIcons.forEach(icon => {
+                icon.addEventListener('click', () => {
+                  console.log('clicked');
+                });
+              });
+              $(document).ready(function() {
+          $(".project-icon-hover").hover(function() {
+            $(this).css("background-image", "url(photo1.jpg)");
+          }, function() {
+            $(this).css("background-image", "url(/img/asmar.webp)");
+          });
+          $(".project-icon-hover2").hover(function() {
+            $(this).css("background-image", "url(/img/asmar.webp)");
+          }, function() {
+            $(this).css("background-image", "");
+          });
         });
-      });
-
-      // const projectIcons = document.querySelectorAll('.project-icon');
-      //const selectMenu = document.querySelector('.select-menu');
-
-      // projectIcons.forEach(icon => {
-      //   icon.addEventListener('click', () => {
-      //     const bgImage = icon.dataset.bgImage;
-      //     selectMenu.style.backgroundImage = `url('${bgImage}')`;
-      //   });
-      // });
-
-      //add this to project-icon => data-bg-image="/public/img/asmar.webp" data-project="1"
-
     </script>
   </body>
 </html>
-

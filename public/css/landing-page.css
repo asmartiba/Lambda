@@ -1,68 +1,107 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: linear-gradient( #434547, #131616);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    vertical-align: middle;
+  background: linear-gradient( #434547, #131616);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  vertical-align: middle;
 }
 
 .select-menu {
-    width: 75vw;
-    height: 65vh;
-    background: linear-gradient(#a9bbaf, #1f1116);
-    border: rgb(230, 138, 78) 2px solid;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 75vw;
+  height: 65vh;
+  background: linear-gradient(#a9bbaf, #1f1116);
+  border: rgb(230, 138, 78) 2px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .project-icon {
-    width: 7vw;
-    height: 15vh;
-    margin: 10px;
-    background-color: #0e000042;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    cursor: pointer;
+  width: 9vw;
+  height: 19vh;
+  margin: 10px;
+  background-color: #0e000042;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.select-menu a {
+  text-decoration: none;
+  color: white;
+}
+
+.project-icon:hover {
+  border: 3px rgb(228, 207, 91) solid;
+}
+
+.first-project {
+  background: url('https://i.pinimg.com/736x/5b/96/a8/5b96a849e83b5bc459530a2aaf677994.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 50%;
+}
+
+.second-project {
+  background: url('https://w7.pngwing.com/pngs/427/935/png-transparent-pokemon-icon-deoxys-pokeball-pokemon-circle-symbol.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 50%;
+}
+
+.third-project {
+  background: url('https://digitalhub.fifa.com/m/58223e0c1caa5674/original/FIFA-logo.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 50%;
+}
+
+.fourth-project {
+  background: url('https://www.lego.com/cdn/cs/set/assets/bltd523ce5600467ac9/LEGOMasters_Landingpage_HeroBanner_Mobile.jpg?fit=crop&format=jpg&quality=80&width=600&height=600&dpr=1');
+  background-size: cover;
+  background-position: center;
+  opacity: 50%;
+}
+
+.fifth-project {
+  background: url('https://cf-assets.esportsclub.nl/erz7ypidnr7y/3fngWJ3rGnFNpqkEDmqsSo/a35178e50a225d28a2df32875d94d976/battle-pass-chapter-2-season-6-1920x1080-dc8eb73dc494.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 50%;
+}
+
+.sixth-project {
+  background: url('https://media.wizards.com/2017/images/daily/41mztsnrdm.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 50%;
+}
+
+.first-project:hover, .second-project:hover, .third-project:hover, .fourth-project:hover, .fifth-project:hover, .sixth-project:hover {
+  opacity: 100%;
+}
+
+@media (max-width: 768px) {
+
+
+  .select-menu {
+      flex-direction: column;
+      height: 90vh;
   }
-
-  .select-menu a {
-    text-decoration: none;
-    color: white;
+  
+  .project-icon {
+      height: 10vh;
+      width: 15vw;
+      font-size: 12px;
   }
-
-  .project-icon:hover {
-    border: 3px rgb(228, 207, 91) solid;
-  }
-
-  @media (max-width: 768px) {
-    .body {
-        overflow-y: scroll;
-        overflow-x: scroll;
-    }
-
-    .select-menu {
-        flex-direction: column;
-        height: 90vh;
-    }
-    
-    .project-icon {
-        height: 10vh;
-        width: 15vw;
-        font-size: 12px;
-    }
-
-    .select-menu a {
-
-    }
-  }
+}
