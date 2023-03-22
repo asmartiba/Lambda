@@ -5,59 +5,48 @@
     <link rel="stylesheet" href="/css/landing-page.css">
   </head>
   <body>
-    <div class="select-menu">
+    <div class="select__menu">
         <div class="projects">
           <a href="/home">
-            <div class="project-icon first-project" data-bgimg="/public/img/asmar.webp">
+            <div class="project__icon first__project" data-bgimg="/public/img/asmar.webp">
               <h3>Lord of the Rings</h3>
             </div>
           </a>
           <a href="#">
-            <div class="project-icon second-project">
+            <div class="project__icon second__project">
               <h3>Pokemon</h3>
             </div>
           </a>
           <a href="#">
-            <div class="project-icon third-project">
+            <div class="project__icon third__project">
               <h3>FIFA</h3>
             </div>
           </a>
           <a href="#">
-            <div class="project-icon fourth-project">
+            <div class="project__icon fourth__project">
               <h3>Lego Masters</h3>
             </div>
           </a>
           <a href="#">
-            <div class="project-icon fifth-project">
+            <div class="project__icon fifth__project">
               <h3>Fortnite</h3>
             </div>
           </a>
           <a href="#">
-            <div class="project-icon sixth-project">
+            <div class="project__icon sixth__project">
               <h3>Magic: The Gathering</h3>
             </div>
           </a>
         </div>
     </div>
     <script>
-          const projectIcons = document.querySelectorAll('.project-icon');
+          const projectIcons = document.querySelectorAll('.project__icon');
               projectIcons.forEach(icon => {
                 icon.addEventListener('click', () => {
                   console.log('clicked');
                 });
               });
-              $(document).ready(function() {
-          $(".project-icon-hover").hover(function() {
-            $(this).css("background-image", "url(photo1.jpg)");
-          }, function() {
-            $(this).css("background-image", "url(/img/asmar.webp)");
-          });
-          $(".project-icon-hover2").hover(function() {
-            $(this).css("background-image", "url(/img/asmar.webp)");
-          }, function() {
-            $(this).css("background-image", "");
-          });
-        });
+              $(document)
     </script>
   </body>
 </html>
