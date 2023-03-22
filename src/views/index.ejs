@@ -2,22 +2,63 @@
 <html>
   <head>
     <title>Lambda</title>
-    <%- include('partials/header') %>
+    <link rel="stylesheet" href="/css/landing-page.css">
   </head>
   <body>
-    <main id="landing-page">
-      <section>
-        <h1>Choose your project:</h1>
-        <article class="landing-choices">
-          <a href="./index" class="landing-choice"><img src="#" alt="" /></a>
-          <a href="#" class="landing-choice"><img src="#" alt="" /></a>
-          <a href="#" class="landing-choice"><img src="#" alt="" /></a>
-          <a href="#" class="landing-choice"><img src="#" alt="" /></a>
-          <a href="#" class="landing-choice"><img src="#" alt="" /></a>
-          <a href="#" class="landing-choice"><img src="#" alt="" /></a>
-          <a href="#" class="landing-choice"><img src="#" alt="" /></a>
-        </article>
-      </section>
-    </main>
+    <div class="select-menu">
+        
+        <div class="projects">
+          <a href="/lord-of-the-rings">
+            <div class="project-icon first-project" data-bgimg="/public/img/asmar.webp">
+              <h3>Lord of the Rings</h3>
+            </div>
+          </a>
+          <a href="#">
+            <div class="project-icon second-project">
+              <h3>Pokemon</h3>
+            </div>
+          </a>
+          <a href="#">
+            <div class="project-icon third-project">
+              <h3>FIFA</h3>
+            </div>
+          </a>
+          <a href="#">
+            <div class="project-icon fourth-project">
+              <h3>Lego Masters</h3>
+            </div>
+          </a>
+          <a href="#">
+            <div class="project-icon fifth-project">
+              <h3>Fortnite</h3>
+            </div>
+          </a>
+          <a href="#">
+            <div class="project-icon sixth-project">
+              <h3>Magic: The Gathering</h3>
+            </div>
+          </a>
+        </div>
+    </div>
+    <script>
+          const projectIcons = document.querySelectorAll('.project-icon');
+              projectIcons.forEach(icon => {
+                icon.addEventListener('click', () => {
+                  console.log('clicked');
+                });
+              });
+              $(document).ready(function() {
+          $(".project-icon-hover").hover(function() {
+            $(this).css("background-image", "url(photo1.jpg)");
+          }, function() {
+            $(this).css("background-image", "url(/img/asmar.webp)");
+          });
+          $(".project-icon-hover2").hover(function() {
+            $(this).css("background-image", "url(/img/asmar.webp)");
+          }, function() {
+            $(this).css("background-image", "");
+          });
+        });
+    </script>
   </body>
 </html>
