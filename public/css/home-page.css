@@ -4,11 +4,11 @@
 }
 
 body {
-    background-image: linear-gradient(to bottom, #2e314d, #340909);
+    background-image: linear-gradient(to bottom, #2e314d, #3e0c0c);
     background-size: 200% 200%;
     animation: fadeGradient 5s infinite;
     overflow-y: scroll;
-    height: 200vh;
+    height: 250vh;
     width: 100vw;
     vertical-align: middle;
   }
@@ -31,6 +31,11 @@ body {
     padding: 50px;
   }
 
+  header img {
+    width: 200px;
+    margin-left: 150px;
+  }
+
   header nav ul  {
     display: flex;
     flex-direction: row;
@@ -40,6 +45,19 @@ body {
   header nav ul a {
     text-decoration: none;
     color: gold;
+  }
+
+  footer {
+    width: 100vw;
+    background-color: rgb(24, 2, 2);
+    height: 10vh;
+    position: relative;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 60%;
   }
 
   .star {
@@ -93,5 +111,6 @@ body {
     height: 450px;
     margin-top: 200px;
     margin-right: 200px;
+    margin-bottom: 100px;
     border: 2px solid rgb(237, 204, 20);
   }
