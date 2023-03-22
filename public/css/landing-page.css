@@ -27,7 +27,7 @@ body {
   }
 }
 
-.select-menu {
+.select__menu {
   width: 75vw;
   height: 65vh;
   background: linear-gradient(#4f6c59, #1f1116);
@@ -39,11 +39,11 @@ body {
 }
 
 
-.select-menu h3 {
+.select__menu h3 {
 color: rgb(236, 219, 61);
 text-shadow: 5px 5px 5px rgba(40, 12, 104, 0.7);
-font-size: 25px;
-padding-top:25vh;
+font-size: 24px;
+padding-top:30vh;
 text-align: center;
 }
 
@@ -52,83 +52,83 @@ display: flex;
 justify-content: center;
 }
 
-.project-icon {
+.project__icon {
   width: 9vw;
-  height: 17vh;
+  height: 18vh;
   margin: 10px;
   background-color: #0e000042;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
   cursor: pointer;
 }
 
-.select-menu a {
+.select__menu a {
   text-decoration: none;
   color: white;
 }
 
-.project-icon:hover {
+.project__icon:hover {
   border: 3px rgb(228, 207, 91) solid;
+  scale: 1.2;
 }
 
-.first-project {
+.first__project {
   background: url('https://i.pinimg.com/736x/5b/96/a8/5b96a849e83b5bc459530a2aaf677994.jpg');
   background-size: cover;
   background-position: center;
   opacity: 50%;
 }
 
-.second-project {
+.second__project {
   background: url('https://w7.pngwing.com/pngs/427/935/png-transparent-pokemon-icon-deoxys-pokeball-pokemon-circle-symbol.png');
   background-size: cover;
   background-position: center;
   opacity: 50%;
 }
 
-.third-project {
+.third__project {
   background: url('https://digitalhub.fifa.com/m/58223e0c1caa5674/original/FIFA-logo.png');
   background-size: cover;
   background-position: center;
   opacity: 50%;
 }
 
-.fourth-project {
+.fourth__project {
   background: url('https://www.lego.com/cdn/cs/set/assets/bltd523ce5600467ac9/LEGOMasters_Landingpage_HeroBanner_Mobile.jpg?fit=crop&format=jpg&quality=80&width=600&height=600&dpr=1');
   background-size: cover;
   background-position: center;
   opacity: 50%;
 }
 
-.fifth-project {
+.fifth__project {
   background: url('https://cf-assets.esportsclub.nl/erz7ypidnr7y/3fngWJ3rGnFNpqkEDmqsSo/a35178e50a225d28a2df32875d94d976/battle-pass-chapter-2-season-6-1920x1080-dc8eb73dc494.jpg');
   background-size: cover;
   background-position: center;
   opacity: 50%;
 }
 
-.sixth-project {
+.sixth__project {
   background: url('https://media.wizards.com/2017/images/daily/41mztsnrdm.jpg');
   background-size: cover;
   background-position: center;
   opacity: 50%;
 }
 
-.first-project:hover, .second-project:hover, .third-project:hover, .fourth-project:hover, .fifth-project:hover, .sixth-project:hover {
+.first__project:hover, .second__project:hover, .third__project:hover, .fourth__project:hover, .fifth__project:hover, .sixth__project:hover {
   opacity: 100%;
 }
 
 @media (max-width: 768px) {
 
 
-  .select-menu {
+  .select__menu {
       flex-direction: column;
       height: 90vh;
   }
   
-  .project-icon {
+  .project__icon {
       height: 10vh;
       width: 15vw;
       font-size: 12px;
