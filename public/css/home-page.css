@@ -15,6 +15,11 @@ body {
     width: 100vw;
     vertical-align: middle;
   }
+  #Start {
+    display: none;
+    overflow: hidden;
+    padding: 0.5rem;
+  }
   
   @keyframes fadeGradient {
     0% {

@@ -124,5 +124,5 @@ function correct(){
 }
 
 function showDiv() {
-    document.getElementById('welcomeDiv').style.display = "block";
+    document.getElementById('Start').style.display = "block";
   }
