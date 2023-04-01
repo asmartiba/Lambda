@@ -5,9 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/home-page.css">
+    <link rel="stylesheet" href="/js/Quiz.js">
     <title>Lord of the Rings</title>
 </head>
 <body>
-    
+    <div class="hero">
+        <div class="quiz__box">
+            <button onclick="startQuiz();showDiv()" id="welcomeDiv"  style="display:none;">Start Quiz</button>
+            
+            <p id="quote"></p>
+            <button onclick="mode()" id="easy"></button>
+            <button onclick="mode()" id="hard"></button>
+        
+        <button onclick="correct()" id="Gandolf"><img src="/Lambda/public/img/The_Fellowship_of_the_Ring.jpg"></button>
+        <button onclick="correct()" id="Gollum"><img src="/Lambda/public/img/The_Fellowship_of_the_Ring.jpg"></button>
+        <button onclick="correct()" id="frodo"><img src="/Lambda/public/img/The_Fellowship_of_the_Ring.jpg"></button>
+        <button onclick="correct()" id="Fellowship"><img src="/Lambda/public/img/The_Fellowship_of_the_Ring.jpg"></button>
+        <button onclick="correct()" id="Return"><img src="/Lambda/public/img/The_Fellowship_of_the_Ring.jpg"></button>
+        <button onclick="correct()" id="Towers"><img src="/Lambda/public/img/The_Fellowship_of_the_Ring.jpg"></button>
+        <p id="result"></p>
+        <p id="score"></p>
+        <button onclick="endQuiz()">End Quiz</button>
+        </div>
+
+        <div class="characters__box">
+
+        </div>
+
+        <div class="about__box">
+            
+        </div>
+    </div>
 </body>
 </html>
