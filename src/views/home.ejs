@@ -12,24 +12,26 @@
     <div class="hero">
         <div class="quiz__box">
             
-            <button onclick="mode()" id="easy"></button>
-            <button onclick="mode()" id="hard"></button>
-
-            <p id="quote"></p>
-
-            <div id="Start"  style="display: none" class="answer_list" >
-                <button onclick="correct()" id="Gandolf"><img src="/Lambda/public/img/The_Fellowship_of_the_Ring.jpg"></button>
-                <button onclick="correct()" id="Gollum"><img src="/Lambda/public/img/The_Fellowship_of_the_Ring.jpg"></button>
-                <button onclick="correct()" id="frodo"><img src="/Lambda/public/img/The_Fellowship_of_the_Ring.jpg"></button>
-                <button onclick="correct()" id="Fellowship"><img src="/Lambda/public/img/The_Fellowship_of_the_Ring.jpg"></button>
-                <button onclick="correct()" id="Return"><img src="/Lambda/public/img/The_Fellowship_of_the_Ring.jpg"></button>
-                <button onclick="correct()" id="Towers"><img src="/Lambda/public/img/The_Fellowship_of_the_Ring.jpg"></button>
+            <div id="game-container">
+                <div id="Start" style="display: none" class="answer_list" >
+                  <div id="quote-container">
+                    <p id="quote"></p>
+                    <span id="score"></span>
+                    <span id="tries"></span>
+                  </div>
+                  <div id="image-container">
+                    <img class="image" src="https://via.placeholder.com/150x150" alt="image 1">
+                    <img class="image" src="https://via.placeholder.com/150x150" alt="image 2">
+                    <img class="image" src="https://via.placeholder.com/150x150" alt="image 3">
+                    <img class="image" src="https://via.placeholder.com/150x150" alt="image 4">
+                    <img class="image" src="https://via.placeholder.com/150x150" alt="image 5">
+                    <img class="image" src="https://via.placeholder.com/150x150" alt="image 6">
+                  </div>
+                  <button id="reset-button">End Quiz</button>
+                </div>
+                <input type="button" name="answer" value="Start Quiz" onclick="showDiv()" />
+                
             </div> 
-            <input type="button" name="answer" value="Start Quiz" onclick="showDiv()" />
-
-        <p id="result"></p>
-        <p id="score"></p>
-        <button onclick="endQuiz()">End Quiz</button>
         </div>
 
 

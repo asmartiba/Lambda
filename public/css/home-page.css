@@ -15,6 +15,38 @@ body {
     width: 100vw;
     vertical-align: middle;
   }
+  #game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  #quote-container {
+    margin-bottom: 30px;
+  }
+  
+  #image-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+  
+  .image {
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  #reset-button {
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
   #Start {
     display: none;
     overflow: hidden;

@@ -1,128 +1,132 @@
+const quoteElement = document.querySelector("#quote");
+const imageElements = document.querySelectorAll("img");
+const scoreElement = document.querySelector("#score");
+const resetButton = document.querySelector("#reset-button");
 
-var usedQuotes = [];
-var questions = [];
+const MAX_TRIES = 10;
+const NUM_IMAGES = 6;
 
-var TijdelijkInput = {
-  "quotes": [
-      {"quote": "You shall not pass!", "character": "Gandalf", "movie": "The Fellowship of the Ring"},
-      {"quote": "My precious.", "character": "Gollum", "movie": "The Two Towers"},
-      {"quote": "All we have to decide is what to do with the time that is given us.", "character": "Gandalf", "movie": "The Fellowship of the Ring"},
-      {"quote": "Not all those who wander are lost.", "character": "Bilbo Baggins", "movie": "The Fellowship of the Ring"},
-      {"quote": "Even the smallest person can change the course of history.", "character": "Galadriel", "movie": "The Fellowship of the Ring"},
-      {"quote": "I am no man.", "character": "Eowyn", "movie": "The Return of the King"},
-      {"quote": "A wizard is never late, Frodo Baggins. Nor is he early. He arrives precisely when he means to.", "character": "Gandalf", "movie": "The Fellowship of the Ring"},
-      {"quote": "Fly, you fools!", "character": "Gandalf", "movie": "The Fellowship of the Ring"},
-      {"quote": "The board is set, the pieces are moving. We come to it at last, the great battle of our time.", "character": "Gandalf", "movie": "The Return of the King"},
-      {"quote": "I cannot carry it for you, but I can carry you!", "character": "Samwise Gamgee", "movie": "The Return of the King"}
-  ]
-};
-var quote = ["You shall not pass!","My precious.","All we have to decide is what to do with the time that is given us.","Fly, you fools!","The board is set, the pieces are moving. We come to it at last, the great battle of our time."]
+let chosenImages = [];
+let score = 0;
+let numTries = 0;
 
-
-var score = 0;
-var highScore = 0;
-var VraagTeller = 0;
-var AantalCorrecte = 0;
-
-
-function RandomQuote() {
-  var randomIndex = Math.floor(Math.random() * TijdelijkInput.quotes.length);
-  var quote = TijdelijkInput.quotes[randomIndex].quote;
-  var character = TijdelijkInput.quotes[randomIndex].character;
-  var movie = TijdelijkInput.quotes[randomIndex].movie;
-  return { quote: quote, character: character, movie: movie };
-}
-console.log(RandomQuote());
-
-function Options(quote) {
-  var options = [{ character: quote.character, movie: quote.movie }];
-  while (options.length < 3) {
-      var randomQuote = RandomQuote();
-      var randomOption = { character: randomQuote.character, movie: randomQuote.movie };
-      if (!options.some(option => option.character === randomOption.character && option.movie === randomOption.movie)) {
-          options.push(randomOption);
-      }
+const quotes = [
+  {
+    text: "All we have to decide is what to do with the time that is given us.",
+    author: "Gandalf"
+  },
+  {
+    text: "Fly, you fools!",
+    author: "Gandalf"
+  },
+  {
+    text: "Not all those who wander are lost.",
+    author: "Bilbo Baggins"
   }
-  return Schudden(options);
-}
+];
 
+const images = [
+  "https://via.placeholder.com/150x150?text=1",
+  "https://via.placeholder.com/150x150?text=2",
+  "https://via.placeholder.com/150x150?text=3",
+  "https://via.placeholder.com/150x150?text=4",
+  "https://via.placeholder.com/150x150?text=5",
+  "https://via.placeholder.com/150x150?text=6"
+];
 
-function Schudden(array) {
-  for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
+function getRandomQuotes() {
+  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  quoteElement.textContent = `"${randomQuote.text}"`;
+  const correctImageIndices = getRandomIndices(NUM_IMAGES, 2);
+  for (let i = 0; i < imageElements.length; i++) {
+    const imageIndex = i + 1;
+    imageElements[i].src = images[i];
+    if (correctImageIndices.includes(imageIndex)) {
+      imageElements[i].setAttribute("data-correct", true);
+    } else {
+      imageElements[i].removeAttribute("data-correct");
+    }
+    imageElements[i].addEventListener("click", handleImageClick);
   }
-  return array;
 }
 
-function startQuiz() {
-  document.getElementById("quote").innerHTML = "";
-  document.getElementById("options").innerHTML = "";
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("score").innerHTML = "";
-  usedQuotes = [];
-  questions = [];
+function getRandomIndices(max, numIndices) {
+  const indices = [];
+  while (indices.length < numIndices) {
+    const randomIndex = Math.floor(Math.random() * max) + 1;
+    if (!indices.includes(randomIndex)) {
+      indices.push(randomIndex);
+    }
+    /*if (quotes.text == [0]) {
+      indices.push(6);
+      indices.push(1);
+    }*/
+    
+  }
+  return indices;
+}
+
+function handleImageClick() {
+  if (chosenImages.length < 2) {
+    const image = this.src;
+    chosenImages.push(image);
+    this.removeEventListener("click", handleImageClick);
+    if (this.hasAttribute("data-correct")) {
+      score += 0.5;
+      this.style.border = "3px solid green";
+    } else {
+      this.style.border = "3px solid red";
+    }
+  }
+  if (chosenImages.length === 2) {
+    disableAllImages();
+    scoreElement.textContent = `Score: ${score}`;
+    numTries++;
+    if (numTries === MAX_TRIES) {
+      resetButton.disabled = true;
+    }
+    if (numTries < MAX_TRIES) {
+      setTimeout(resetGame, 1500);
+    }
+  }
+}
+
+function disableAllImages() {
+  for (let i = 0; i < imageElements.length; i++) {
+    imageElements[i].removeEventListener("click", handleImageClick);
+  }
+}
+
+function resetGame() {
+  chosenImages = [];
   score = 0;
-  questionCount = 0;
-  consecutiveCorrectAnswers = 0;
-  document.getElementById("start-quiz").disabled = true;
-  document.getElementById("submit-answer").disabled = false;
-  document.getElementById("end-quiz").disabled = false;
-  generateQuestion();
+  scoreElement.textContent = `Score: ${score}`;
+  for (let i = 0; i < imageElements.length; i++) {
+    imageElements[i].style
+    imageElements[i].style.border = "";
+}
+getRandomQuotes();
 }
 
-function correct(){
-  var Gandolf = document.getElementById("Gandolf");
-  var Gollum = document.getElementById("Gollum");
-  var frodo = document.getElementById("frodo");
-  var Fellowship = document.getElementById("Fellowship");
-  var Return = document.getElementById("Return");
-  var Towers = document.getElementById("Towers");
-
-  if (quote[0] =Gandolf) {
-    score + 0.5;
-    document.getElementById("score").innerHTML = score;
+function resetAll() {
+  chosenImages = [];
+  numTries = 0;
+  if (numTries === 10) {
+    score = 0;
   }
-  if (quote[0]=Fellowship ) {
-    score +0.5;
-    document.getElementById("score").innerHTML = score;
+ 
+  resetButton.disabled = false;
+  scoreElement.textContent = `Score: ${score}`;
+  for (let i = 0; i < imageElements.length; i++) {
+    imageElements[i].style.border = "";
+    imageElements[i].addEventListener("click", handleImageClick);
   }
-  if (quote[1]= Gollum ) {
-    score +0.5;
-    document.getElementById("score").innerHTML = score;
-  }
-  if (quote[1]= Towers) {
-    score +0.5;
-    document.getElementById("score").innerHTML = score;
-  }
-  if (quote[2]=Gandolf ) {
-    score +0.5;
-    document.getElementById("score").innerHTML = score;
-  }
-  if (quote[2]= Fellowship ) {
-    score +0.5;
-    document.getElementById("score").innerHTML = score;
-  }
-  if (quote[3]=Gandolf ) {
-    score +0.5;
-    document.getElementById("score").innerHTML = score;
-  }
-  if (quote[3]=Fellowship ) {
-    score +0.5;
-    document.getElementById("score").innerHTML = score;
-  }
-  if (quote[4]= Gandolf ) {
-    score +0.5;
-    document.getElementById("score").innerHTML = score;
-  }
-  if (quote[4]= Return) {
-    score +0.5;
-    document.getElementById("score").innerHTML = score;
-  }
+  getRandomQuotes();
 }
+
+getRandomQuotes();
+resetButton.addEventListener("click", resetAll);
 
 function showDiv() {
-    document.getElementById('Start').style.display = "block";
-  }
+  document.getElementById('Start').style.display = "block";
+}
