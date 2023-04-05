@@ -116,6 +116,13 @@ justify-content: center;
   opacity: 50%;
 }
 
+.seventh__project {
+  background: url('https://www.upflip.com/wp-content/uploads/2021/02/bank-building.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 50%;
+}
+
 .first__project:hover, .second__project:hover, .third__project:hover, .fourth__project:hover, .fifth__project:hover, .sixth__project:hover {
   opacity: 100%;
 }
