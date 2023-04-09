@@ -8,7 +8,6 @@ body {
     background-size: 200% 200%;
     animation: fadeGradient 5s infinite;
     overflow-y: scroll;
-    height: 250vh;
     width: 100vw;
     vertical-align: middle;
   }
