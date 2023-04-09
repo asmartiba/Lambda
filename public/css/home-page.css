@@ -27,8 +27,11 @@ body {
 
   header {
     display: flex;
-    justify-content: space-between;
-    padding: 50px;
+    justify-content: space-evenly;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: linear-gradient(to bottom, #9e9090ab,#64496e6e, #380f332a, transparent);
   }
 
   header img {
@@ -60,8 +63,13 @@ body {
     opacity: 60%;
   }
 
+  .emptyspan {
+    height: 300px;
+    width: 100vw;
+  }
+
   .star {
-    scale: 1.5;
+    font-size: 70px;
     align-self: center;
     margin-left: 25px;
   }
@@ -92,13 +100,29 @@ body {
   }
 
   .quiz__box {
-    width: 70vw;
-    height: 300px;
-    margin-top: 200px;
-    border: 2px solid greenyellow;
+    height: 60vh;
+    width: 65vw;
+    background: linear-gradient(to left, rgba(210, 157, 82, 0.573), transparent);
+    border-radius: 12vh;
   }
 
   .characters__box {
+    width: 250px;
+    height: 450px;
+    margin-top: 200px;
+    margin-left: 200px;
+    border: 2px solid rgb(55, 212, 233);
+  }
+
+  .books__box {
+    width: 250px;
+    height: 450px;
+    margin-top: 200px;
+    margin-left: 200px;
+    border: 2px solid rgb(55, 212, 233);
+  }
+
+  .movies__box {
     width: 250px;
     height: 450px;
     margin-top: 200px;

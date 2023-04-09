@@ -27,6 +27,9 @@ body {
   }
 }
 
+
+
+
 .select__menu {
   width: 75vw;
   height: 65vh;
@@ -109,7 +112,7 @@ justify-content: center;
   opacity: 50%;
 }
 
-.sixth__project {
+.sixth__project { 
   background: url('https://media.wizards.com/2017/images/daily/41mztsnrdm.jpg');
   background-size: cover;
   background-position: center;
