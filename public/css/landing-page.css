@@ -27,6 +27,9 @@ body {
   }
 }
 
+
+
+
 .select__menu {
   width: 75vw;
   height: 65vh;
@@ -109,8 +112,15 @@ justify-content: center;
   opacity: 50%;
 }
 
-.sixth__project {
+.sixth__project { 
   background: url('https://media.wizards.com/2017/images/daily/41mztsnrdm.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 50%;
+}
+
+.seventh__project {
+  background: url('https://www.upflip.com/wp-content/uploads/2021/02/bank-building.jpg');
   background-size: cover;
   background-position: center;
   opacity: 50%;
