@@ -38,7 +38,7 @@ body {
     position: fixed;
     width: 100%;
     top: 0;
-    background: linear-gradient(to bottom, #9e9090ab,#64496e6e, #380f332a, transparent);
+    background: linear-gradient(to bottom, #9e9090ab,#4130486e, #380f332a, transparent);
   }
 
   header img {
@@ -145,36 +145,105 @@ body {
     border-radius: 12vh;
   }
 
-  .characters__box {
+  .books__box {
     width: 70vw;
-    height: 35vh;
-    margin-top: 200px;
-    margin-left: 200px;
-    background: linear-gradient(to right, rgba(159, 77, 22, 0.573), transparent);
+    height: 45vh;
+    background-color: rgba(60, 60, 60, 0.342);
     border-radius: 10vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
   }
 
-  .books__box {
-    width: 250px;
+  .book__box {
+    height: 35vh;
+    width: 18vw;
+    background: linear-gradient(to bottom, rgba(100, 100, 100, 0.573), transparent);
+    border-top: 1px solid rgb(227, 132, 74);
+    border-radius: 8vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .book__box img {
+    width: 120px;
+    padding-bottom: 15px;
+  }
+
+  .book__box button {
+    width: 7vw;
+    height: 30px;
+    background-color: transparent;
+    color: gold;
+    border-radius: 15px;
+  }
+
+  .characters__box {
+    width: 60vw;
+    height: auto; 
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    border-radius: 200px;
+    background-color: #040d1a8f;
+  }
+
+  .character__box {
+    width: 50vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .character__box h2 {  
+    color: white;
+    margin-top: 100px;
+  }
+
+  .character__box img {  
     height: 450px;
-    margin-top: 200px;
-    margin-left: 200px;
-    border: 2px solid rgb(55, 212, 233);
   }
 
   .movies__box {
     width: 250px;
     height: 450px;
-    margin-top: 200px;
-    margin-left: 200px;
     border: 2px solid rgb(55, 212, 233);
   }
 
   .about__box {
-    width: 350px;
-    height: 450px;
-    margin-top: 200px;
-    margin-right: 200px;
+    width: 75vw;
+    height: 80vh;
+    border-radius: 40vh;
     margin-bottom: 100px;
-    border: 2px solid rgb(237, 204, 20);
+    border-top: 1px solid white;
+    background-color: rgba(68, 68, 68, 0.563);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .developers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .developer {
+    width: 30vw;
+    height: 30vh;
+    background-color: white;
+    border-radius: 15vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .developer img {
+    width: 120px;
   }
