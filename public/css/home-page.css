@@ -256,15 +256,6 @@ header {
     padding-bottom: 15px;
   }
 
-  .movie__box button {
-    width: 7vw;
-    height: 30px;
-    background-color: transparent;
-    color: gold;
-    border-radius: 15px;
-  }
-
-
   .about__box {
     width: 85vw;
     height: 80vh;
@@ -284,6 +275,7 @@ header {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    height: 70vh;
   }
 
   .developer {
@@ -305,6 +297,7 @@ header {
     width: 200px;
     border-radius: 100px;
     object-fit: cover;
+    border-top: 3px solid gold;
   }
 
   .developer h2 {
@@ -319,6 +312,26 @@ header {
     border: 1px solid gold;
     color: gold;
     margin-top: 15px;
+  }
+
+  .btn2 {
+    width: 150px;
+    height: 40px;
+    border-radius: 15px;
+    background: transparent;
+    border: 2px solid rgba(124, 215, 127, 0.841);
+    color:rgba(124, 215, 127, 0.841);
+    margin-top: 15px;
+    font-size: 18px;
+  }
+
+  .btn:hover {
+    background-color: #040d1a8c;
+  }
+
+
+  .btn2:hover {
+    background-color: #040d1a8c;
   }
 
 
