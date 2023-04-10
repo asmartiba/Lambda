@@ -184,36 +184,72 @@ body {
     width: 60vw;
     height: auto; 
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-direction: column;
     border-radius: 200px;
     background-color: #040d1a8f;
   }
 
   .character__box {
-    width: 50vw;
+    width: 60vw;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-around;
   }
 
   .character__box h2 {  
-    color: white;
-    margin-top: 100px;
+    color: rgb(255, 227, 203);
+    font-size: 1.2em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 50px;
+    text-align: center;
   }
 
   .character__box img {  
     height: 450px;
+    margin: 25px;
   }
 
   .movies__box {
-    width: 250px;
-    height: 450px;
-    border: 2px solid rgb(55, 212, 233);
+    width: 70vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 20vh;
+    border-top: 2px solid rgb(55, 212, 233);
   }
 
+  .movie__box {
+    height: 300px;
+    width: 18vw;
+    background: linear-gradient(to bottom, rgba(100, 100, 100, 0.573), transparent);
+    border-top: 1px solid rgb(227, 132, 74);
+    border-radius: 8vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+  }
+
+  .movie__box img {
+    width: 120px;
+    padding-bottom: 15px;
+  }
+
+  .movie__box button {
+    width: 7vw;
+    height: 30px;
+    background-color: transparent;
+    color: gold;
+    border-radius: 15px;
+  }
+
+
   .about__box {
-    width: 75vw;
+    width: 85vw;
     height: 80vh;
     border-radius: 40vh;
     margin-bottom: 100px;
@@ -236,14 +272,31 @@ body {
   .developer {
     width: 30vw;
     height: 30vh;
-    background-color: white;
+    background-color: #040d1a2e;
     border-radius: 15vh;
+    border-top: 1px solid white;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+    color: white;
+    margin: 20px;
   }
 
   .developer img {
-    width: 120px;
+    height: 200px;
+    width: 200px;
+    border-radius: 100px;
+    object-fit: cover;
   }
+
+  .btn {
+    width: 120px;
+    height: 30px;
+    border-radius: 15px;
+    background: transparent;
+    border: 1px solid gold;
+    color: gold;
+    margin-top: 15px;
+  }
+
