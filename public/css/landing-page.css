@@ -28,7 +28,25 @@ body {
 }
 
 
+.login__forum form {
+  display: flex;
+  flex-direction: column;
+}
 
+.login__forum form label {
+  color: white;
+  text-align: center;
+}
+
+.login__forum form input {
+  width: 140px;
+  border-radius: 3px;
+  margin: 10px;
+}
+
+.login-btn {
+  background-color: rgba(142, 63, 17, 0.537);
+}
 
 .select__menu {
   width: 75vw;
