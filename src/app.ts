@@ -6,6 +6,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
   res.render('index', { title: 'Home' });
@@ -13,6 +14,10 @@ app.get('/', (req, res) => {
 
 app.get('/about', (req, res) => {
   res.render('about', { title: 'About Us' });
+});
+
+app.get('/home', (req, res) => {
+  res.render('home');
 });
 
 export default app;

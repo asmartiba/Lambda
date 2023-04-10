@@ -2,10 +2,65 @@
 <html>
   <head>
     <title>Lambda</title>
-    <%- include('partials/header') %>
+    <link rel="stylesheet" href="/css/landing-page.css">
   </head>
   <body>
-    <h1>Welcome to my website</h1>
-    <p>This is a paragraph about my website.</p>
+    <div class="select__menu">
+      <div class="login__forum">
+      <form>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <input type="submit" value="Login">
+      </form>
+    </div>
+        <div class="projects">
+          <a href="/home">
+            <div class="project__icon first__project" data-bgimg="/public/img/asmar.webp">
+              <h3>Lord of the Rings</h3>
+            </div>
+          </a>
+          <a href="#">
+            <div class="project__icon second__project">
+              <h3>Pokemon</h3>
+            </div>
+          </a>
+          <a href="#">
+            <div class="project__icon third__project">
+              <h3>FIFA</h3>
+            </div>
+          </a>
+          <a href="#">
+            <div class="project__icon fourth__project">
+              <h3>Lego Masters</h3>
+            </div>
+          </a>
+          <a href="#">
+            <div class="project__icon fifth__project">
+              <h3>Fortnite</h3>
+            </div>
+          </a>
+          <a href="#">
+            <div class="project__icon sixth__project">
+              <h3>Magic: The Gathering</h3>
+            </div>
+          </a>
+          <a href="#">
+            <div class="project__icon seventh__project">
+              <h3>National Bank</h3>
+            </div>
+          </a>
+        </div>
+    </div>
+    <script>
+          const projectIcons = document.querySelectorAll('.project__icon');
+                projectIcons.forEach(icon => {
+                  icon.addEventListener('click', () => {
+                    console.log('clicked');
+                  });
+                });
+              $(document)
+    </script>
   </body>
 </html>
