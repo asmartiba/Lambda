@@ -38,10 +38,9 @@ body {
     opacity: 90%;
     background-attachment: fixed;
     object-fit: cover;
-    animation: slide 30s linear infinite;
+    animation: slide 40s linear infinite;
     vertical-align: middle;
   }
-
 
 main {
   background: linear-gradient(to bottom left, #24070761, #040d1a53, #0a303746, #1f05193c);
@@ -49,7 +48,7 @@ main {
   animation: gradient-animation 16s ease infinite;
 }
   
-  header {
+header {
     display: flex;
     justify-content: space-evenly;
     position: fixed;
@@ -322,3 +321,46 @@ main {
     margin-top: 15px;
   }
 
+
+  /* Quiz */
+
+  #game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  #quote-container {
+    margin-bottom: 30px;
+  }
+  
+  #image-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+  #quote-container {
+    margin-bottom: 30px;
+  }
+  
+  #image-container img {
+    margin: 10px;
+    cursor: pointer;
+  }
+
+  #reset-button {
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  #Start {
+    display: none;
+    overflow: hidden;
+    padding: 0.5rem;
+  }
