@@ -6,15 +6,24 @@
   </head>
   <body>
     <div class="select__menu">
-      <div class="login__forum">
-        <form>
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" required>
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required>
-          <input type="submit" value="Login" class="login-btn">
-        </form>
-      </div>
+
+        <div class="forums">
+
+          <div>
+            <div class="linearmain">
+              <div class="linear"></div>
+                  <h2 class="lineartitle">Login</h2>
+              <div class="linear"></div>
+           </div>
+            <form class="login-form">
+              <input type="text" value="username" placeholder="username" id="username" name="username" required>
+              <input type="password" value="password" placeholder="password" id="password" name="password" required>
+              <button class="btn4">Login</button>
+              <p>Don't have an account yet? <a>Sign up</a></p>
+            </form>
+          </div>
+        </div>
+
         <div class="projects">
           <a href="/home">
             <div class="project__icon first__project" data-bgimg="/public/img/asmar.webp">
@@ -54,13 +63,50 @@
         </div>
     </div>
     <script>
-          const projectIcons = document.querySelectorAll('.project__icon');
-                projectIcons.forEach(icon => {
-                  icon.addEventListener('click', () => {
-                    console.log('clicked');
-                  });
+          const projectLinks = document.querySelectorAll('.project__icon');
+          const loginForm = document.querySelector('.login-form');
+
+          window.addEventListener('load', () => {
+            const loggedInMessage = document.createElement('p');
+            loggedInMessage.textContent = 'You must log in to access available projects.';
+            loggedInMessage.style.color = 'red';
+            loggedInMessage.style.textAlign = 'center';
+            loggedInMessage.style.marginTop = '10px';
+            loginForm.after(loggedInMessage);
+
+            loginForm.addEventListener('submit', event => {
+              event.preventDefault();
+              if (isLoggedIn()) {
+                loggedInMessage.textContent = 'You are now logged in.';
+                loggedInMessage.style.color = 'green';
+                loggedInMessage.style.textAlign = 'center';
+                loggedInMessage.style.marginTop = '10px';
+                projectLinks.forEach(link => {
+                  link.removeEventListener('click', preventDefaultAndAlert);
                 });
-              $(document)
+              } else {
+                alert('Invalid login. Please try again.');
+              }
+            });
+
+            const preventDefaultAndAlert = event => {
+              event.preventDefault();
+              alert('You must login first.');
+            };
+
+            projectLinks.forEach(link => {
+              link.addEventListener('click', preventDefaultAndAlert);
+            });
+          });
+
+          const isLoggedIn = () => {
+            const usernameInput = document.getElementById('username');
+            const username = usernameInput.value;
+
+            return username === "Lambda";
+          };
+
+
     </script>
   </body>
 </html>
