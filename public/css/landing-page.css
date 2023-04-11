@@ -61,7 +61,7 @@ body {
 
 .select__menu {
   width: 75vw;
-  height: 85vh;
+  height: 95vh;
   background: linear-gradient(#4e715b79, #1f111695);
   border: rgb(230, 138, 78) 2px solid;
   display: flex;
@@ -75,7 +75,7 @@ body {
     color: rgb(236, 219, 61);
     text-shadow: 5px 5px 5px rgba(40, 12, 104, 0.7);
     font-size: 24px;
-    padding-top:30vh;
+    padding-top:40vh;
     text-align: center;
 }
 
