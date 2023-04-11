@@ -49,7 +49,7 @@ body {
 
 .login-form input {
   width: 120px;
-  margin-top: 15px;
+  margin-top: 5px;
   height: 30px;
   border-radius: 15px;
   text-align: center;
@@ -74,8 +74,8 @@ body {
 .select__menu h3 {
     color: rgb(236, 219, 61);
     text-shadow: 5px 5px 5px rgba(40, 12, 104, 0.7);
-    font-size: 24px;
-    padding-top:40vh;
+    font-size: 22px;
+    padding-top:35vh;
     text-align: center;
 }
 
