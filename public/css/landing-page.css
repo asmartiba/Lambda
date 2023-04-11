@@ -196,18 +196,21 @@ justify-content: center;
   background-color: #0e000042;
 }
 
-@media (max-width: 768px) {
-
+@media only screen and (max-width: 767px) {
 
   .select__menu {
       flex-direction: column;
       height: 90vh;
   }
-  
-  .project__icon {
-      height: 10vh;
-      width: 15vw;
-      font-size: 12px;
+
+  .projects {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
   }
+
+  .project__icon {
+    display: none;
+  } 
 }
 
