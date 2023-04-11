@@ -1,0 +1,94 @@
+.about__page {
+    width: 85vw;
+    height: 240vh;
+    border-radius: 30vh;
+    margin-bottom: 100px;
+    border-top: 2px solid gold;
+    background-color: rgba(34, 6, 6, 0.563);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.about__developers {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+.about__developer {
+    width: 70vw;
+    height: 60vh;
+    background-color: #040d1a2e;
+    border-top: 2px solid gold;
+    border-radius: 20vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.about__developer img {
+    height: 300px;
+    width: 300px;
+    border-radius: 150px;
+    object-fit: cover;
+    border-top: 3px solid gold;
+  }
+
+.name {
+    font-family:'Dancing Script', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
+    font-size: 1.6rem;
+    text-align: center;
+    color: gold;
+  }
+
+.rightside {
+    width: 30vw;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.rightside p {
+    font-size: 1.3em;
+}
+
+.contact {
+    border-top: 1px solid rgb(219, 182, 127);  
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.573), transparent);  
+}
+
+.btn2 {
+    width: 150px;
+    height: 40px;
+    border-radius: 15px;
+    background: transparent;
+    border: 2px solid rgba(124, 215, 127, 0.841);
+    color:rgba(124, 215, 127, 0.841);
+    margin-top: 15px;
+    font-size: 18px;
+  }
+
+.btn3 {
+    width: 150px;
+    height: 30px;
+    border-radius: 15px;
+    background: transparent;
+    border: 2px solid rgba(196, 154, 154, 0.741);
+    color:rgba(196, 154, 154);
+    margin-top: 15px;
+    font-size: 18px;
+  }
+
+.btn3:hover {
+    background-color: rgba(219, 182, 127, 0.3);  
+    color: white;
+  }

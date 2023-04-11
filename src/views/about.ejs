@@ -1,9 +1,84 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/about-page.css">
+    <script src="/public/js/Quiz.js"></script>
+    <title>Lord of the Rings</title>
+</head>
+<body>
+    <main>
+        <div class="emptyspan">
+
+        </div>
+
+        <%- include('partials/header.ejs') %>
+
+
+        <div class="hero">
+
+            <div class="linearmain">
+                <div class="linear"></div>
+                    <h2 class="lineartitle">Developers</h2>
+                <div class="linear"></div>
+            </div>
+
+              <div class="about__page">
+                <div class="about__developers">
+
+                    <div class="about__developer">
+                      <div class="leftside">
+                        <img src="img/david.webp" alt="developer">
+                        <h2 class="name">David Ahadi</h2>
+                      </div>
+                      <div class="rightside">
+                        <p><i>Hi David, describe yourself... Write what you feel like...</i></p>
+                        <div class="contact"><a href="mailto:david.ahadi@student.ap.be?subject=Lambda"><button class="btn3">Contact</button></a></div>
+                      </div>
+                    </div>
+
+                    <div class="about__developer">
+                      <div class="leftside">
+                        <img src="img/dagnyweb.jpg" alt="developer">
+                        <h2 class="name">Dagny Verbeeck</h2>
+                        <p class="title">&#129497 Éowyn</p>
+                      </div>
+                      <div class="rightside">
+                        <p><i>"While I may not be an expert in all things <span style="color: gold">Lord of the Rings</span>, I do bring a strong background in <span style="color: #00758F">SQL</span> and design to the team. I love programming websites because it allows me to exercise my creativity and build something from scratch. It's been a pleasure building this website with the team and I'm proud of what we accomplished together."</i></p>
+                        <div class="contact"><a href="mailto:dagny.verbeeck@student.ap.be?subject=Lambda"><button class="btn3">Contact</button></a></div>
+                      </div>
+                    </div>
+
+                    <div class="about__developer">
+                      <div class="leftside">
+                        <img src="img/asmar.jpg" alt="developer">
+                        <h2 class="name">Asmar Tiba</h2>
+
+                      </div>
+                      <div class="rightside">
+                        <p><i>Numbers feel complicated for me, once visible they become less. I have passion for art, programming and animating. I like writing visual front-end using <span style="color: #df8d36">HTML</span>, <span style="color: #df36d2">CSS</span> and <span style="color: #2076ad">Typescript</span>.</i></p>
+                        <div class="contact"><a href="mailto:asmar.tiba@student.ap.be?subject=Lambda"><button class="btn3">Contact</button></a></div>
+                      </div>
+                    </div>
+
+                    <div class="about__developer">
+                      <div class="leftside">
+                        <img src="img/ana.webp" alt="developer">
+                        <h2 class="name">Ana Yaghoubi</h2>
+                      </div>
+                      <div class="rightside">
+                        <p><i>Hi Ana, please feel free to edit this text, write something about yourself</i></p>
+                        <div class="contact"><a href="mailto:anakimiya.yaghoubi@student.ap.be?subject=Lambda"><button class="btn3">Contact</button></a></div>
+                      </div> 
+                    </div>
+                  </div>
+              </div>
+              <a href="/home"><button class="btn2">← Back </button></a>
+              <div class="emptyspan"></div>
+         </div>
+    </main>
+    <%- include('partials/footer.ejs') %>
+</body>
 </html>
