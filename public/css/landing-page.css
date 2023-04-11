@@ -72,11 +72,11 @@ body {
 
 
 .select__menu h3 {
-color: rgb(236, 219, 61);
-text-shadow: 5px 5px 5px rgba(40, 12, 104, 0.7);
-font-size: 24px;
-padding-top:30vh;
-text-align: center;
+    color: rgb(236, 219, 61);
+    text-shadow: 5px 5px 5px rgba(40, 12, 104, 0.7);
+    font-size: 24px;
+    padding-top:30vh;
+    text-align: center;
 }
 
 .projects {
@@ -198,19 +198,39 @@ justify-content: center;
 
 @media only screen and (max-width: 767px) {
 
+  body {
+    height: auto;
+    width: 100vw;
+    overflow: auto;
+  }
+
   .select__menu {
-      flex-direction: column;
-      height: 90vh;
+    width: 75vw;
+    height: auto;
+    overflow: auto;
+  }
+  .login-form p {
+    font-size: 12px;
+    margin-top: 12px;
   }
 
-  .projects {
+  .projects { 
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: space-evenly;
   }
-
   .project__icon {
-    display: none;
-  } 
+    width: auto;
+    height: 50px;
+    margin: 25px;
+    border-radius: 25px;
+  }
+  .select__menu h3 {
+    color: rgb(236, 219, 61);
+    font-size: 14px;
+    text-shadow: 5px 5px 5px rgba(40, 12, 104, 0.7);
+    padding-top:10vh;
+    text-align: center;
+}
 }
 
