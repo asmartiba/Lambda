@@ -397,3 +397,113 @@ header {
     overflow: hidden;
     padding: 0.5rem;
   }
+
+  /* Responsive Media Queries */
+
+  @media only screen and (max-width: 767px) {
+    .quiz__box {
+      width: 100vw;
+      border-radius: 0;
+    }
+    .books__box {
+      width: 100vw;
+    }
+    .book__box img {
+      height: 200px;
+      width: auto;
+    } 
+    .books__box .btn {
+      background-color: #703b0657;
+      width: 120px;
+      border-radius: 0%;
+    }
+    .characters__box {
+      width: 100vw;
+      height: auto; 
+      border-radius: 0%;
+    }
+
+    .character__box {
+      width: 100vw;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+    }
+  
+    .character__box h2 {  
+      color: rgb(255, 227, 203);
+      font-size: 0.9em;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      text-align: center;
+    }
+  
+    .character__box img {  
+      height: 350px;
+      margin: 0px;
+    }
+
+    .movies__box {
+      width: 100vw;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: none;
+    }
+  
+    .movie__box {
+      height: 250px;
+      width: 100vw;
+      border-radius: 8vh;
+      display: flex;
+      flex-direction: column;
+      margin: 20px;
+    }
+  
+    .movie__box img {
+      width: 120px;
+      padding-bottom: 15px;
+    }
+    .about__box {
+      width: 100vw;
+      height: auto;
+      border-radius: 6vh;
+      margin-bottom: 100px;
+      border-top: 1px solid gold;
+      background-color: rgba(34, 6, 6, 0.563);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .developers {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+    }
+  
+    .developer {
+      width: 100vw;
+      height: 200px;
+      background-color: #040d1a2e;
+      border-top: none;
+      border-bottom: 2px white solid;
+      display: flex;
+    }
+  
+    .developer img {
+      height: 150px;
+      width: 150px;
+      border-radius: 75px;
+      object-fit: cover;
+      border-top: 3px solid gold;
+    }
+  
+    .developer h2 {
+      font-family:'Dancing Script', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
+      color: gold;
+    }  
+  }
