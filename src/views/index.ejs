@@ -95,9 +95,28 @@
             };
 
             projectLinks.forEach(link => {
-              link.addEventListener('click', preventDefaultAndAlert);
-            });
+            if (link.classList.contains('first__project')) {
+              link.addEventListener('click', event => {
+                if (!isLoggedIn()) {
+                  event.preventDefault();
+                  preventDefaultAndAlert(event);
+                }
+              });
+            } else {
+              link.addEventListener('click', event => {
+                event.preventDefault();
+                const unavailableMessage = document.createElement('p');
+                unavailableMessage.textContent = 'Project unavailable.';
+                unavailableMessage.style.fontSize = '16px';
+                unavailableMessage.style.marginTop = '15px';
+                unavailableMessage.style.marginBottom = '15px';
+                unavailableMessage.style.textAlign = 'center';
+                unavailableMessage.style.color = 'red';
+                link.after(unavailableMessage);
+              });
+            }
           });
+        });
 
           const isLoggedIn = () => {
             const usernameInput = document.getElementById('username');
