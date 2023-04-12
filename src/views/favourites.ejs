@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/favourites.css">
+    <title>Lord of the Rings</title>
+</head>
+<body>
+    <main>
+        <div class="emptyspan">
+
+        </div>
+
+        <%- include('partials/header.ejs') %>
+
+
+        <div class="hero">
+
+            <div class="linearmain">
+                <div class="linear"></div>
+                    <h2 class="lineartitle">Favourites</h2>
+                <div class="linear"></div>
+            </div>
+
+              <div class="favourites">
+
+              </div>
+
+            <div class="linearmain">
+                <div class="linear"></div>
+                    <h2 class="lineartitle">Black listed</h2>
+                <div class="linear"></div>
+             </div>
+
+             
+             <div class="blacklist">
+
+             </div>
+              <a href="/home"><button class="btn2">← Back </button></a>
+              <div class="emptyspan"></div>
+         </div>
+    </main>
+    <%- include('partials/footer.ejs') %>
+</body>
+</html>

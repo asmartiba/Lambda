@@ -20,4 +20,8 @@ app.get('/home', (req, res) => {
   res.render('home');
 });
 
+app.get('/favourites', (req, res) => {
+  res.render('favourites');
+});
+
 export default app;
