@@ -54,7 +54,7 @@
     height: 40vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .rightside p {
@@ -62,8 +62,7 @@
 }
 
 .contact {
-    border-top: 1px solid rgb(219, 182, 127);  
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.573), transparent);  
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.267), transparent);  
 }
 
 .btn2 {
@@ -78,9 +77,9 @@
   }
 
 .btn3 {
-    width: 150px;
-    height: 30px;
-    border-radius: 15px;
+    width: 170px;
+    height: 50px;
+    border-radius: 25px;
     background: transparent;
     border: 2px solid rgba(196, 154, 154, 0.741);
     color:rgba(196, 154, 154);

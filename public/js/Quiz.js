@@ -130,3 +130,4 @@ resetButton.addEventListener("click", resetAll);
 function showDiv() {
   document.getElementById('Start').style.display = "block";
 }
+

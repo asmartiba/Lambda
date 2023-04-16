@@ -24,4 +24,13 @@ app.get('/favourites', (req, res) => {
   res.render('favourites');
 });
 
+
+app.get('/book/:id', (req, res) => {
+  res.render('book');
+});
+
+app.get('/movie:id', (req, res) => {
+  res.render('movie');
+});
+
 export default app;
