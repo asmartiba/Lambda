@@ -59,8 +59,15 @@ header {
     align-items: center;
   }
 
+  .header_left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
   header img {
     width: 150px;
+    padding-left: 50px;
   }
 
   header nav ul  {
@@ -86,10 +93,9 @@ header {
     opacity: 60%;
   }
 
-  .footer a {
+  footer a {
     text-decoration: none;
     color: gold;
-    
   }
 
   .emptyspan {
