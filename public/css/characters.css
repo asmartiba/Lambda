@@ -1,11 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+@font-face {
+  src: url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+  font-family: 'Dancing Script', cursive;
+  font-display: swap;
+}
+
 .characters {
     width: 90vw;
-    height: 100vh;
+    height: 60vh;
     border-radius: 30vh;
     margin-bottom: 100px;
     border-top: 2px solid gold;
     background-color: rgba(34, 6, 6, 0.563);
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
+    overflow-y: scroll;
 }
+
+.characters h2 {
+    color: gold;
+    font-family: 'Dancing Script';
+    font-size: 34px;
+    text-align: center;
+}
+
+
+.characters h3 {
+    color: rgb(185, 185, 185);
+    font-size: 17px;
+    text-align: center;
+}
+
+.characters > div {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgba(28, 59, 59, 0.445);
+    border-radius: 5px;
+    width: 30vw;
+}
+
