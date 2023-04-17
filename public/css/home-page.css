@@ -138,6 +138,10 @@ header {
     align-items: center;
   }
 
+  .linearmain img {
+    width:55px;
+  }
+
   .linear {
     width: 20vw;
     background-color: white;
@@ -150,6 +154,14 @@ header {
     width: 100px;
     background-color: white;
     height: 1px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .lineargold {
+    width: 100px;
+    background-color: gold;
+    height: 2px;
     margin-left: 20px;
     margin-right: 20px;
   }

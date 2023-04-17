@@ -1,4 +1,5 @@
 import express from 'express';
+const axios = require('axios');
 import bodyParser from 'body-parser';
 import path from 'path';
 
@@ -25,11 +26,20 @@ app.get('/favourites', (req, res) => {
 });
 
 
-app.get('/book/:id', (req, res) => {
-  res.render('book');
+app.get('/book', async (req, res) => {
+  try {
+    const response = await axios.get('https://the-one-api.dev/v2/book', {
+      headers: { Authorization: 'Bearer OeUeZhk8zm3i_1f4FjF9' } // replace with your API key
+    });
+    const books = response.data.docs;
+    res.render('book', { books });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
 });
 
-app.get('/movie:id', (req, res) => {
+app.get('/movie', (req, res) => {
   res.render('movie');
 });
 
