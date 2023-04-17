@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/characters.css">
+    <title>Characters | Lord of the Rings</title>
+</head>
+<body>
+    <%- include('partials/header.ejs') %>
+    <main>
+        <div class="emptyspan">
+
+        </div>
+
+
+        <div class="hero">
+
+            <div class="linearmain">
+                <div class="linear"></div>
+                    <h2 class="lineartitle">Characters</h2>
+                <div class="linear"></div>
+            </div>
+
+            <div class="characters">
+
+            </div>
+
+            <script>
+                const readMoreBtns = document.querySelectorAll('.btn2');
+                readMoreBtns.forEach(function(btn) {
+                  btn.addEventListener('click', function() {
+                    const characterInfoDiv = btn.parentElement.querySelector('.character-info');
+                    characterInfoDiv.style.display = characterInfoDiv.style.display === 'none' ? 'block' : 'none';
+                    characterInfoDiv.style.color = '#8FECC8';
+                    characterInfoDiv.style.marginTop ='60px';
+                    characterInfoDiv.style.fontSize = '22px';
+                    characterInfoDiv.style.fontStyle = 'italic'
+                  });
+                });
+            </script>
+
+    </main>
+    <%- include('partials/footer.ejs') %>
+</body>
+</html>
