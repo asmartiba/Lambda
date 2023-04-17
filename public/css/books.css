@@ -1,0 +1,12 @@
+.books {
+    width: 65vw;
+    height: 50vh;
+    border-radius: 30vh;
+    margin-bottom: 100px;
+    border-top: 2px solid gold;
+    background-color: rgba(34, 6, 6, 0.563);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
