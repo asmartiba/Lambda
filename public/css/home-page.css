@@ -291,7 +291,7 @@ header {
 
   .about__box {
     width: 85vw;
-    height: 80vh;
+    height: 140vh;
     border-radius: 40vh;
     margin-bottom: 100px;
     border-top: 1px solid white;
@@ -300,6 +300,14 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .about__box h2 {
+    font-style: italic;
+    width: 50vw;
+    font-size: 35px;
+    color: white;
+    text-align: center;
   }
 
   .developers {
@@ -360,8 +368,8 @@ header {
   }
 
   .btn2 {
-    width: 150px;
-    height: 40px;
+    width: 200px;
+    height: 60px;
     border-radius: 15px;
     background: transparent;
     border: 2px solid rgba(124, 215, 127, 0.841);
@@ -369,6 +377,19 @@ header {
     margin-top: 15px;
     font-size: 18px;
   }
+
+  
+  .btn4 {
+    width: 200px;
+    height: 60px;
+    border-radius: 15px;
+    background: transparent;
+    border: 2px solid rgba(146, 55, 49, 0.841);
+    color:rgba(216, 141, 107, 0.841);
+    margin-top: 15px;
+    font-size: 18px;
+  }
+
 
   .btn:hover {
     background-color: #040d1a8c;
@@ -490,19 +511,7 @@ header {
       width: 120px;
       padding-bottom: 15px;
     }
-    .about__box {
-      width: 100vw;
-      height: auto;
-      border-radius: 6vh;
-      margin-bottom: 100px;
-      border-top: 1px solid gold;
-      background-color: rgba(34, 6, 6, 0.563);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  
+
     .developers {
       flex-direction: column;
       justify-content: center;

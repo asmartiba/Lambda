@@ -29,7 +29,7 @@ app.get('/favourites', (req, res) => {
 app.get('/book', async (req, res) => {
   try {
     const response = await axios.get('https://the-one-api.dev/v2/book', {
-      headers: { Authorization: 'Bearer OeUeZhk8zm3i_1f4FjF9' } // replace with your API key
+      headers: { Authorization: 'Bearer OeUeZhk8zm3i_1f4FjF9' }
     });
     const books = response.data.docs;
     res.render('book', { books });
@@ -39,8 +39,30 @@ app.get('/book', async (req, res) => {
   }
 });
 
-app.get('/movie', (req, res) => {
-  res.render('movie');
+app.get('/character', async (req, res) => {
+  try {
+    const response = await axios.get('https://the-one-api.dev/v2/character', {
+      headers: { Authorization: 'Bearer OeUeZhk8zm3i_1f4FjF9' } 
+    });
+    const characters = response.data.docs;
+    res.render('character', { characters });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+
+app.get('/movie', async (req, res) => {
+  try {
+    const response = await axios.get('https://the-one-api.dev/v2/movie', {
+      headers: { Authorization: 'Bearer OeUeZhk8zm3i_1f4FjF9' } 
+    });
+    const movies = response.data.docs;
+    res.render('movie', { movies });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
 });
 
 export default app;
