@@ -6,6 +6,11 @@
   font-display: swap;
 }
 
+.emptyspan02 {
+    height: 10vh;
+    width: 100vw;
+  }
+
 .characters {
     width: 90vw;
     height: 60vh;
@@ -20,7 +25,7 @@
     overflow-y: scroll;
 }
 
-.characters h2 {
+.characters h1 {
     color: gold;
     font-family: 'Dancing Script';
     font-size: 34px;
@@ -29,9 +34,10 @@
 
 
 .characters h3 {
-    color: rgb(185, 185, 185);
+    color: rgb(206, 166, 166);
     font-size: 17px;
     text-align: center;
+    font-style: italic;
 }
 
 .characters > div {
@@ -41,5 +47,20 @@
     background-color: rgba(28, 59, 59, 0.445);
     border-radius: 5px;
     width: 30vw;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
 
+.characters button {
+    background-color: rgba(68, 68, 68, 0.596);
+    color: gold;
+    height: 50px;
+    width: 50px;
+    font-size: 30px;
+    border-radius: 25px;
+    margin-top:25px;
+    align-items: center;
+}
