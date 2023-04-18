@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/movies.css">
-    <title>Movie | Lord of the Rings</title>
+    <link rel="stylesheet" href="/css/the-quiz.css">
+    <title>Quiz | Lord of the Rings</title>
 </head>
 <body>
     <%- include('partials/header.ejs') %>
@@ -14,19 +14,34 @@
 
         </div>
 
-
         <div class="hero">
 
             <div class="linearmain">
                 <div class="linear"></div>
-                    <h2 class="lineartitle">The Quiz</h2>
+                    <h2 class="lineartitle">Thq Quiz</h2>
                 <div class="linear"></div>
             </div>
 
-            <div id="movie-list" class="movies"></div>
+            <div class="the_quiz">
+                <p id="quote"></p>
+            </div>
 
             <script>
+                const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
+                const url = 'https://the-one-api.dev/v2/quote'; 
 
+                fetch(url, {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .then(data => {
+                    const quote = data.quote;
+                    document.getElementById('quote').textContent = quote;
+                })
+                .catch(error => console.error(error));
             </script>
 
     </main>
