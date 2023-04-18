@@ -16,3 +16,13 @@
     height: 10vh;
     width: 100vw;
   }
+
+.quote {
+    color: gold;
+    font-size:36px;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.541), transparent);
+    border-radius: 30px;
+    width:60vw;
+    text-align: center;
+}

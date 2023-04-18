@@ -23,7 +23,7 @@
             </div>
 
             <div class="the_quiz" id="the_quiz">
-                <p id="quote"></p>
+                <p id="quote" class="quote"></p>
                 <ul id="options">
                     <li id="option1"></li>
                     <li id="option2"></li>
@@ -53,7 +53,6 @@
                         const character = randomObject.character;
                         document.querySelector('#quote').textContent = quote;
                         document.querySelector('#option1').textContent = character;
-                        // Generate random options
                         const options = [...data.docs];
                         options.splice(randomNumber, 1);
                         const randomOptions = shuffleArray(options).slice(0, 5);
@@ -75,10 +74,8 @@
                     return newArray;
                 }
 
-                // Get initial quote
                 getNewQuote();
 
-                // Add click event to button
                 document.querySelector('#new-quote').addEventListener('click', getNewQuote);
             </script>
 
