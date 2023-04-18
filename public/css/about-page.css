@@ -4,7 +4,7 @@
     border-radius: 30vh;
     margin-bottom: 100px;
     border-top: 2px solid gold;
-    background-color: rgba(34, 6, 6, 0.563);
+    background: linear-gradient(to bottom, #520d0d, transparent);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -100,7 +100,7 @@
           border-radius: 0%;
           margin-bottom: 100px;
           border-top: 2px solid gold;
-          background-color: rgba(34, 6, 6, 0.563);
+          background: linear-gradient(to bottom, #520d0d, transparent);
           display: flex;
           flex-direction: column;
           justify-content: center;

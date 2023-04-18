@@ -476,6 +476,10 @@ header {
       display: flex;
       flex-direction: column;
     }
+    .book__box {
+      width:80vw;
+      margin-top:15px;
+    }
     .book__box img {
       height: 200px;
       width: auto;
