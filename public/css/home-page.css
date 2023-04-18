@@ -455,6 +455,37 @@ header {
 
   /* Responsive Media Queries */
 
+  @media only screen and (max-width: 1967px) {
+    .about__box {
+      width: 100vw;
+      height: auto;
+      border-radius: 18px;
+    }
+    .about__box h2{
+      margin-top: 26px;
+      margin-bottom: 26px;
+      font-size: 25px;
+      width: 90vw;
+    }
+    .movies__box {
+      width: 90vw;
+      height: 50vh;
+    }
+    .characters__box {
+      width: 100vw;
+      height: auto; 
+      border-radius: 0%;
+    }
+
+    .character__box {
+      width: 100vw;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+    }
+  }
+
   @media only screen and (max-width: 767px) {
     header {
       width:100vw;
@@ -525,7 +556,7 @@ header {
     }
   
     .movie__box {
-      height: 250px;
+      height: auto;
       width: 100vw;
       border-radius: 8vh;
       display: flex;
@@ -534,7 +565,8 @@ header {
     }
   
     .movie__box img {
-      width: 120px;
+      margin-top: 25px;
+      width: 90px;
       padding-bottom: 15px;
     }
 
@@ -574,7 +606,7 @@ header {
     }
     .about__box h2{
       margin-top: 20px;
-      font-size: 22px;
+      font-size: 20px;
       width: 80vw;
     }
     .btn2 {
