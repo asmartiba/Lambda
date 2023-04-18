@@ -384,6 +384,7 @@ header {
     color:rgba(124, 215, 127, 0.841);
     margin-top: 15px;
     font-size: 18px;
+    margin-bottom: 10px;
   }
 
   
@@ -455,12 +456,25 @@ header {
   /* Responsive Media Queries */
 
   @media only screen and (max-width: 767px) {
+    header {
+      width:100vw;
+      height: 15vh;
+    }
+    .header_left {
+      scale:0.8;
+    }
+    .info__box {
+      width: 70vw;
+    }
     .quiz__box {
       width: 100vw;
       border-radius: 0;
     }
     .books__box {
       width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     .book__box img {
       height: 200px;
@@ -548,4 +562,23 @@ header {
       font-family:'Dancing Script', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
       color: gold;
     }  
+
+    .about__box {
+      width: 100vw;
+      height: auto;
+      border-radius: 18px;
+    }
+    .about__box h2{
+      margin-top: 20px;
+      font-size: 22px;
+      width: 80vw;
+    }
+    .btn2 {
+      width: 30vw;
+      height: 5vh;
+    }
+    .movie__box img {
+      width: 25vw;
+      margin-top:25px;
+    }
   }
