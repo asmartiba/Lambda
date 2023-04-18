@@ -22,7 +22,7 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/favourites', (req, res) => {
-  res.render('favourites');
+  res.render('favourites', {});
 });
 
 

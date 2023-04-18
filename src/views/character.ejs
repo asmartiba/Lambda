@@ -10,7 +10,7 @@
 <body>
     <%- include('partials/header.ejs') %>
     <main>
-        <div class="emptyspan">
+        <div class="emptyspan02">
 
         </div>
         <div class="hero">
@@ -36,19 +36,37 @@
                 const characterList = document.getElementById('character-list');
                 data.docs.forEach(character => {
                     const div = document.createElement('div');
-                    const name = document.createElement('h2');
+                    const name = document.createElement('h1');
                     const race = document.createElement('h3');
                     const gender = document.createElement('h3');
+                    const starButton = document.createElement('button');
+                    starButton.textContent = '☆';
+                    starButton.addEventListener('click', () => addCharacterToFavorites(character));
                     name.textContent = `${character.name}`;
                     race.textContent = `Race: ${character.race}`;
                     gender.textContent = `Gender: ${character.gender}`;
                     div.appendChild(name);
                     div.appendChild(race);
                     div.appendChild(gender);
+                    div.appendChild(starButton);
                     characterList.appendChild(div);
                 });
             })
             .catch(error => console.error(error));
+
+            function addCharacterToFavorites(character) {
+
+                let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+                console.log('added to favourites');
+                
+                //to check if character is already in fav...
+                if (!favorites.some(favorite => favorite._id === character._id)) {
+
+                    favorites.push(character);
+                    localStorage.setItem('favorites', JSON.stringify(favorites));
+                    
+                }
+            }
         </script>
 
     </main>
