@@ -22,26 +22,64 @@
                 <div class="linear"></div>
             </div>
 
-            <div class="the_quiz">
+            <div class="the_quiz" id="the_quiz">
                 <p id="quote"></p>
+                <ul id="options">
+                    <li id="option1"></li>
+                    <li id="option2"></li>
+                    <li id="option3"></li>
+                    <li id="option4"></li>
+                    <li id="option5"></li>
+                    <li id="option6"></li>
+                </ul>
+                <button id="new-quote">New Quote</button>
             </div>
 
             <script>
                 const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
                 const url = 'https://the-one-api.dev/v2/quote'; 
 
-                fetch(url, {
-                    headers: {
-                        'Authorization': `Bearer ${bearerToken}`
+                const getNewQuote = () => {
+                    fetch(url, {
+                        headers: {
+                            'Authorization': `Bearer ${bearerToken}`
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const randomNumber = Math.floor(Math.random() * data.docs.length);
+                        const randomObject = data.docs[randomNumber];
+                        const quote = randomObject.dialog;
+                        const character = randomObject.character;
+                        document.querySelector('#quote').textContent = quote;
+                        document.querySelector('#option1').textContent = character;
+                        // Generate random options
+                        const options = [...data.docs];
+                        options.splice(randomNumber, 1);
+                        const randomOptions = shuffleArray(options).slice(0, 5);
+                        randomOptions.push(randomObject);
+                        const shuffledOptions = shuffleArray(randomOptions);
+                        for (let i = 1; i <= shuffledOptions.length; i++) {
+                            document.querySelector(`#option${i}`).textContent = shuffledOptions[i - 1].character;
+                        }
+                    })
+                    .catch(error => console.error(error));
+                }
+
+                const shuffleArray = array => {
+                    const newArray = [...array];
+                    for (let i = newArray.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
                     }
-                })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .then(data => {
-                    const quote = data.quote;
-                    document.getElementById('quote').textContent = quote;
-                })
-                .catch(error => console.error(error));
+                    return newArray;
+                }
+
+                // Get initial quote
+                getNewQuote();
+
+                // Add click event to button
+                document.querySelector('#new-quote').addEventListener('click', getNewQuote);
             </script>
 
     </main>
