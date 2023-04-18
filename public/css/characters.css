@@ -64,3 +64,26 @@
     margin-top:25px;
     align-items: center;
 }
+
+@media only screen and (max-width: 767px) {
+    .characters {
+        flex-direction: column;
+        width: 100vw;
+        height: auto;
+        border-radius: 0;
+        background: linear-gradient(to bottom, #640404b6, #6404046c, transparent);
+    }
+    .character {
+        display:flex;
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 50px;
+        margin-top:50px;
+        
+    }
+    .characters > div {
+        width: 95vw;
+        flex-direction: column;
+    }
+
+  }
