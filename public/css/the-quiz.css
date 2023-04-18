@@ -1,0 +1,13 @@
+.the_quiz {
+    width: 90vw;
+    height: 90vh;
+    border-radius: 30vh;
+    margin-bottom: 100px;
+    border-top: 2px solid gold;
+    background-color: rgba(34, 6, 6, 0.563);
+    display: flex;
+    flex-direction: column;
+    justify-content:center ;
+    overflow-y: scroll;
+    align-items: center;
+}
