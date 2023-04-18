@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+
+@font-face {
+  src: url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+  font-family: 'Cookie';
+  font-display: swap;
+}
+
 .the_quiz {
     width: 90vw;
     height: 70vh;
@@ -17,12 +25,73 @@
     width: 100vw;
   }
 
+
 .quote {
     color: gold;
-    font-size:36px;
-    height: 60px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.541), transparent);
-    border-radius: 30px;
+    font-size:42px;
+    height: 120px;
     width:60vw;
+    height:150px;
+    border-radius: 60px;
+    background: linear-gradient(to bottom, rgba(206, 134, 40, 0.774),  rgba(36, 7, 3, 0.678), transparent);
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 2px solid rgb(192, 192, 192);
+    font-family: 'Cookie';
+}
+
+#options {
+    width: 55vw;
+    height: 40vh;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+}
+
+.option {
+    background: linear-gradient(to bottom, transparent,transparent, #350101af);
+    width: 18vw;
+    height: 80px;
+    border-radius: 40px;
+    color: rgb(235, 212, 231);
+    font-size: 32px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#newQuote {
+    width: 20vw;
+    height: 60px;
+    border-radius: 30px;
+    background: transparent;
+    border: 2px solid gold;
+    font-size: 38px;
+    font-family: 'Cookie';
+    color: #f1c8c8c0;
+}
+
+
+@media only screen and (max-width: 1967px) {
+    .the_quiz {
+        width: 100vw;
+        border-radius: 0%;
+    }
+    .quote {
+        width:80vw;
+        height: auto;
+    }
+    #options {
+        flex-direction: column;
+        width: 100vw;
+    }
+    .option {
+        width: 100vw;
+        margin-top: 10px;
+    }
 }

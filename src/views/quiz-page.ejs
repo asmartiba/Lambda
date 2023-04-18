@@ -23,21 +23,24 @@
             </div>
 
             <div class="the_quiz" id="the_quiz">
-                <p id="quote" class="quote"></p>
-                <ul id="options">
-                    <li id="option1"></li>
-                    <li id="option2"></li>
-                    <li id="option3"></li>
-                    <li id="option4"></li>
-                    <li id="option5"></li>
-                    <li id="option6"></li>
-                </ul>
-                <button id="new-quote">New Quote</button>
+
+                    <p id="quote" class="quote"></p>
+                    <div id="options" >
+                        <div id="option1" class="option"></div>
+                        <div id="option2" class="option"></div>
+                        <div id="option3" class="option"></div>
+                        <div id="option4" class="option"></div>
+                        <div id="option5" class="option"></div>
+                        <div id="option6" class="option"></div>
+                    </div>
+                    <button id="newQuote">New Quote</button>
+
             </div>
 
             <script>
                 const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
                 const url = 'https://the-one-api.dev/v2/quote'; 
+                const charUrl = 'https://the-one-api.dev/v2/character';
 
                 const getNewQuote = () => {
                     fetch(url, {
@@ -50,20 +53,44 @@
                         const randomNumber = Math.floor(Math.random() * data.docs.length);
                         const randomObject = data.docs[randomNumber];
                         const quote = randomObject.dialog;
-                        const character = randomObject.character;
-                        document.querySelector('#quote').textContent = quote;
-                        document.querySelector('#option1').textContent = character;
-                        const options = [...data.docs];
-                        options.splice(randomNumber, 1);
-                        const randomOptions = shuffleArray(options).slice(0, 5);
-                        randomOptions.push(randomObject);
-                        const shuffledOptions = shuffleArray(randomOptions);
-                        for (let i = 1; i <= shuffledOptions.length; i++) {
-                            document.querySelector(`#option${i}`).textContent = shuffledOptions[i - 1].character;
-                        }
-                    })
-                    .catch(error => console.error(error));
-                }
+
+
+                            fetch(`${charUrl}/${randomObject.character}`, {
+                                        headers: {
+                                            'Authorization': `Bearer ${bearerToken}`
+                                        }
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        const characterName = data.docs[0].name;
+                                        document.querySelector('#option1').textContent = characterName;
+                                    })
+                                    .catch(error => console.error(error));
+
+                                    const options = [...data.docs];
+                                    options.splice(randomNumber, 1);
+                                    const randomOptions = shuffleArray(options).slice(0, 5);
+                                    randomOptions.push(randomObject);
+                                    const shuffledOptions = shuffleArray(randomOptions);
+                                    for (let i = 1; i <= shuffledOptions.length; i++) {
+
+                                        fetch(`${charUrl}/${shuffledOptions[i - 1].character}`, {
+                                            headers: {
+                                                'Authorization': `Bearer ${bearerToken}`
+                                            }
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            const characterName = data.docs[0].name;
+                                            document.querySelector(`#option${i}`).textContent = characterName;
+                                        })
+                                        .catch(error => console.error(error));
+                                    }
+
+                                    document.querySelector('#quote').textContent = quote;
+                                })
+                                .catch(error => console.error(error));
+                            }
 
                 const shuffleArray = array => {
                     const newArray = [...array];
@@ -76,7 +103,7 @@
 
                 getNewQuote();
 
-                document.querySelector('#new-quote').addEventListener('click', getNewQuote);
+                document.querySelector('#newQuote').addEventListener('click', getNewQuote);
             </script>
 
     </main>
