@@ -310,6 +310,14 @@ header {
     text-align: center;
   }
 
+  .about__box h3 {
+    margin-top: 100px;
+    font-style: italic;
+    width: 50vw;
+    font-size: 22px;
+    color: rgb(194, 193, 193);
+    text-align: center;
+  }
   .developers {
     display: flex;
     flex-direction: row;
