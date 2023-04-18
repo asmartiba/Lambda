@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/movies.css">
-    <title>Movies | Lord of the Rings</title>
+    <title>Movie | Lord of the Rings</title>
 </head>
 <body>
     <%- include('partials/header.ejs') %>
@@ -23,22 +23,33 @@
                 <div class="linear"></div>
             </div>
 
-            <div class="movies">
-
-            </div>
+            <div id="movie-list" class="movies"></div>
 
             <script>
-                const readMoreBtns = document.querySelectorAll('.btn2');
-                readMoreBtns.forEach(function(btn) {
-                  btn.addEventListener('click', function() {
-                    const movieInfoDiv = btn.parentElement.querySelector('.movie-info');
-                    movieInfoDiv.style.display = movieInfoDiv.style.display === 'none' ? 'block' : 'none';
-                    movieInfoDiv.style.color = '#8FECC8';
-                    movieInfoDiv.style.marginTop ='60px';
-                    movieInfoDiv.style.fontSize = '22px';
-                    movieInfoDiv.style.fontStyle = 'italic'
-                  });
-                });
+                fetch('https://the-one-api.dev/v2/movie', {
+                  headers: {
+                    Authorization: 'Bearer OeUeZhk8zm3i_1f4FjF9'
+                  }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const movieList = document.getElementById('movie-list');
+                    data.docs.forEach(movie => {
+                        const div = document.createElement('div');
+                        const name = document.createElement('h1');
+                        const awardsNomination = document.createElement('h2');
+                        const awarded = document.createElement('h2');
+
+                        name.textContent = `${movie.name}`;
+                        awardsNomination.textContent = `Nominated for an Academy Award: ${movie.academyAwardNominations}`;
+                        awarded.textContent = `Academy Award wins: ${movie.academyAwardWins}`;
+                        div.appendChild(name);
+                        div.appendChild(awardsNomination);
+                        div.appendChild(awarded);
+                        movieList.appendChild(div);
+                    });
+                })
+                .catch(error => console.error(error));
             </script>
 
     </main>

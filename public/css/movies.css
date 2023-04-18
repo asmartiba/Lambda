@@ -1,12 +1,53 @@
 .movies {
     width: 90vw;
-    height: 100vh;
+    height: 90vh;
     border-radius: 30vh;
     margin-bottom: 100px;
     border-top: 2px solid gold;
     background-color: rgba(34, 6, 6, 0.563);
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content:center ;
+    overflow-y: scroll;
     align-items: center;
 }
 
+.movies h1 {
+    color: gold;
+    font-family: 'Dancing Script';
+    font-size: 34px;
+    text-align: center;
+}
+
+
+.movies h2 {
+    color: rgb(206, 166, 166);
+    font-size: 15px;
+    text-align: center;
+    font-style: italic;
+}
+
+.movies > div {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgba(28, 59, 59, 0.445);
+    border-radius: 20px;
+    width: 30vw;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.movies button {
+    background-color: rgba(68, 68, 68, 0.596);
+    color: gold;
+    height: 50px;
+    width: 50px;
+    font-size: 30px;
+    border-radius: 25px;
+    margin-top:25px;
+    align-items: center;
+}
