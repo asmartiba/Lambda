@@ -59,7 +59,7 @@
                 let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
                 console.log('added to favourites');
                 
-                //to check if character is already in fav...
+                //to check if character is already in fav... will implement favourite later
                 if (!favorites.some(favorite => favorite._id === character._id)) {
 
                     favorites.push(character);
