@@ -293,6 +293,28 @@ header {
     padding-bottom: 15px;
   }
 
+  .new__box {
+    width: 60vw;
+    height: 50vh;
+    border-radius: 20vh;
+    background-color: #161616ab;
+    border: 2px solid rgb(55, 212, 233);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .new__box video {
+    width: 500px;
+  }
+
+  .new__box h2 {
+    font-family: 'Dancing Script';
+    font-size: 40px;
+    color: white;
+  }
+
   .about__box {
     width: 85vw;
     height: 140vh;
@@ -633,5 +655,10 @@ header {
     }
     .btn2 {
       height: 50px;
+    }
+    .new__box {
+      width: 100vw;
+      border-radius: 0%;
+      height: auto;
     }
   }
