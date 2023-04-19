@@ -18,6 +18,7 @@
     justify-content:center ;
     overflow-y: scroll;
     align-items: center;
+    overflow: auto;
 }
 
 .emptyspan01 {

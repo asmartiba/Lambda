@@ -332,14 +332,13 @@ header {
   }
 
   .developer {
-    width: 30vw;
+    width: 35vw;
     height: 30vh;
     background-color: #040d1a2e;
     border-radius: 15vh;
     border-top: 1px solid white;
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     color: white;
     margin: 20px;
@@ -351,6 +350,7 @@ header {
     border-radius: 100px;
     object-fit: cover;
     border-top: 3px solid gold;
+    margin-left: 100px;
   }
 
   .developer h2 {
@@ -630,5 +630,8 @@ header {
     .movie__box img {
       width: 25vw;
       margin-top:25px;
+    }
+    .btn2 {
+      height: 50px;
     }
   }
