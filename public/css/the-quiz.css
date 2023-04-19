@@ -78,7 +78,7 @@
     font-size: 27px;
     background-color: rgba(27, 27, 27, 0.61);
     border: 2px solid white;
-    width: 200px;
+    width: 120px;
     height: 40px;
     border-radius: 20px;
     display: flex;
@@ -87,7 +87,7 @@
 }
 
 #reset {
-    width: 180px;
+    width: 120px;
     height: 40px;
     border-radius: 20px;
     color: rgb(228, 228, 228);
@@ -126,10 +126,10 @@
     }
     #reset {
         margin-top: 15px;
-        width: 33vw;
+        width: 22vw;
     }
     .quoteBox h2 {
-        width: 33vw;
+        width: 22vw;
         margin-top:15px;
     }
 }
@@ -151,7 +151,7 @@
         height: auto;
     }
     .option {
-        width: 30vw;
+        width: 60vw;
         margin-top: 20px;
     }
     .quoteBox {
@@ -166,7 +166,8 @@
         width: 33vw;
     }
     .quoteBox h2 {
-        width: 33vw;
+        width: 100vw;
+        border-radius: 0%;
         margin-top:15px;
     }
 }

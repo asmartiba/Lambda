@@ -313,6 +313,7 @@ header {
     font-family: 'Dancing Script';
     font-size: 40px;
     color: white;
+    margin-bottom: 25px;
   }
 
   .about__box {
@@ -669,5 +670,17 @@ header {
       width: 100vw;
       border-radius: 0%;
       height: auto;
+    }
+    .hero {
+      height: auto;
+      overflow: scroll;
+    }
+    .linearmain {
+      width:100vw;
+    }
+    .lineartitle {
+      width:70vw;
+      font-size: 28px;
+      text-align: center;
     }
   }

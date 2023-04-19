@@ -55,10 +55,6 @@ body {
   text-align: center;
 }
 
-.login-btn {
-  background-color: rgba(142, 63, 17, 0.537);
-}
-
 .select__menu {
   width: 75vw;
   height: 95vh;
@@ -200,13 +196,13 @@ justify-content: center;
 @media only screen and (max-width: 767px) {
 
   body {
-    height: 100vh;
+    height: auto;
     width: 100vw;
     overflow: auto;
   }
 
   .select__menu {
-    width: 75vw;
+    width: 85vw;
     height: auto;
     overflow: auto;
   }
@@ -233,5 +229,15 @@ justify-content: center;
     padding-top:10vh;
     text-align: center;
 }
+    .login-form {
+      width: auto;
+      color: white;
+    }
+
+    .login-form input {
+      width: 60vw;
+
+    }
+
 }
 
