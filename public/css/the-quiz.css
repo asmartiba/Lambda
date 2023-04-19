@@ -119,6 +119,9 @@
     .quoteBox {
         flex-direction: column;
     }
+    .option {
+        font-size: 24px;
+    }
     #newQuote {
         width: 30vw;
         margin-top: 10px;
