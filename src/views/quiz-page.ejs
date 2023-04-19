@@ -42,6 +42,7 @@
                 const url = 'https://the-one-api.dev/v2/quote'; 
                 const charUrl = 'https://the-one-api.dev/v2/character';
 
+
                 const getNewQuote = () => {
                     fetch(url, {
                         headers: {
@@ -52,8 +53,28 @@
                     .then(data => {
                         const randomNumber = Math.floor(Math.random() * data.docs.length);
                         const randomObject = data.docs[randomNumber];
-                        const quote = randomObject.dialog;
 
+
+                        const quoteObject = randomObject;
+                        const quote = quoteObject.dialog;
+                        const character = quoteObject.character;
+
+
+                        document.querySelector('#quote').textContent = quote;
+                        document.querySelector('#quote').setAttribute('data-character', character);
+
+                        const optionsDiv = document.querySelectorAll('.option');
+                        optionsDiv.forEach((optionDiv) => {
+                            optionDiv.addEventListener('click', () => {
+                                const selectedCharacter = optionDiv.textContent.trim();
+                                const correctCharacter = document.querySelector('#quote').getAttribute('data-character');
+                                if (selectedCharacter === correctCharacter) {
+                                    optionDiv.style.border = '2px solid green';
+                                } else {
+                                    optionDiv.style.border = '2px solid red';
+                                }
+                            });
+                        });
 
                             fetch(`${charUrl}/${randomObject.character}`, {
                                         headers: {
