@@ -66,6 +66,36 @@
     justify-content: center;
 }
 
+.quoteBox {
+    display: flex;
+    justify-content: space-between;
+    width: 40vw;
+    align-items: center;
+}
+
+.quoteBox h2 {
+    color: rgb(228, 228, 228);
+    font-size: 27px;
+    background-color: rgba(27, 27, 27, 0.61);
+    border: 2px solid white;
+    width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#reset {
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    color: rgb(228, 228, 228);
+    font-size: 27px;
+    background-color: rgba(27, 27, 27, 0.61);
+    border: 2px solid white;
+}
+
 #newQuote {
     width: 20vw;
     height: 60px;
@@ -82,17 +112,37 @@
     .the_quiz {
         width: 100vw;
         border-radius: 0%;
+        height: auto;
     }
     .quote {
         width:80vw;
         height: auto;
+        margin-top:35px;
     }
     #options {
+        margin-top:100px;
+        margin-bottom:25px;
         flex-direction: column;
-        width: 100vw;
+        width: 80vw;
+        height: auto;
     }
     .option {
-        width: 100vw;
+        width: 70vw;
+        margin-top: 20px;
+    }
+    .quoteBox {
+        flex-direction: column;
+    }
+    #newQuote {
+        width: 50vw;
         margin-top: 10px;
+    }
+    #reset {
+        margin-top: 15px;
+        width: 33vw;
+    }
+    .quoteBox h2 {
+        width: 33vw;
+        margin-top:15px;
     }
 }

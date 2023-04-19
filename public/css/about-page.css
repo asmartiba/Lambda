@@ -55,6 +55,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    text-align: center;
 }
 
 .rightside p {
@@ -62,7 +63,6 @@
 }
 
 .contact {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.267), transparent);
     width: 30vw;  
 }
 
@@ -126,7 +126,7 @@
           height: auto;
           overflow: auto;
           border-radius: 0%;
-          margin-bottom: 100px;
+          margin-bottom: 50px;
           border-top: 2px solid gold;
           background: linear-gradient(to bottom, #520d0d, transparent);
           display: flex;
@@ -135,34 +135,41 @@
           align-items: center;
       }
       .about__developer img {
+        margin-top: 20px;
         height: 150px;
         width: 150px;
         border-radius: 75px;
       }
-       .about__developers {
+      .about__developers {
         margin-top: 10px;
         width: 100vw;
-          }
-        .about__developer {
+        margin-bottom: 10px;
+        }
+      .about__developer {
             width: 100vw;
-            height: 120vh;
-            border-radius: 200px;
+            height: auto;
+            border-radius: 100px;
             display: flex;
+            margin-top:100px;
             flex-direction: column;
-            justify-content: space-evenly;
+            justify-content: center;
             align-items: center;
             color: white;
             text-align: center;
         }
-        .rightside {
+      .rightside {
           width: 70vw;
           height: auto;
           justify-content: space-evenly;
         }
 
-      .rightside p {
-              font-size: 1.3em;
-              margin-bottom: 80px;
-          }
-
+    .rightside p {
+          font-size: 1.3em;
+          margin-bottom: 80px;
+      }
+      .contact {
+        width: 80vw;
+        align-self: center;
+        margin-bottom: 15px;
+    }
 }
