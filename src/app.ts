@@ -13,6 +13,10 @@ app.get('/', (req, res) => {
   res.render('index', { title: 'Home' });
 });
 
+app.get('/sign-up', (req, res) => {
+  res.render('sign-up', { title: 'Sign up' });
+});
+
 app.get('/quiz-page', (req, res) => {
   res.render('quiz-page', { title: 'The Quiz' });
 });
