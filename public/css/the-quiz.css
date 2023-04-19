@@ -107,8 +107,34 @@
     color: #f1c8c8c0;
 }
 
+@media only screen and (max-width: 1667px) {
+    .the_quiz {
+        width: 90vw;
+        border-radius: 20%;
+        height: auto;
+    }
+    .quote {
+        margin-top: 30px;
+    }
+    .quoteBox {
+        flex-direction: column;
+    }
+    #newQuote {
+        width: 30vw;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+    #reset {
+        margin-top: 15px;
+        width: 33vw;
+    }
+    .quoteBox h2 {
+        width: 33vw;
+        margin-top:15px;
+    }
+}
 
-@media only screen and (max-width: 1967px) {
+@media only screen and (max-width: 767px) {
     .the_quiz {
         width: 100vw;
         border-radius: 0%;
@@ -122,12 +148,10 @@
     #options {
         margin-top:100px;
         margin-bottom:25px;
-        flex-direction: column;
-        width: 80vw;
         height: auto;
     }
     .option {
-        width: 70vw;
+        width: 30vw;
         margin-top: 20px;
     }
     .quoteBox {
