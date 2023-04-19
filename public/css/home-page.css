@@ -294,7 +294,7 @@ header {
   }
 
   .new__box {
-    width: 60vw;
+    width: 70vw;
     height: auto;
     border-radius: 20vh;
     background-color: #161616ab;
@@ -326,6 +326,14 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .about__box h1 {
+    width: 50vw;
+    margin-top:75px;
+    font-size: 30px;
+    color: white;
+    text-align: center;
   }
 
   .about__box h2 {
@@ -483,15 +491,15 @@ header {
 
   @media only screen and (max-width: 1967px) {
     .about__box {
-      width: 100vw;
+      width: 95vw;
       height: auto;
-      border-radius: 18px;
+      border-radius: 38px;
     }
     .about__box h2{
       margin-top: 26px;
       margin-bottom: 26px;
       font-size: 25px;
-      width: 90vw;
+      width: 70vw;
     }
     .movies__box {
       width: 90vw;
