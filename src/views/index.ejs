@@ -32,6 +32,15 @@
           </div>
         </div>
 
+        <div id="popup-container" class="popup-container hidden">
+          <div class="overlay"></div>
+          <div class="popup-box">
+            <h2>Please Login</h2>
+            <p>You must log in first before selecting a project.</p>
+            <button id="close-popup" class="close-btn">X</button>
+          </div>
+        </div>
+
         <div class="projects">
           <a href="/home">
             <div class="project__icon first__project">
@@ -98,17 +107,51 @@
               }
             });
 
-            const preventDefaultAndAlert = event => {
-              event.preventDefault();
-              alert('You must login first.');
-            };
+            const showPopup = () => {
+                const popupContainer = document.createElement('div');
+                popupContainer.id = 'popup-container';
+                popupContainer.classList.add('popup-container');
+
+                const overlay = document.createElement('div');
+                overlay.classList.add('overlay');
+
+                const popupBox = document.createElement('div');
+                popupBox.classList.add('popup-box');
+
+                const message = document.createElement('h3');
+                message.textContent = 'You must login first before selecting a project.';
+                message.style.color = 'white';
+
+                const closeButton = document.createElement('button');
+                closeButton.id = 'close-popup';
+                closeButton.classList.add('close-btn');
+                closeButton.textContent = 'X';
+                closeButton.addEventListener('click', () => {
+                popupContainer.remove();
+              });
+
+                popupBox.appendChild(message);
+                popupBox.appendChild(closeButton);
+
+                popupContainer.appendChild(overlay);
+                popupContainer.appendChild(popupBox);
+
+                document.body.appendChild(popupContainer);
+          };
+
+
+          const preventDefaultAndShowPopup = event => {
+            event.preventDefault();
+            showPopup();
+          };
+
 
             projectLinks.forEach(link => {
             if (link.classList.contains('first__project')) {
               link.addEventListener('click', event => {
                 if (!isLoggedIn()) {
                   event.preventDefault();
-                  preventDefaultAndAlert(event);
+                  preventDefaultAndShowPopup(event);
                 }
               });
             } else {
@@ -117,11 +160,11 @@
                 
                 const unavailableMessage = document.createElement('p');
                 unavailableMessage.textContent = 'Project unavailable.';
-                unavailableMessage.style.fontSize = '16px';
-                unavailableMessage.style.marginTop = '15px';
-                unavailableMessage.style.marginBottom = '15px';
+                unavailableMessage.style.fontSize = '19px';
+                unavailableMessage.style.marginTop = '50px';
                 unavailableMessage.style.textAlign = 'center';
-                unavailableMessage.style.color = 'red';
+                unavailableMessage.style.color = '#e68165';
+                unavailableMessage.style.backgroundColor = '#000000cc';
                 link.after(unavailableMessage);
               });
             }
@@ -134,8 +177,6 @@
 
             return username === "Lambda";
           };
-
-
     </script>
   </body>
 </html>
