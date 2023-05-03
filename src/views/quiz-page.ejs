@@ -56,13 +56,13 @@
                 const charUrl = 'https://the-one-api.dev/v2/character';
                 const movieUrl = 'https://the-one-api.dev/v2/movie';
 
-                function addToFavourite() {
-                    const quote = document.getElementById('quote').textContent;
-                    let favouriteQuotes = JSON.parse(localStorage.getItem('favouriteQuotes')) || [];
-                    favouriteQuotes.push(quote);
-                    localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
-                    console.log('added to favourites');
-                    document.getElementById('addToFavourite').style.background = '#70bf67';
+            function addToFavourite() {
+                const quote = document.getElementById('quote').textContent;
+                let favouriteQuotes = JSON.parse(localStorage.getItem('favouriteQuotes')) || [];
+                favouriteQuotes.push(quote);
+                localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
+                console.log('added to favourites');
+                document.getElementById('addToFavourite').style.background = '#70bf67';
 
             }
 
@@ -72,6 +72,7 @@
                 blacklistQuotes.push(quoteId);
                 localStorage.setItem('blacklistQuotes', JSON.stringify(blacklistQuotes));
                 console.log('added to blacklist');
+                document.getElementById('addToBlacklist').style.backgroundColor = 'black';
             }
 
 
