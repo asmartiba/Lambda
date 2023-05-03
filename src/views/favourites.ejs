@@ -24,8 +24,8 @@
                 <div class="linear"></div>
             </div>
 
-              <div class="favourites">
-                
+              <div class="favourites" id="favourites">
+
               </div>
 
             <div class="linearmain">
@@ -42,6 +42,38 @@
               <div class="emptyspan"></div>
          </div>
          <script>
+
+            const favouritesContainer = document.getElementById('favourites');
+            const favouriteQuotes = JSON.parse(localStorage.getItem('favouriteQuotes')) || [];
+
+            const ul = document.createElement('ul');
+            ul.classList.add('fav_list');
+
+            favouriteQuotes.forEach((quote) => {
+            const li = document.createElement('li');
+            li.classList.add('fav_list02');
+            const quoteText = document.createElement('span');
+            quoteText.textContent = quote;
+            
+            const clearButton = document.createElement('button');
+            clearButton.textContent = 'Clear Quote';
+            clearButton.addEventListener('click', () => {
+                const index = favouriteQuotes.indexOf(quote);
+                if (index > -1) {
+                favouriteQuotes.splice(index, 1);
+                localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
+                ul.removeChild(li);
+                }
+            });
+            
+            li.appendChild(quoteText);
+            li.appendChild(clearButton);
+            ul.appendChild(li);
+            });
+
+
+            favouritesContainer.appendChild(ul);
+            favouritesContainer.appendChild(clearButton);
 
           </script>
     </main>

@@ -33,6 +33,7 @@
     height: 120px;
     width:60vw;
     height:150px;
+    margin:20px;
     border-radius: 60px;
     background: linear-gradient(to bottom, rgba(206, 134, 40, 0.774),  rgba(36, 7, 3, 0.678), transparent);
     text-align: center;
@@ -41,6 +42,35 @@
     justify-content: center;
     border-top: 2px solid rgb(192, 192, 192);
     font-family: 'Cookie';
+}
+
+#quoteContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flexrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#addToBlacklist, #addToFavourite {
+    height: 50px;
+    width: 160px;
+    margin: 50px;
+    border-radius: 25px;
+}
+
+#addToBlacklist {
+    background: rgba(37, 37, 37, 0.514);
+    color: white;
+}
+
+#addToFavourite {
+    background: rgba(0, 39, 0, 0.671);
+    color: white;
 }
 
 #options {
@@ -87,9 +117,9 @@
 }
 
 #reset {
-    width: 120px;
-    height: 40px;
-    border-radius: 20px;
+    width: 10vw;
+    height: 60px;
+    border-radius: 30px;
     color: rgb(228, 228, 228);
     font-size: 27px;
     background-color: rgba(27, 27, 27, 0.61);
@@ -107,14 +137,20 @@
     color: #f1c8c8c0;
 }
 
+
 @media only screen and (max-width: 1667px) {
     .the_quiz {
         width: 90vw;
         border-radius: 20%;
         height: auto;
     }
+    #quoteContainer {
+        width: 100vw;
+    }
     .quote {
         margin-top: 30px;
+        width:100vw;
+        text-align: center;
     }
     .quoteBox {
         flex-direction: column;

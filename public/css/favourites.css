@@ -11,6 +11,43 @@
     align-items: center;
 }
 
+.fav_list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: white;
+    overflow-y: scroll;
+}
+
+.fav_list02 {
+    width: 70%;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    position: relative;
+    font-size: 2em;
+}
+
+.fav_list02 button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.fav_list02 span {
+    display: block;
+}
+
+.fav_list::-webkit-scrollbar {
+    display: none;
+  }
+
 @media only screen and (max-width: 767px) {
     .favourites, .blacklist {
         width: 100vw;
