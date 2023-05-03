@@ -26,9 +26,11 @@
         </div>
     
         <script>
+            const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
+
             fetch('https://the-one-api.dev/v2/character', {
               headers: {
-                Authorization: 'Bearer OeUeZhk8zm3i_1f4FjF9'
+                Authorization: `Bearer ${bearerToken}`
               }
             })
             .then(response => response.json())
@@ -45,7 +47,6 @@
                     div.appendChild(name);
                     div.appendChild(race);
                     div.appendChild(gender);
-                    div.appendChild(starButton);
                     characterList.appendChild(div);
                 });
             })
