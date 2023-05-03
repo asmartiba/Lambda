@@ -70,6 +70,13 @@
     .favourites, .blacklist {
         width: 100vw;
         border-radius: 0%;
+        height: 80vh;
+    }
+    .fav_list02 button {
+        position: absolute;
+        right: 30px;
+        bottom: 30px;
+        width: 115px;
     }
 }
 
@@ -78,6 +85,7 @@
         width: 100vw;
         height: 75vh;
         border-radius: 0%;
+        overflow: hidden;
     }
     .fav_list {
         display: flex;
@@ -88,22 +96,22 @@
         overflow-y: scroll;
         margin: 0px;
         font-size: 1.2em;
+        width: auto;
     }
     .fav_list02 {
-        width: 100%;
+        width: 100vw;
         margin: 10px;
         border-bottom: 2px solid black;
         padding: 10px;
-        position: relative;
         font-size: 1.2em;
     }
     .fav_list02 button {
         position: absolute;
-        right: 50px;
-        bottom: 50px;
+        right: 20px;
+        bottom: 20px;
         height: 25px;
         border-radius: 15px;
-        width: 75px;
+        width: 65px;
         background-color: #1d1d1d;
         border: 1px solid gold;
         color: #66cfb9;
