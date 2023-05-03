@@ -73,8 +73,8 @@
             }
 
 
-                function getNewQuote() {
-                        fetch(quote, {
+            function getNewQuote() {
+                        fetch(quoteUrl, {
                             headers: {
                                 'Authorization': `Bearer ${bearerToken}`
                             }
@@ -84,44 +84,31 @@
                             const randomIndex = Math.floor(Math.random() * data.docs.length);
                             const quote = data.docs[randomIndex].dialog;
                             const characterId = data.docs[randomIndex].character;
-                            const author = getCharacterName(characterId);
 
-                            const authorF = getCharacterName('5cd99d4bde30eff6ebcce7e9')
-                                .then(characterName => {
-                                    console.log(characterName);
-                                });
-                                
-                            document.getElementById('quote').innerHTML = `${quote}<br>-${author}`; 
+                            fetch(`${characterUrl}/${characterId}`, {
+                                headers: {
+                                    'Authorization': `Bearer ${bearerToken}`
+                                }
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                const characterName = data.docs[0].name;
+                                document.getElementById('quote').innerHTML = `${quote}<br>- ${characterName}`;
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
                         })
                         .catch(error => {
                             console.error('Error:', error);
                         });
-                }
+                    }
 
-                function getCharacterName(characterId) {
-                    const characterUrl = `https://the-one-api.dev/v2/character/${characterId}`;
+                    document.getElementById('newQuote').addEventListener('click', getNewQuote);
+                    document.getElementById('addToFavourite').addEventListener('click', addToFavourite);
+                    document.getElementById('addToBlacklist').addEventListener('click', addToBlacklist);
 
-                    return fetch(characterUrl, {
-                        headers: {
-                            'Authorization': `Bearer ${bearerToken}`
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        return data.docs[0].name;
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-                }
-
-
-                document.getElementById('newQuote').addEventListener('click', getNewQuote);
-                document.getElementById('addToFavourite').addEventListener('click', addToFavourite);
-                document.getElementById('addToBlacklist').addEventListener('click', addToBlacklist);
-
-
-                getNewQuote();
+                    getNewQuote();
 
             </script>
 
