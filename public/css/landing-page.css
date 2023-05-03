@@ -245,6 +245,56 @@ justify-content: center;
   display: none;
 }
 
+@media only screen and (max-width: 1667px) {
+
+  body {
+    height: auto;
+    width: 100vw;
+    overflow: auto;
+  }
+
+  .select__menu {
+    width: 85vw;
+    height: auto;
+    overflow: auto;
+  }
+  .login-form p {
+    font-size: 12px;
+    margin-top: 12px;
+  }
+
+  .projects { 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .project__icon {
+    width: auto;
+    height: 120px;
+    width:360px;
+    margin: 25px;
+    border-radius: 25px;
+  }
+  .select__menu h3 {
+    color: rgb(236, 219, 61);
+    font-size: 14px;
+    text-shadow: 5px 5px 5px rgba(40, 12, 104, 0.7);
+    padding-top:10vh;
+    text-align: center;
+}
+    .login-form {
+      width: auto;
+      color: white;
+    }
+
+    .login-form input {
+      width: 60vw;
+
+    }
+
+}
+
+
 @media only screen and (max-width: 767px) {
 
   body {
@@ -290,6 +340,5 @@ justify-content: center;
       width: 60vw;
 
     }
-
 }
 

@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+
+@font-face {
+  src: url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+  font-family: 'Cookie';
+  font-display: swap;
+}
+
 .favourites, .blacklist {
     width: 75vw;
     height: 50vh;
@@ -24,6 +32,8 @@
     color: white;
     overflow-y: scroll;
     margin: 50px;
+    font-family: 'Cookie';
+    font-size: 1.4em;
 }
 
 .fav_list02 {
@@ -66,6 +76,7 @@
 @media only screen and (max-width: 767px) {
     .favourites, .blacklist {
         width: 100vw;
+        height: 75vh;
         border-radius: 0%;
     }
 }

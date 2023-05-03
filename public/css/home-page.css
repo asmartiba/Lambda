@@ -36,7 +36,7 @@
 body {
     background-image:url('../img/background_lotr2.jpg');
     opacity: 80%;
-    animation: slide 40s linear infinite;
+    animation: slide 120s linear infinite;
     vertical-align: middle;
     background-attachment: fixed;
     background-repeat:no-repeat;
@@ -44,7 +44,7 @@ body {
   }
 
 main {
-  background: linear-gradient(to bottom left, #24070761, #040d1a53, #0a303746, #1f05193c);
+  background: linear-gradient(to bottom left, #240707e3, #040d1ad0, #06252bc0, #180313c9);
   background-size: 400% 400%;
   animation: gradient-animation 16s ease infinite;
 }
@@ -169,7 +169,7 @@ header {
   .lineartitle {
     font-family:'Dancing Script', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 100;
-    font-size: 35px;
+    font-size: 45px;
     color: white;
   }
 
@@ -416,8 +416,8 @@ header {
     height: 60px;
     border-radius: 15px;
     background: transparent;
-    border: 2px solid rgba(124, 215, 127, 0.841);
-    color:rgba(124, 215, 127, 0.841);
+    border: 2px solid rgb(157, 219, 106);
+    color:rgb(157, 219, 106);
     margin-top: 15px;
     font-size: 18px;
     margin-bottom: 10px;
