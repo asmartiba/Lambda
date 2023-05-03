@@ -52,7 +52,7 @@ main {
 header {
     display: flex;
     justify-content: space-around;
-    position: fixed;
+    position: absolute;
     width: 100%;
     top: 0;
     background: linear-gradient(to bottom, #9e9090ab,#4130486e, #380f332a, transparent);
