@@ -21,6 +21,10 @@ app.get('/quiz-page', (req, res) => {
   res.render('quiz-page', { title: 'The Quiz' });
 });
 
+app.get('/quiz-option', (req, res) => {
+  res.render('quiz-option', { title: 'The Quiz' });
+});
+
 app.get('/about', (req, res) => {
   res.render('about', { title: 'About Us' });
 });
