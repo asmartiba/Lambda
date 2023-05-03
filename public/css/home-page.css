@@ -223,7 +223,8 @@ header {
   }
 
   .book__box img {
-    height: 400px;
+    height: 240px;
+    margin-top: 60px;
     width: auto;
     padding-bottom: 15px;
   }
