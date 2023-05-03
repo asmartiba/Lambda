@@ -1,5 +1,5 @@
 .favourites, .blacklist {
-    width: 65vw;
+    width: 75vw;
     height: 50vh;
     border-radius: 30vh;
     margin-bottom: 100px;
@@ -11,6 +11,10 @@
     align-items: center;
 }
 
+.quoteText {
+    width: 70%;
+}
+
 .fav_list {
     list-style: none;
     padding: 0;
@@ -19,24 +23,28 @@
     justify-content: center;
     color: white;
     overflow-y: scroll;
+    margin: 50px;
 }
 
 .fav_list02 {
-    width: 70%;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+    width: 80%;
+    margin: 20px;
+    border-bottom: 2px solid black;
     padding: 10px;
     position: relative;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 .fav_list02 button {
     position: absolute;
-    bottom: 10px;
     right: 10px;
-    background: none;
-    border: none;
-    color: #007bff;
+    bottom: 20px;
+    height: 30px;
+    border-radius: 15px;
+    width: 115px;
+    background-color: #1d1d1d;
+    border: 1px solid gold;
+    color: #66cfb9;
     cursor: pointer;
 }
 
@@ -47,6 +55,13 @@
 .fav_list::-webkit-scrollbar {
     display: none;
   }
+
+  @media only screen and (max-width: 1567px) {
+    .favourites, .blacklist {
+        width: 100vw;
+        border-radius: 0%;
+    }
+}
 
 @media only screen and (max-width: 767px) {
     .favourites, .blacklist {

@@ -62,7 +62,7 @@
                     favouriteQuotes.push(quote);
                     localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
                     console.log('added to favourites');
-                }
+            }
 
             function addToBlacklist() {
                 const quoteId = document.getElementById('quote').getAttribute('data-quote-id');
@@ -83,11 +83,36 @@
                         .then(data => {
                             const randomIndex = Math.floor(Math.random() * data.docs.length);
                             const quote = data.docs[randomIndex].dialog;
-                            document.getElementById('quote').innerHTML = quote;
+                            const characterId = data.docs[randomIndex].character;
+                            const author = getCharacterName(characterId);
+
+                            const authorF = getCharacterName('5cd99d4bde30eff6ebcce7e9')
+                                .then(characterName => {
+                                    console.log(characterName);
+                                });
+                                
+                            document.getElementById('quote').innerHTML = `${quote}<br>-${author}`; 
                         })
                         .catch(error => {
                             console.error('Error:', error);
                         });
+                }
+
+                function getCharacterName(characterId) {
+                    const characterUrl = `https://the-one-api.dev/v2/character/${characterId}`;
+
+                    return fetch(characterUrl, {
+                        headers: {
+                            'Authorization': `Bearer ${bearerToken}`
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        return data.docs[0].name;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
                 }
 
 

@@ -54,9 +54,14 @@
             li.classList.add('fav_list02');
             const quoteText = document.createElement('span');
             quoteText.textContent = quote;
+            quoteText.classList.add('quoteText');
+
+            const authorText = document.createElement('span');
+            authorText.textContent = '- ' + quote.character;
+            authorText.classList.add('authorText');
             
             const clearButton = document.createElement('button');
-            clearButton.textContent = 'Clear Quote';
+            clearButton.textContent = 'Clear';
             clearButton.addEventListener('click', () => {
                 const index = favouriteQuotes.indexOf(quote);
                 if (index > -1) {
@@ -67,6 +72,7 @@
             });
             
             li.appendChild(quoteText);
+            li.appendChild(authorText);
             li.appendChild(clearButton);
             ul.appendChild(li);
             });
