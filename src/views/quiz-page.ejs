@@ -24,7 +24,14 @@
 
             <div class="the_quiz" id="the_quiz">
 
-                    <p id="quote" class="quote"></p>
+                    <div id="quoteContainer">
+                        <p id="quote" class="quote"></p>
+                        <div class="flexrow">
+                            <button id="addToFavourite"><i class="fa fa-star">Favourite</i></button>
+                            <button id="addToBlacklist"><i class="fa fa-times">BlackList</i></button>
+                        </div>
+                    </div>
+
                     <div id="options" >
                         <div id="option1" class="option"></div>
                         <div id="option2" class="option"></div>
@@ -33,102 +40,64 @@
                         <div id="option5" class="option"></div>
                         <div id="option6" class="option"></div>
                     </div>
-                    <div class="quoteBox">
-                        <button id="newQuote">New Quote</button>
-                        <button id="reset">Reset</button>
-                        <h2>Score: 0/10</h2>
+
+                    <div>
+                        <div class="quoteBox">
+                            <button id="newQuote">New Quote</button>
+                            <button id="reset">Reset</button>
+                        </div>
                     </div>
 
             </div>
 
             <script>
                 const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
-                const url = 'https://the-one-api.dev/v2/quote'; 
+                const quote = 'https://the-one-api.dev/v2/quote'; 
                 const charUrl = 'https://the-one-api.dev/v2/character';
+                const movieUrl = 'https://the-one-api.dev/v2/movie';
 
-
-                const getNewQuote = () => {
-                    fetch(url, {
-                        headers: {
-                            'Authorization': `Bearer ${bearerToken}`
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        const randomNumber = Math.floor(Math.random() * data.docs.length);
-                        const randomObject = data.docs[randomNumber];
-
-
-                        const quoteObject = randomObject;
-                        const quote = quoteObject.dialog;
-                        const character = quoteObject.character;
-
-
-                        document.querySelector('#quote').textContent = quote;
-                        document.querySelector('#quote').setAttribute('data-character', character);
-
-                        const optionsDiv = document.querySelectorAll('.option');
-                        optionsDiv.forEach((optionDiv) => {
-                            optionDiv.addEventListener('click', () => {
-                                const selectedCharacter = optionDiv.textContent.trim();
-                                const correctCharacter = document.querySelector('#quote').getAttribute('data-character');
-                                if (selectedCharacter === correctCharacter) {
-                                    optionDiv.style.border = '2px solid green';
-                                } else {
-                                    optionDiv.style.border = '2px solid red';
-                                }
-                            });
-                        });
-
-                            fetch(`${charUrl}/${randomObject.character}`, {
-                                        headers: {
-                                            'Authorization': `Bearer ${bearerToken}`
-                                        }
-                                    })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        const characterName = data.docs[0].name;
-                                        document.querySelector('#option1').textContent = characterName;
-                                    })
-                                    .catch(error => console.error(error));
-
-                                    const options = [...data.docs];
-                                    options.splice(randomNumber, 1);
-                                    const randomOptions = shuffleArray(options).slice(0, 5);
-                                    randomOptions.push(randomObject);
-                                    const shuffledOptions = shuffleArray(randomOptions);
-                                    for (let i = 1; i <= shuffledOptions.length; i++) {
-
-                                        fetch(`${charUrl}/${shuffledOptions[i - 1].character}`, {
-                                            headers: {
-                                                'Authorization': `Bearer ${bearerToken}`
-                                            }
-                                        })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            const characterName = data.docs[0].name;
-                                            document.querySelector(`#option${i}`).textContent = characterName;
-                                        })
-                                        .catch(error => console.error(error));
-                                    }
-
-                                    document.querySelector('#quote').textContent = quote;
-                                })
-                                .catch(error => console.error(error));
-                            }
-
-                const shuffleArray = array => {
-                    const newArray = [...array];
-                    for (let i = newArray.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-                    }
-                    return newArray;
+                function addToFavourite() {
+                    const quote = document.getElementById('quote').textContent;
+                    let favouriteQuotes = JSON.parse(localStorage.getItem('favouriteQuotes')) || [];
+                    favouriteQuotes.push(quote);
+                    localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
+                    console.log('added to favourites');
                 }
+
+            function addToBlacklist() {
+                const quoteId = document.getElementById('quote').getAttribute('data-quote-id');
+                let blacklistQuotes = JSON.parse(localStorage.getItem('blacklistQuotes')) || [];
+                blacklistQuotes.push(quoteId);
+                localStorage.setItem('blacklistQuotes', JSON.stringify(blacklistQuotes));
+                console.log('added to blacklist');
+            }
+
+
+                function getNewQuote() {
+                        fetch(quote, {
+                            headers: {
+                                'Authorization': `Bearer ${bearerToken}`
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            const randomIndex = Math.floor(Math.random() * data.docs.length);
+                            const quote = data.docs[randomIndex].dialog;
+                            document.getElementById('quote').innerHTML = quote;
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
+
+
+                document.getElementById('newQuote').addEventListener('click', getNewQuote);
+                document.getElementById('addToFavourite').addEventListener('click', addToFavourite);
+                document.getElementById('addToBlacklist').addEventListener('click', addToBlacklist);
+
 
                 getNewQuote();
 
-                document.querySelector('#newQuote').addEventListener('click', getNewQuote);
             </script>
 
     </main>

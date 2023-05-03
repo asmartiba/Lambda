@@ -39,9 +39,6 @@
                     const name = document.createElement('h1');
                     const race = document.createElement('h3');
                     const gender = document.createElement('h3');
-                    const starButton = document.createElement('button');
-                    starButton.textContent = '☆';
-                    starButton.addEventListener('click', () => addCharacterToFavorites(character));
                     name.textContent = `${character.name}`;
                     race.textContent = `Race: ${character.race}`;
                     gender.textContent = `Gender: ${character.gender}`;
@@ -54,19 +51,6 @@
             })
             .catch(error => console.error(error));
 
-            function addCharacterToFavorites(character) {
-
-                let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-                console.log('added to favourites');
-                
-                //to check if character is already in fav... will implement favourite later
-                if (!favorites.some(favorite => favorite._id === character._id)) {
-
-                    favorites.push(character);
-                    localStorage.setItem('favorites', JSON.stringify(favorites));
-                    
-                }
-            }
         </script>
 
     </main>
