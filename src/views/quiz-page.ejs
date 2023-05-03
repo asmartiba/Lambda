@@ -62,8 +62,7 @@
                 favouriteQuotes.push(quote);
                 localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
                 console.log('added to favourites');
-                document.getElementById('addToFavourite').style.background = '#5ebf45';
-
+                document.getElementById('addToFavourite').style.background = '#5ebf45'; 
             }
 
             function addToBlacklist() {
@@ -77,7 +76,7 @@
 
 
             function getNewQuote() {
-                        fetch(quoteUrl, {
+                        fetch(quote, {
                             headers: {
                                 'Authorization': `Bearer ${bearerToken}`
                             }
@@ -86,28 +85,15 @@
                         .then(data => {
                             const randomIndex = Math.floor(Math.random() * data.docs.length);
                             const quote = data.docs[randomIndex].dialog;
-                            const characterId = data.docs[randomIndex].character;
-                            // check this again
-                            document.getElementById('addToFavourite').style.background = '#002700ab';
+                            document.getElementById('quote').innerHTML = quote;
 
-                            fetch(`${characterUrl}/${characterId}`, {
-                                headers: {
-                                    'Authorization': `Bearer ${bearerToken}`
-                                }
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                const characterName = data.docs[0].name;
-                                document.getElementById('quote').innerHTML = `${quote}<br>- ${characterName}`;
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
+                            const author = data.docs[randomIndex].character;
+                            document.getElementById('')
                         })
                         .catch(error => {
                             console.error('Error:', error);
                         });
-                    }
+                }
 
                     document.getElementById('newQuote').addEventListener('click', getNewQuote);
                     document.getElementById('addToFavourite').addEventListener('click', addToFavourite);

@@ -60,7 +60,7 @@
 #addToBlacklist, #addToFavourite {
     height: 50px;
     width: 160px;
-    margin: 50px;
+    margin: 30px;
     border-radius: 25px;
 }
 
@@ -70,7 +70,7 @@
 }
 
 #addToFavourite {
-    background: #011f01d3;
+    background: #011f0197;
     color: white;
 }
 

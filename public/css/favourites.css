@@ -10,7 +10,7 @@
     width: 75vw;
     height: 50vh;
     border-radius: 30vh;
-    margin-bottom: 100px;
+    margin-bottom: 80px;
     border-top: 2px solid gold;
     background: linear-gradient(to bottom, rgba(75, 10, 10, 0.774),  rgba(128, 72, 39, 0.425), transparent);
     display: flex;

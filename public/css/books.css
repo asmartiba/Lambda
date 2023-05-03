@@ -1,21 +1,22 @@
 .books {
     width: 90vw;
-    height: 100vh;
+    height: auto;
     border-radius: 30vh;
     margin-bottom: 100px;
     border-top: 2px solid gold;
     background-color: rgba(34, 6, 6, 0.563);
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: flex-end;
+    position: relative;
 }
 
 .book {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     width: 18vw;
+    margin:100px;
 }
 
 .book img {
@@ -33,7 +34,7 @@
     text-decoration: none;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     list-style: none;
     color: white;
     align-items: center;
