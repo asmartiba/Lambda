@@ -245,7 +245,7 @@ justify-content: center;
   display: none;
 }
 
-@media only screen and (max-width: 1667px) {
+@media only screen and (max-width: 1467px) {
 
   body {
     height: auto;
