@@ -27,8 +27,8 @@
                     <div id="quoteContainer">
                         <p id="quote" class="quote"></p>
                         <div class="flexrow">
-                            <button id="addToFavourite"><i class="fa fa-star">Favourite</i></button>
-                            <button id="addToBlacklist"><i class="fa fa-times">BlackList</i></button>
+                            <button id="addToFavourite">Favourite</button>
+                            <button id="addToBlacklist">BlackList</button>
                         </div>
                     </div>
 
@@ -62,6 +62,8 @@
                     favouriteQuotes.push(quote);
                     localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
                     console.log('added to favourites');
+                    document.getElementById('addToFavourite').style.background = '#70bf67';
+
             }
 
             function addToBlacklist() {
@@ -84,6 +86,8 @@
                             const randomIndex = Math.floor(Math.random() * data.docs.length);
                             const quote = data.docs[randomIndex].dialog;
                             const characterId = data.docs[randomIndex].character;
+                            // check this again
+                            document.getElementById('addToFavourite').style.background = '#002700ab';
 
                             fetch(`${characterUrl}/${characterId}`, {
                                 headers: {

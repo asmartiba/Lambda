@@ -70,7 +70,7 @@
 }
 
 #addToFavourite {
-    background: rgba(0, 39, 0, 0.671);
+    background: #002700ab;
     color: white;
 }
 
@@ -181,10 +181,13 @@
         height: auto;
     }
     .quote {
-        width:80vw;
+        width:100vw;
         height: auto;
+        margin:0;
         margin-top:35px;
+        border: none;
     }
+
     #options {
         margin-top:100px;
         margin-bottom:25px;
