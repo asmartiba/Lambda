@@ -48,7 +48,7 @@
 .fav_list02 button {
     position: absolute;
     right: 10px;
-    bottom: 20px;
+    bottom: 50px;
     height: 30px;
     border-radius: 15px;
     width: 115px;
@@ -78,5 +78,35 @@
         width: 100vw;
         height: 75vh;
         border-radius: 0%;
+    }
+    .fav_list {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        justify-content: space-around;
+        color: white;
+        overflow-y: scroll;
+        margin: 0px;
+        font-size: 1.2em;
+    }
+    .fav_list02 {
+        width: 100%;
+        margin: 10px;
+        border-bottom: 2px solid black;
+        padding: 10px;
+        position: relative;
+        font-size: 1.2em;
+    }
+    .fav_list02 button {
+        position: absolute;
+        right: 50px;
+        bottom: 50px;
+        height: 25px;
+        border-radius: 15px;
+        width: 75px;
+        background-color: #1d1d1d;
+        border: 1px solid gold;
+        color: #66cfb9;
+        cursor: pointer;
     }
 }
