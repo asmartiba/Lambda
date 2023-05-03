@@ -18,7 +18,7 @@
 
             <div class="linearmain">
                 <div class="linear"></div>
-                    <h2 class="lineartitle">Thq Quiz</h2>
+                    <h2 class="lineartitle">The Quiz</h2>
                 <div class="linear"></div>
             </div>
 
@@ -66,9 +66,9 @@
             }
 
             function addToBlacklist() {
-                const quoteId = document.getElementById('quote').getAttribute('data-quote-id');
+                const quote = document.getElementById('quote').textContent;
                 let blacklistQuotes = JSON.parse(localStorage.getItem('blacklistQuotes')) || [];
-                blacklistQuotes.push(quoteId);
+                blacklistQuotes.push(quote);
                 localStorage.setItem('blacklistQuotes', JSON.stringify(blacklistQuotes));
                 console.log('added to blacklist');
                 document.getElementById('addToBlacklist').style.backgroundColor = 'black';
@@ -86,7 +86,7 @@
                             const randomIndex = Math.floor(Math.random() * data.docs.length);
                             const quote = data.docs[randomIndex].dialog;
                             document.getElementById('quote').innerHTML = quote;
-                            
+
                             document.getElementById('')
                         })
                         .catch(error => {

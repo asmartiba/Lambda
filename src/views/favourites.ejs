@@ -35,9 +35,10 @@
              </div>
 
              
-             <div class="blacklist">
+             <div class="blacklist" id="blacklist">
 
              </div>
+
               <a href="/home"><button class="btn2">← Back </button></a>
               <div class="emptyspan"></div>
          </div>
@@ -80,6 +81,42 @@
 
             favouritesContainer.appendChild(ul);
             favouritesContainer.appendChild(clearButton);
+
+            //blacklist
+            
+            const BlacklistContainer = document.getElementById('blacklist');
+            const blacklistQuotes = JSON.parse(localStorage.getItem('blacklistQuotes')) || [];
+
+            const ul02 = document.createElement('ul');
+            ul02.classList.add('fav_list');
+
+            blacklistQuotes.forEach((quote) => {
+            const li = document.createElement('li');
+            li.classList.add('fav_list02');
+            const quoteText = document.createElement('span');
+            quoteText.textContent = quote;
+            quoteText.classList.add('quoteText');
+
+            
+            const clearButton = document.createElement('button');
+            clearButton.textContent = 'Clear';
+            clearButton.addEventListener('click', () => {
+                const index = blacklistQuotes.indexOf(quote);
+                if (index > -1) {
+                blacklistQuotes.splice(index, 1);
+                localStorage.setItem('blacklistQuotes', JSON.stringify(blacklistQuotes));
+                ul02.removeChild(li);   
+                }
+            });
+            
+            li.appendChild(quoteText);
+            li.appendChild(clearButton);
+            ul02.appendChild(li);
+            });
+
+
+            BlacklistContainer.appendChild(ul02);
+            BlacklistContainer.appendChild(clearButton);
 
           </script>
     </main>

@@ -30,7 +30,7 @@
 .quote {
     color: gold;
     font-size:42px;
-    height: 120px;
+    height: auto;
     width:60vw;
     height:150px;
     margin:20px;
