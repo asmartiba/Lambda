@@ -41,6 +41,7 @@ body {
     background-attachment: fixed;
     background-repeat:no-repeat;
     height: 100vh;
+    overflow-x: hidden;
   }
 
 main {
@@ -267,7 +268,7 @@ header {
 
   .movies__box {
     width: 70vw;
-    height: 50vh;
+    height: 60vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -276,7 +277,7 @@ header {
   }
 
   .movie__box {
-    height: 300px;
+    height: 600px;
     width: 18vw;
     background: linear-gradient(to bottom, rgba(100, 100, 100, 0.573), transparent);
     border-top: 1px solid rgb(227, 132, 74);
@@ -289,7 +290,7 @@ header {
   }
 
   .movie__box img {
-    width: 120px;
+    height: 400px;
     padding-bottom: 15px;
   }
 
@@ -504,8 +505,13 @@ header {
       width: 70vw;
     }
     .movies__box {
-      width: 90vw;
-      height: 50vh;
+      width: 100vw;
+      height: 70vh;
+      border-radius: 0%;
+    }
+    .movie__box {
+      width: 25vw;
+      margin-top: 100px;
     }
     .characters__box {
       width: 90vw;
@@ -530,6 +536,7 @@ header {
       border-radius: 15vh;
       margin: 15px;
     }
+
   }
 
   @media only screen and (max-width: 767px) {
@@ -595,7 +602,6 @@ header {
     .movies__box {
       width: 100vw;
       height: auto;
-      display: flex;
       flex-direction: column;
       justify-content: center;
       border: none;
@@ -604,15 +610,16 @@ header {
     .movie__box {
       height: auto;
       width: 100vw;
-      border-radius: 8vh;
       display: flex;
       flex-direction: column;
-      margin: 20px;
+      margin:0;
+      border-radius: 0%;
     }
   
     .movie__box img {
       margin-top: 25px;
-      width: 90px;
+      height: 30vh;
+      width: auto;
       padding-bottom: 15px;
     }
 
@@ -658,10 +665,6 @@ header {
     .btn2 {
       width: 30vw;
       height: 5vh;
-    }
-    .movie__box img {
-      width: 25vw;
-      margin-top:25px;
     }
     .btn2 {
       height: 50px;
