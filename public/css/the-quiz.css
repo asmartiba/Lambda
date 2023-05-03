@@ -18,7 +18,7 @@
     justify-content:center ;
     overflow-y: scroll;
     align-items: center;
-    overflow: auto;
+    overflow-x: hidden;
 }
 
 .emptyspan01 {
@@ -108,7 +108,6 @@
     color: rgb(228, 228, 228);
     font-size: 27px;
     background-color: rgba(27, 27, 27, 0.61);
-    border: 2px solid white;
     width: 120px;
     height: 40px;
     border-radius: 20px;
@@ -150,8 +149,10 @@
     }
     .quote {
         margin-top: 30px;
-        width:100vw;
+        width:60vw;
+        height: 25vh;
         text-align: center;
+        align-self: center;
     }
     .quoteBox {
         flex-direction: column;

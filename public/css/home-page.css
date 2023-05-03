@@ -269,6 +269,7 @@ header {
   .movies__box {
     width: 70vw;
     height: 60vh;
+    margin-bottom: 100px;
     display: flex;
     flex-direction: row;
     justify-content: center;
