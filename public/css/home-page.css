@@ -201,8 +201,8 @@ header {
   }
 
   .books__box {
-    width: 70vw;
-    height: 45vh;
+    width: 80vw;
+    height: 65vh;
     background-color: rgba(39, 39, 39, 0.658);
     border-radius: 10vh;
     display: flex;
