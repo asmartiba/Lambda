@@ -86,12 +86,38 @@
                             const randomIndex = Math.floor(Math.random() * data.docs.length);
                             const quote = data.docs[randomIndex].dialog;
                             document.getElementById('quote').innerHTML = quote;
-
                             document.getElementById('')
                         })
                         .catch(error => {
                             console.error('Error:', error);
                         });
+
+                        fetch(charUrl, {
+                                    headers: {
+                                        Authorization: `Bearer ${bearerToken}`
+                                    }
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                    const charNames = data.docs.slice(0, 3).map(char => char.name);
+                                    const charOptions = document.querySelectorAll('#options .option:nth-child(-n+3)');
+                                    charOptions.forEach((option, index) => {
+                                        option.textContent = charNames[index];
+                                    });
+                            });
+                            fetch(movieUrl, {
+                                    headers: {
+                                        Authorization: `Bearer ${bearerToken}`
+                                    }
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                    const movieNames = data.docs.slice(0, 3).map(movie => movie.name);
+                                    const movieOptions = document.querySelectorAll('#options .option:nth-last-child(-n+3)');
+                                    movieOptions.forEach((option, index) => {
+                                        option.textContent = movieNames[index];
+                                    });
+                                    });
                 }
 
                     document.getElementById('newQuote').addEventListener('click', getNewQuote);
