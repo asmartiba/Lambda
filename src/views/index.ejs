@@ -74,6 +74,8 @@
           const projectLinks = document.querySelectorAll('.project__icon');
           const loginForm = document.querySelector('.login-form');
 
+          // Login status
+
           window.addEventListener('load', () => {
             const loggedInMessage = document.createElement('p');
             loggedInMessage.textContent = 'You must log in to access available projects.';
@@ -82,6 +84,7 @@
             loggedInMessage.style.marginTop = '10px';
             loggedInMessage.style.fontSize = '1.2em';
             loginForm.after(loggedInMessage);
+
 
             loginForm.addEventListener('submit', event => {
               event.preventDefault();
@@ -98,6 +101,8 @@
                 alert('Invalid login. Please try again.');
               }
             });
+
+            // Pop-up
 
             const showPopup = () => {
                 const popupContainer = document.createElement('div');
@@ -188,6 +193,8 @@
             showPopup02();
           };
 
+          
+          // Project selection 
 
             projectLinks.forEach(link => {
 
@@ -203,6 +210,8 @@
             }
           );
         });
+
+        // Login, we must add database info here
 
           const isLoggedIn = () => {
             const usernameInput = document.getElementById('username');

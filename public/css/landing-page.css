@@ -57,7 +57,7 @@ body {
 
 .select__menu {
   width: 75vw;
-  height: 95vh;
+  height: 85vh;
   background: linear-gradient(#4e715b79, #1f111695);
   border: rgb(230, 138, 78) 2px solid;
   display: flex;
@@ -298,14 +298,14 @@ justify-content: center;
 @media only screen and (max-width: 767px) {
 
   body {
-    height: auto;
+    height: 100vh;
     width: 100vw;
     overflow: auto;
   }
 
   .select__menu {
     width: 85vw;
-    height: auto;
+    height: 100vh;
     overflow: auto;
   }
   .login-form p {
