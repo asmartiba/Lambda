@@ -3,6 +3,16 @@ const axios = require('axios');
 import bodyParser from 'body-parser';
 import path from 'path';
 
+import { MongoClient,ObjectId } from "mongodb";
+const uri: string = "mongodb+srv://s145347:pokemon@mijncluster.p2xvqbh.mongodb.net/?retryWrites=true&w=majority" //kan verandert worden als nodig
+const client= new MongoClient(uri);
+
+interface login{
+  _id?: ObjectId,
+  naam: string,
+  pass:string
+}
+
 const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -13,8 +23,28 @@ app.get('/', (req, res) => {
   res.render('index', { title: 'Home' });
 });
 
+//<% let user= document.getElementById('username'); if(user !="") {%> <a href="/">Register</a> <% } %>
+
 app.get('/sign-up', (req, res) => {
-  res.render('sign-up', { title: 'Sign up' });
+    res.render('sign-up', { title: 'Sign up' });
+});
+app.post('/sign-up', async(req, res) => {
+  try{
+    await client.connect();
+
+    let base = client.db('Lambda').collection('login');
+
+    await base.insertOne({
+      username: req.body.username,
+      password: req.body.password
+    });
+
+    res.render('sign-up', { title: 'Sign up' });
+  } catch(e){
+    console.error(e);
+  } finally{
+    client.close();
+  }
 });
 
 app.get('/quiz-page', (req, res) => {
