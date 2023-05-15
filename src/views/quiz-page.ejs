@@ -93,11 +93,30 @@
                             .then(data => {
                                 const randomIndex = Math.floor(Math.random() * data.docs.length);
                                 const quote = data.docs[randomIndex].dialog;
+                                const characterId = data.docs[randomIndex].character;
                                 document.getElementById('quote').innerHTML = quote;
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                        });
+
+                                fetch(`${charUrl}/${characterId}`, {
+                                        headers: {
+                                        Authorization: `Bearer ${bearerToken}`
+                                        }
+                                    })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            const characterName = data.name;
+                                            //  const characterName = data.docs[0].name;
+                                            const correctOptionIndex = Math.floor(Math.random() * 3) + 1;
+                                            const correctOption = document.querySelector(`#option${correctOptionIndex}`);
+                                            correctOption.textContent = characterName;
+                                            correctOption.addEventListener('click', () => checkAnswer(correctOption, true));
+                                            })
+                                        .catch(error => {
+                                        console.error('Error:', error);
+                                        });
+                                    })
+                                    .catch(error => {
+                                    console.error('Error:', error);
+                                    });
 
                         // fetch character
 
@@ -109,10 +128,13 @@
                                         .then(response => response.json())
                                         .then(data => {
                                             const charNames = data.docs.slice(0, 3).map(char => char.name);
-                                            const charOptions = document.querySelectorAll('#options .option:nth-child(-n+3)');
+                                            const charOptions = document.querySelectorAll('#option1, #option2, #option3'); 
+                                            const correctOptionIndex = Math.floor(Math.random() * 3) + 4; 
+                                            const correctOption = document.querySelector(`#option${correctOptionIndex}`);
+                                            correctOption.textContent = charNames[correctOptionIndex - 4];
                                             charOptions.forEach((option, index) => {
                                                 option.textContent = charNames[index];
-                                                option.addEventListener('click', () => checkAnswer(option, index < 2));
+                                                option.addEventListener('click', () => checkAnswer(option, false));
                                             });
                             });
 
@@ -126,25 +148,39 @@
                                 .then(response => response.json())
                                 .then(data => {
                                 const movieNames = data.docs.slice(0, 3).map(movie => movie.name);
-                                const movieOptions = document.querySelectorAll('#options .option:nth-last-child(-n+3)');
+                                const movieOptions = document.querySelectorAll('#option4, #option5, #option6'); 
+                                const correctOptionIndex = Math.floor(Math.random() * 3) + 4; 
+                                const correctOption = document.querySelector(`#option${correctOptionIndex}`);
+                                correctOption.textContent = movieNames[correctOptionIndex - 4];
+                                correctOption.addEventListener('click', () => checkAnswer(correctOption, true));
+
                                 movieOptions.forEach((option, index) => {
-                                    option.textContent = movieNames[index];
-                                    option.addEventListener('click', () => checkAnswer(option, index < 2));
-                                });
+                                        if (correctOptionIndex !== index + 4) {
+                                        option.textContent = movieNames[index];
+                                        option.addEventListener('click', () => checkAnswer(option, false));
+                                        }
+                                    });
+                                })
+                                .catch(error => {
+                                console.error('Error:', error);
                                 });
                 }
 
+                // check answer
+
                 function checkAnswer(option, isCorrect) {
+
                     const options = document.querySelectorAll('.option');
+
                     options.forEach(otherOption => {
                         otherOption.style.border = 'none';
                     });
 
                     if (isCorrect) {
-                        option.style.border = '2px solid green';
-                    } else {
-                        option.style.border = '2px solid red';
-                    }
+                            option.style.border = '2px solid green';
+                        } else {
+                            option.style.border = '2px solid red';
+                        }
                     }
 
                     document.getElementById('newQuote').addEventListener('click', getNewQuote);
