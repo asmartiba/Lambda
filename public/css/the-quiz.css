@@ -79,16 +79,16 @@
     height: 40vh;
     display: flex;
     justify-content: space-around;
-    flex-wrap: wrap;
     align-items: center;
     text-align: center;
 }
 
 .option {
     background: linear-gradient(to bottom, transparent,transparent, #350101af);
-    width: 18vw;
+    width: 22vw;
     height: 80px;
     border-radius: 40px;
+    margin-top: 20px;
     color: rgb(235, 212, 231);
     font-size: 32px;
     text-align: center;

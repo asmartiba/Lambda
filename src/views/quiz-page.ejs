@@ -33,13 +33,18 @@
                     </div>
 
                     <div id="options" >
-                        <div id="option1" class="option"></div>
-                        <div id="option2" class="option"></div>
-                        <div id="option3" class="option"></div>
-                        <div id="option4" class="option"></div>
-                        <div id="option5" class="option"></div>
-                        <div id="option6" class="option"></div>
+                        <div id="charOptions">
+                            <div id="option1" class="option"></div>
+                            <div id="option2" class="option"></div>
+                            <div id="option3" class="option"></div>
+                        </div>
+                        <div id="movieOptions">
+                            <div id="option4" class="option"></div>
+                            <div id="option5" class="option"></div>
+                            <div id="option6" class="option"></div>
+                        </div>
                     </div>
+                      
 
                     <div>
                         <div class="quoteBox">
@@ -55,6 +60,9 @@
                 const quote = 'https://the-one-api.dev/v2/quote'; 
                 const charUrl = 'https://the-one-api.dev/v2/character';
                 const movieUrl = 'https://the-one-api.dev/v2/movie';
+
+                let selectedCharacterOption = null;
+                let selectedMovieOption = null;
 
             function addToFavourite() {
                 const quote = document.getElementById('quote').textContent;
@@ -76,99 +84,105 @@
 
 
             function getNewQuote() {
-                    // reset selected answer border
 
-                    const options = document.querySelectorAll('.option');
-                        options.forEach(option => {
-                        option.style.border = 'none';
-                     });
 
-                     // fetch quote
-                        fetch(quote, {
-                                headers: {
-                                    'Authorization': `Bearer ${bearerToken}`
-                                }
-                            })
+                    // Fetch quote
+                    fetch(quote, {
+                        headers: {
+                        'Authorization': `Bearer ${bearerToken}`
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                        const randomIndex = Math.floor(Math.random() * data.docs.length);
+                        const quote = data.docs[randomIndex].dialog;
+                        const characterId = data.docs[randomIndex].character;
+                        const movieId = data.docs[randomIndex].movie;
+                        document.getElementById('quote').innerHTML = quote;
+
+                        // Fetch correct character
+                        fetch(`${charUrl}/${characterId}`, {
+                            headers: {
+                            Authorization: `Bearer ${bearerToken}`
+                            }
+                        })
                             .then(response => response.json())
                             .then(data => {
-                                const randomIndex = Math.floor(Math.random() * data.docs.length);
-                                const quote = data.docs[randomIndex].dialog;
-                                const characterId = data.docs[randomIndex].character;
-                                document.getElementById('quote').innerHTML = quote;
-
-                                fetch(`${charUrl}/${characterId}`, {
-                                        headers: {
-                                        Authorization: `Bearer ${bearerToken}`
-                                        }
-                                    })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            const characterName = data.name;
-                                            //  const characterName = data.docs[0].name;
-                                            const correctOptionIndex = Math.floor(Math.random() * 3) + 1;
-                                            const correctOption = document.querySelector(`#option${correctOptionIndex}`);
-                                            correctOption.textContent = characterName;
-                                            correctOption.addEventListener('click', () => checkAnswer(correctOption, true));
-                                            })
-                                        .catch(error => {
-                                        console.error('Error:', error);
-                                        });
-                                    })
-                                    .catch(error => {
-                                    console.error('Error:', error);
-                                    });
-
-                        // fetch character
-
-                        fetch(charUrl, {
-                                    headers: {
-                                            Authorization: `Bearer ${bearerToken}`
-                                        }
-                                    })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            const charNames = data.docs.slice(0, 3).map(char => char.name);
-                                            const charOptions = document.querySelectorAll('#option1, #option2, #option3'); 
-                                            const correctOptionIndex = Math.floor(Math.random() * 3) + 4; 
-                                            const correctOption = document.querySelector(`#option${correctOptionIndex}`);
-                                            correctOption.textContent = charNames[correctOptionIndex - 4];
-                                            charOptions.forEach((option, index) => {
-                                                option.textContent = charNames[index];
-                                                option.addEventListener('click', () => checkAnswer(option, false));
-                                            });
+                            const characterName = data.docs[0].name;
+                            const correctOptionIndex = Math.floor(Math.random() * 3) + 1;
+                            const correctOption = document.querySelector(`#option${correctOptionIndex}`);
+                            correctOption.textContent = characterName;
+                            correctOption.addEventListener('click', () => checkAnswer(correctOption, true));
+                            })
+                            .catch(error => {
+                            console.error('Error:', error);
                             });
+                        
+                        // Fetch correct movie
 
-                            // fetch movie
+                        fetch(`${movieUrl}/${movieId}`, {
+                        headers: {
+                            Authorization: `Bearer ${bearerToken}`
+                        }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            const movieName = data.docs[0].name;
+                            const correctOptionIndex = Math.floor(Math.random() * 3) + 4;
+                            const correctOption = document.querySelector(`#option${correctOptionIndex}`);
+                            correctOption.textContent = movieName;
+                            correctOption.addEventListener('click', () => checkAnswer(correctOption, true));
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                        })
+                        .catch(error => {
+                        console.error('Error:', error);
+                        });
 
-                        fetch(movieUrl, {
-                                    headers: {
-                                        Authorization: `Bearer ${bearerToken}`
-                                    }
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                const movieNames = data.docs.slice(0, 3).map(movie => movie.name);
-                                const movieOptions = document.querySelectorAll('#option4, #option5, #option6'); 
-                                const correctOptionIndex = Math.floor(Math.random() * 3) + 4; 
-                                const correctOption = document.querySelector(`#option${correctOptionIndex}`);
-                                correctOption.textContent = movieNames[correctOptionIndex - 4];
-                                correctOption.addEventListener('click', () => checkAnswer(correctOption, true));
 
-                                movieOptions.forEach((option, index) => {
-                                        if (correctOptionIndex !== index + 4) {
-                                        option.textContent = movieNames[index];
-                                        option.addEventListener('click', () => checkAnswer(option, false));
-                                        }
-                                    });
-                                })
-                                .catch(error => {
-                                console.error('Error:', error);
-                                });
-                }
+                    // Fetch characters
+                    fetch(charUrl, {
+                        headers: {
+                        Authorization: `Bearer ${bearerToken}`
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                        const charNames = data.docs.slice(0, 3).map(char => char.name);
+                        const charOptions = document.querySelectorAll('#option1, #option2, #option3');
+                        const correctOptionIndex = Math.floor(Math.random() * 3) + 1;
+                        const correctOption = document.querySelector(`#option${correctOptionIndex}`);
+                        correctOption.textContent = charNames[correctOptionIndex - 1];
+                        charOptions.forEach((option, index) => {
+                            option.textContent = charNames[index];
+                            option.addEventListener('click', () => checkAnswer(option, false));
+                            });
+                        });
+
+                    // Fetch movies
+                    fetch(movieUrl, {
+                        headers: {
+                        Authorization: `Bearer ${bearerToken}`
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                        const movieNames = data.docs.slice(0, 3).map(movie => movie.name);
+                        const movieOptions = document.querySelectorAll('#option4, #option5, #option6');
+                        const correctMovieOptionIndex = Math.floor(Math.random() * 3) + 1;
+                        const correctMovieOption = document.querySelector(`#option${correctMovieOptionIndex}`);
+                        correctMovieOption.textContent = movieNames[correctMovieOptionIndex - 1];
+                        movieOptions.forEach((option, index) => {
+                            option.textContent = movieNames[index];
+                            option.addEventListener('click', () => checkAnswer(option, false));
+                            });
+                        });
+                    }
 
                 // check answer
-
-                function checkAnswer(option, isCorrect) {
+                    function checkAnswer(option, isCorrect) {
 
                     const options = document.querySelectorAll('.option');
 
