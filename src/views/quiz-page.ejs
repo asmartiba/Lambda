@@ -34,17 +34,16 @@
 
                     <div id="options" >
                         <div id="charOptions">
-                            <div id="option1" class="option"></div>
-                            <div id="option2" class="option"></div>
-                            <div id="option3" class="option"></div>
-                        </div>
-                        <div id="movieOptions">
-                            <div id="option4" class="option"></div>
-                            <div id="option5" class="option"></div>
-                            <div id="option6" class="option"></div>
-                        </div>
-                    </div>
-                      
+                            <div id="charOption1" class="option"></div>
+                            <div id="charOption2" class="option"></div>
+                            <div id="charOption3" class="option"></div>
+                          </div>
+                          <div id="movieOptions">
+                            <div id="movieOption4" class="option"></div>
+                            <div id="movieOption5" class="option"></div>
+                            <div id="movieOption6" class="option"></div>
+                          </div>
+                    </div> 
 
                     <div>
                         <div class="quoteBox">
@@ -61,8 +60,9 @@
                 const charUrl = 'https://the-one-api.dev/v2/character';
                 const movieUrl = 'https://the-one-api.dev/v2/movie';
 
-                let selectedCharacterOption = null;
-                let selectedMovieOption = null;
+                let selectedCharacter = null;
+                let selectedMovie = null;
+
 
             function addToFavourite() {
                 const quote = document.getElementById('quote').textContent;
@@ -82,11 +82,10 @@
                 document.getElementById('addToBlacklist').style.backgroundColor = 'black';
             }
 
-
             function getNewQuote() {
 
-
                     // Fetch quote
+
                     fetch(quote, {
                         headers: {
                         'Authorization': `Bearer ${bearerToken}`
@@ -94,82 +93,83 @@
                     })
                         .then(response => response.json())
                         .then(data => {
-                        const randomIndex = Math.floor(Math.random() * data.docs.length);
-                        const quote = data.docs[randomIndex].dialog;
-                        const characterId = data.docs[randomIndex].character;
-                        const movieId = data.docs[randomIndex].movie;
-                        document.getElementById('quote').innerHTML = quote;
+                            const randomIndex = Math.floor(Math.random() * data.docs.length);
+                            const quote = data.docs[randomIndex].dialog;
+                            const characterId = data.docs[randomIndex].character;
+                            const movieId = data.docs[randomIndex].movie;
+                            document.getElementById('quote').innerHTML = quote;
 
                         // Fetch correct character
+
                         fetch(`${charUrl}/${characterId}`, {
-                            headers: {
-                            Authorization: `Bearer ${bearerToken}`
-                            }
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                            const characterName = data.docs[0].name;
-                            const correctOptionIndex = Math.floor(Math.random() * 3) + 1;
-                            const correctOption = document.querySelector(`#option${correctOptionIndex}`);
-                            correctOption.textContent = characterName;
-                            correctOption.addEventListener('click', () => checkAnswer(correctOption, true));
+                                headers: {
+                                Authorization: `Bearer ${bearerToken}`
+                                }
                             })
-                            .catch(error => {
-                            console.error('Error:', error);
-                            });
-                        
-                        // Fetch correct movie
-
-                        // one issue to solve, sometimes movie options are duplicate with the correct one, however the duplicate version remains an incorrect slot
-
-                        fetch(`${movieUrl}/${movieId}`, {
-                        headers: {
-                            Authorization: `Bearer ${bearerToken}`
-                        }
-                        })
                         .then(response => response.json())
                         .then(data => {
-                            const movieName = data.docs[0].name;
-                            const correctOptionIndex = Math.floor(Math.random() * 3) + 4;
-                            const correctOption = document.querySelector(`#option${correctOptionIndex}`);
-                            correctOption.textContent = movieName;
-                            correctOption.addEventListener('click', () => checkAnswer(correctOption, true));
+                            const characterName = data.docs[0].name;
+                            const correctOptionIndex = Math.floor(Math.random() * 3) + 1;
+                            const correctOption = document.querySelector(`#charOption${correctOptionIndex}`);
+                            correctOption.textContent = characterName;
+                            correctOption.addEventListener('click', () => checkAnswer(correctOption, true, 'character'));
                         })
-                            .catch(error => {
+                        .catch(error => {
                                 console.error('Error:', error);
                             });
-                        })
 
+                            // Fetch correct movie
 
-                // Fetch random characters
-                    fetch(`${charUrl}`, {
-                            headers: {
-                            Authorization: `Bearer ${bearerToken}`
-                            }
-                        })
+                            fetch(`${movieUrl}/${movieId}`, {
+                                headers: {
+                                Authorization: `Bearer ${bearerToken}`
+                                }
+                            })
                             .then(response => response.json())
                             .then(data => {
-                            const charNames = data.docs.map(char => char.name);
-                            const charOptions = document.querySelectorAll('#option1, #option2, #option3');
-                            const correctOptionIndex = Math.floor(Math.random() * 3);
-                            const correctOption = charOptions[correctOptionIndex];
-                            correctOption.textContent = charNames[correctOptionIndex];
-                            charOptions.forEach((option, index) => {
-                                if (index !== correctOptionIndex) {
-                                let randomIndex = Math.floor(Math.random() * (charNames.length - 1));
-                                if (randomIndex >= correctOptionIndex) {
-                                    randomIndex++;
-                                }
-                                option.textContent = charNames[randomIndex];
-                                }
-                                option.addEventListener('click', () => checkAnswer(option, false));
-                              });
+                                const movieName = data.docs[0].name;
+                                const correctOptionIndex = Math.floor(Math.random() * 3) + 4;
+                                const correctOption = document.querySelector(`#movieOption${correctOptionIndex}`);
+                                correctOption.textContent = movieName;
+                                correctOption.addEventListener('click', () => checkAnswer(correctOption, true, 'movie'));
                             })
-                                .catch(error => {
+                            .catch(error => {
                                 console.error('Error:', error);
-                            });
+                                });
 
-                            // Fetch random movies
+                            })
+
+                            // Fetch random characters
+
+                            fetch(`${charUrl}`, {
+                                headers: {
+                                Authorization: `Bearer ${bearerToken}`
+                                }
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    const charNames = data.docs.map(char => char.name);
+                                    const charOptions = document.querySelectorAll('#charOption1, #charOption2, #charOption3');
+                                    const correctOptionIndex = Math.floor(Math.random() * 3);
+                                    const correctOption = charOptions[correctOptionIndex];
+                                    correctOption.textContent = charNames[correctOptionIndex];
+
+                                charOptions.forEach((option, index) => {
+                                    if (index !== correctOptionIndex) {
+                                    let randomIndex = Math.floor(Math.random() * (charNames.length - 1));
+                                    if (randomIndex >= correctOptionIndex) {
+                                        randomIndex++;
+                                    }
+                                    option.textContent = charNames[randomIndex];
+                                    }
+                                       option.addEventListener('click', () => checkAnswer(option, false, 'character'));
+                                    });
+                                        }).catch(error => {
+                                        console.error('Error:', error);
+                                    });
+
+                           // Fetch random movies
+
                             fetch(`${movieUrl}`, {
                                 headers: {
                                 Authorization: `Bearer ${bearerToken}`
@@ -177,11 +177,12 @@
                             })
                                 .then(response => response.json())
                                 .then(data => {
-                                const movieNames = data.docs.map(movie => movie.name);
-                                const movieOptions = document.querySelectorAll('#option4, #option5, #option6');
-                                const correctMovieOptionIndex = Math.floor(Math.random() * 3);
-                                const correctMovieOption = movieOptions[correctMovieOptionIndex];
-                                correctMovieOption.textContent = movieNames[correctMovieOptionIndex];
+                                    const movieNames = data.docs.map(movie => movie.name);
+                                    const movieOptions = document.querySelectorAll('#movieOption4, #movieOption5, #movieOption6');
+                                    const correctMovieOptionIndex = Math.floor(Math.random() * 3);
+                                    const correctMovieOption = movieOptions[correctMovieOptionIndex];
+                                    correctMovieOption.textContent = movieNames[correctMovieOptionIndex];
+
                                 movieOptions.forEach((option, index) => {
                                     if (index !== correctMovieOptionIndex) {
                                     let randomIndex = Math.floor(Math.random() * (movieNames.length - 1));
@@ -190,26 +191,62 @@
                                     }
                                     option.textContent = movieNames[randomIndex];
                                     }
-                                    option.addEventListener('click', () => checkAnswer(option, false));
+                                        option.addEventListener('click', () => checkAnswer(option, false, 'movie'));
                                 });
-                        });
-                    }
+                                    }).catch(error => {
+                                     console.error('Error:', error);
+                                });           
+}
 
-                // check answer
-                    function checkAnswer(option, isCorrect) {
+                            // Check answer
+                            function checkAnswer(option, isCorrect, optionType) {
+                            const options = document.querySelectorAll('.option');
 
-                    const options = document.querySelectorAll('.option');
+                            if (optionType === 'character') {
+                                if (selectedCharacter) {
+                                    selectedCharacter.classList.remove('selected');
+                                    selectedCharacter.style.border = 'none';
+                            }
+                            selectedCharacter = option;
+                            } else if (optionType === 'movie') {
+                                if (selectedMovie) {
+                                    selectedMovie.classList.remove('selected');
+                                    selectedMovie.style.border = 'none';
+                                }
+                                    selectedMovie = option;
+                            }
 
-                    options.forEach(otherOption => {
-                        otherOption.style.border = 'none';
-                    });
+                            options.forEach(otherOption => {
+                                otherOption.removeEventListener('click', handleOptionClick);
+                                otherOption.style.pointerEvents = 'none';
+                            });
 
-                    if (isCorrect) {
-                            option.style.border = '2px solid green';
-                        } else {
-                            option.style.border = '2px solid red';
-                        }
-                    }
+                            if (isCorrect) {
+                                option.classList.add('selected');
+                                option.style.border = '2px solid green';
+                            } else {
+                                option.style.border = '2px solid red';
+                            }
+
+                            options.forEach(otherOption => {
+                               if (otherOption !== option) {
+                                     otherOption.style.pointerEvents = 'auto';
+                                   }
+                                });
+                            }
+
+                            function handleOptionClick() {
+                                const optionType = this.parentElement.id === 'charOptions' ? 'character' : 'movie';
+                                checkAnswer(this, false, optionType);
+                            }
+
+                            const options = document.querySelectorAll('.option');
+
+                            options.forEach(option => {
+                                option.addEventListener('click', handleOptionClick);
+                            });
+
+
 
                     document.getElementById('newQuote').addEventListener('click', getNewQuote);
                     document.getElementById('addToFavourite').addEventListener('click', addToFavourite);
