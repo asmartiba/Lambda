@@ -120,6 +120,8 @@
                         
                         // Fetch correct movie
 
+                        // one issue to solve, sometimes movie options are duplicate with the correct one, however the duplicate version remains an incorrect slot
+
                         fetch(`${movieUrl}/${movieId}`, {
                         headers: {
                             Authorization: `Bearer ${bearerToken}`
@@ -133,13 +135,10 @@
                             correctOption.textContent = movieName;
                             correctOption.addEventListener('click', () => checkAnswer(correctOption, true));
                         })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
                         })
-                        .catch(error => {
-                        console.error('Error:', error);
-                        });
 
 
                 // Fetch random characters
@@ -164,10 +163,10 @@
                                 option.textContent = charNames[randomIndex];
                                 }
                                 option.addEventListener('click', () => checkAnswer(option, false));
-                            });
+                              });
                             })
-                            .catch(error => {
-                            console.error('Error:', error);
+                                .catch(error => {
+                                console.error('Error:', error);
                             });
 
                             // Fetch random movies
