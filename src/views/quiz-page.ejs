@@ -48,6 +48,7 @@
                     <div>
                         <div class="quoteBox">
                             <button id="newQuote">New Quote</button>
+                            <div id="score">Score: 0</div>
                             <button id="reset">Reset</button>
                         </div>
                     </div>
@@ -55,14 +56,22 @@
             </div>
 
             <script>
+
+                // api 
+
                 const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
                 const quote = 'https://the-one-api.dev/v2/quote'; 
                 const charUrl = 'https://the-one-api.dev/v2/character';
                 const movieUrl = 'https://the-one-api.dev/v2/movie';
 
+                // variables
+
                 let selectedCharacter = null;
                 let selectedMovie = null;
+                let round = 1;
+                let score = 0;
 
+                //functions
 
             function addToFavourite() {
                 const quote = document.getElementById('quote').textContent;
@@ -83,6 +92,12 @@
             }
 
             function getNewQuote() {
+                    // Reset border styling
+
+                    const options = document.querySelectorAll('.option');
+                    options.forEach(option => {
+                        option.style.border = 'none';
+                    });
 
                     // Fetch quote
 
@@ -199,41 +214,51 @@
 }
 
                             // Check answer
-                            function checkAnswer(option, isCorrect, optionType) {
-                            const options = document.querySelectorAll('.option');
 
-                            if (optionType === 'character') {
-                                if (selectedCharacter) {
+                            function checkAnswer(option, isCorrect, optionType) {
+                                const options = document.querySelectorAll('.option');
+
+                                if (optionType === 'character') {
+                                    if (selectedCharacter) {
                                     selectedCharacter.classList.remove('selected');
                                     selectedCharacter.style.border = 'none';
-                            }
-                            selectedCharacter = option;
-                            } else if (optionType === 'movie') {
-                                if (selectedMovie) {
+                                    }
+                                    selectedCharacter = option;
+                                } else if (optionType === 'movie') {
+                                    if (selectedMovie) {
                                     selectedMovie.classList.remove('selected');
                                     selectedMovie.style.border = 'none';
-                                }
+                                    }
                                     selectedMovie = option;
-                            }
+                                }
 
-                            options.forEach(otherOption => {
-                                otherOption.removeEventListener('click', handleOptionClick);
-                                otherOption.style.pointerEvents = 'none';
-                            });
-
-                            if (isCorrect) {
-                                option.classList.add('selected');
-                                option.style.border = '2px solid green';
-                            } else {
-                                option.style.border = '2px solid red';
-                            }
-
-                            options.forEach(otherOption => {
-                               if (otherOption !== option) {
-                                     otherOption.style.pointerEvents = 'auto';
-                                   }
+                                options.forEach(otherOption => {
+                                    otherOption.removeEventListener('click', handleOptionClick);
+                                    otherOption.style.pointerEvents = 'none';
                                 });
-                            }
+
+                                if (isCorrect) {
+                                    option.classList.add('selected');
+                                    option.style.border = '2px solid green';
+                                    updateScore(0.5); // Update score by 0.5 for correct answer
+                                } else {
+                                    option.style.border = '2px solid red';
+                                }
+
+                                options.forEach(otherOption => {
+                                    if (otherOption !== option) {
+                                    otherOption.style.pointerEvents = 'auto';
+                                    }
+                                });
+                                }
+
+                                function updateScore(points) {
+                                const scoreElement = document.getElementById('score');
+                                const currentScore = parseFloat(scoreElement.textContent.split(':')[1].trim());
+                                const newScore = currentScore + points;
+                                scoreElement.textContent = `Score: ${newScore.toFixed(1)}`;
+                                }
+
 
                             function handleOptionClick() {
                                 const optionType = this.parentElement.id === 'charOptions' ? 'character' : 'movie';

@@ -26,6 +26,10 @@
     width: 100vw;
   }
 
+#score {
+    color: white;
+    font-size: 32px;
+}
 
 .quote {
     color: gold;
