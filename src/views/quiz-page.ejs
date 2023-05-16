@@ -142,42 +142,57 @@
                         });
 
 
-                    // Fetch characters
-                    fetch(charUrl, {
-                        headers: {
-                        Authorization: `Bearer ${bearerToken}`
-                        }
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                        const charNames = data.docs.slice(0, 3).map(char => char.name);
-                        const charOptions = document.querySelectorAll('#option1, #option2, #option3');
-                        const correctOptionIndex = Math.floor(Math.random() * 3) + 1;
-                        const correctOption = document.querySelector(`#option${correctOptionIndex}`);
-                        correctOption.textContent = charNames[correctOptionIndex - 1];
-                        charOptions.forEach((option, index) => {
-                            option.textContent = charNames[index];
-                            option.addEventListener('click', () => checkAnswer(option, false));
+                // Fetch random characters
+                    fetch(`${charUrl}`, {
+                            headers: {
+                            Authorization: `Bearer ${bearerToken}`
+                            }
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                            const charNames = data.docs.map(char => char.name);
+                            const charOptions = document.querySelectorAll('#option1, #option2, #option3');
+                            const correctOptionIndex = Math.floor(Math.random() * 3);
+                            const correctOption = charOptions[correctOptionIndex];
+                            correctOption.textContent = charNames[correctOptionIndex];
+                            charOptions.forEach((option, index) => {
+                                if (index !== correctOptionIndex) {
+                                let randomIndex = Math.floor(Math.random() * (charNames.length - 1));
+                                if (randomIndex >= correctOptionIndex) {
+                                    randomIndex++;
+                                }
+                                option.textContent = charNames[randomIndex];
+                                }
+                                option.addEventListener('click', () => checkAnswer(option, false));
                             });
-                        });
+                            })
+                            .catch(error => {
+                            console.error('Error:', error);
+                            });
 
-                    // Fetch movies
-                    fetch(movieUrl, {
-                        headers: {
-                        Authorization: `Bearer ${bearerToken}`
-                        }
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                        const movieNames = data.docs.slice(0, 3).map(movie => movie.name);
-                        const movieOptions = document.querySelectorAll('#option4, #option5, #option6');
-                        const correctMovieOptionIndex = Math.floor(Math.random() * 3) + 1;
-                        const correctMovieOption = document.querySelector(`#option${correctMovieOptionIndex}`);
-                        correctMovieOption.textContent = movieNames[correctMovieOptionIndex - 1];
-                        movieOptions.forEach((option, index) => {
-                            option.textContent = movieNames[index];
-                            option.addEventListener('click', () => checkAnswer(option, false));
-                            });
+                            // Fetch random movies
+                            fetch(`${movieUrl}`, {
+                                headers: {
+                                Authorization: `Bearer ${bearerToken}`
+                                }
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                const movieNames = data.docs.map(movie => movie.name);
+                                const movieOptions = document.querySelectorAll('#option4, #option5, #option6');
+                                const correctMovieOptionIndex = Math.floor(Math.random() * 3);
+                                const correctMovieOption = movieOptions[correctMovieOptionIndex];
+                                correctMovieOption.textContent = movieNames[correctMovieOptionIndex];
+                                movieOptions.forEach((option, index) => {
+                                    if (index !== correctMovieOptionIndex) {
+                                    let randomIndex = Math.floor(Math.random() * (movieNames.length - 1));
+                                    if (randomIndex >= correctMovieOptionIndex) {
+                                        randomIndex++;
+                                    }
+                                    option.textContent = movieNames[randomIndex];
+                                    }
+                                    option.addEventListener('click', () => checkAnswer(option, false));
+                                });
                         });
                     }
 
