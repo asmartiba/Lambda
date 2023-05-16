@@ -240,7 +240,7 @@
                                 if (isCorrect) {
                                     option.classList.add('selected');
                                     option.style.border = '2px solid green';
-                                    updateScore(0.5); // Update score by 0.5 for correct answer
+                                    updateScore(0.5); 
                                 } else {
                                     option.style.border = '2px solid red';
                                 }
@@ -253,10 +253,10 @@
                                 }
 
                                 function updateScore(points) {
-                                const scoreElement = document.getElementById('score');
-                                const currentScore = parseFloat(scoreElement.textContent.split(':')[1].trim());
-                                const newScore = currentScore + points;
-                                scoreElement.textContent = `Score: ${newScore.toFixed(1)}`;
+                                    const scoreElement = document.getElementById('score');
+                                    const currentScore = parseFloat(scoreElement.textContent.split(':')[1].trim());
+                                    const newScore = currentScore + points;
+                                    scoreElement.textContent = `Score: ${newScore.toFixed(1)}`;
                                 }
 
 
