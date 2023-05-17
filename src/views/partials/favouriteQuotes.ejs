@@ -1,0 +1,46 @@
+<% favouriteQuotes.forEach((quote) => { %>
+  <li class="fav_list02">
+    <span class="quoteText"><%= quote.quote %></span>
+    <span class="authorText">- <%= quote.character %></span>
+    <button class="clearButton">Clear</button>
+  </li>
+<% }); %>
+
+
+<% const favouritesContainer = document.getElementById('favourites');
+const favouriteQuotes = JSON.parse(localStorage.getItem('favouriteQuotes')) || [];
+
+const ul = document.createElement('ul');
+ul.classList.add('fav_list');
+
+favouriteQuotes.forEach((quote) => {
+  const li = document.createElement('li');
+  li.classList.add('fav_list02');
+  const quoteText = document.createElement('span');
+  quoteText.textContent = quote;
+  quoteText.classList.add('quoteText');
+
+  const authorText = document.createElement('span');
+  authorText.textContent = '- ' + quote.character;
+  authorText.classList.add('authorText');
+
+  const clearButton = document.createElement('button');
+  clearButton.textContent = 'Clear';
+  clearButton.addEventListener('click', () => {
+    const index = favouriteQuotes.indexOf(quote);
+    if (index > -1) {
+      favouriteQuotes.splice(index, 1);
+      localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
+      ul.removeChild(li);
+    }
+  });
+
+  li.appendChild(quoteText);
+  li.appendChild(authorText);
+  li.appendChild(clearButton);
+  ul.appendChild(li);
+});
+
+favouritesContainer.appendChild(ul);
+favouritesContainer.appendChild(clearButton);
+%>

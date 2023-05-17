@@ -27,8 +27,8 @@
                     <div id="quoteContainer">
                         <p id="quote" class="quote"></p>
                         <div class="flexrow">
-                            <button id="addToFavourite">Favourite</button>
-                            <button id="addToBlacklist">BlackList</button>
+                            <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
+                            <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
                         </div>
                     </div>
 
@@ -83,13 +83,65 @@
             }
 
             function addToBlacklist() {
+            
                 const quote = document.getElementById('quote').textContent;
-                let blacklistQuotes = JSON.parse(localStorage.getItem('blacklistQuotes')) || [];
-                blacklistQuotes.push(quote);
-                localStorage.setItem('blacklistQuotes', JSON.stringify(blacklistQuotes));
-                console.log('added to blacklist');
-                document.getElementById('addToBlacklist').style.backgroundColor = 'black';
-            }
+
+                    // Popup
+                    const popup = document.createElement('div');
+                    popup.className = 'popup';
+
+                    const closeButton = document.createElement('button');
+                    closeButton.innerHTML = 'x';
+                    closeButton.className = 'closeButton';
+                    closeButton.addEventListener('click', closePopup);
+                    popup.appendChild(closeButton);
+
+                    const heading = document.createElement('h2');
+                    heading.textContent = 'Type a reason:';
+                    popup.appendChild(heading);
+
+                    const reasonInput = document.createElement('input');
+                    reasonInput.type = 'text';
+                    reasonInput.className = 'popupInput';
+                    reasonInput.id = 'blacklistReason';
+                    popup.appendChild(reasonInput);
+
+                    const buttonContainer = document.createElement('div');
+                    buttonContainer.className = 'buttonContainer';
+
+                    const saveButton = document.createElement('button');
+                    saveButton.textContent = 'Save';
+                    saveButton.className = 'btn';
+                    saveButton.addEventListener('click', saveBlacklist);
+                    buttonContainer.appendChild(saveButton);
+
+                    const cancelButton = document.createElement('button');
+                    cancelButton.textContent = 'Cancel';
+                    cancelButton.className = 'btn';
+                    cancelButton.addEventListener('click', closePopup);
+                    buttonContainer.appendChild(cancelButton);
+
+                    popup.appendChild(buttonContainer);
+                    document.body.appendChild(popup);
+
+                    function closePopup() {
+                        document.body.removeChild(popup);
+                    }
+
+                    // adds to local storage, this one we can change to database too 
+
+                    function saveBlacklist() {
+                        const reason = reasonInput.value;
+                        let blacklistQuotes = JSON.parse(localStorage.getItem('blacklistQuotes')) || [];
+                        blacklistQuotes.push({ quote, reason });
+                        localStorage.setItem('blacklistQuotes', JSON.stringify(blacklistQuotes));
+                        console.log('added to blacklist with reason:', reason);
+                        document.getElementById('addToBlacklist').style.backgroundColor = 'black';
+                        closePopup();
+                    }
+                }
+
+
 
             function getNewQuote() {
 
@@ -275,11 +327,7 @@
                                 option.addEventListener('click', handleOptionClick);
                             });
 
-
-
                     document.getElementById('newQuote').addEventListener('click', getNewQuote);
-                    document.getElementById('addToFavourite').addEventListener('click', addToFavourite);
-                    document.getElementById('addToBlacklist').addEventListener('click', addToBlacklist);
 
                     getNewQuote();
 

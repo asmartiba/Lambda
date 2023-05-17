@@ -1,0 +1,32 @@
+<% blacklistQuotes.forEach((entry) => { %>
+    <li class="blacklist_entry">
+      <span class="quoteText"><%= entry.quote %></span>
+      <span class="reasonText">Reason: <%= entry.reason %></span>
+    </li>
+  <% }); %>  
+
+<% const blacklistContainer = document.getElementById('blacklist');
+const blacklistQuotes = JSON.parse(localStorage.getItem('blacklistQuotes')) || [];
+
+const ul = document.createElement('ul');
+ul.classList.add('blacklist_list');
+
+blacklistQuotes.forEach((entry) => {
+  const li = document.createElement('li');
+  li.classList.add('blacklist_entry');
+
+  const quoteText = document.createElement('span');
+  quoteText.textContent = entry.quote;
+  quoteText.classList.add('quoteText');
+
+  const reasonText = document.createElement('span');
+  reasonText.textContent = `Reason: ${entry.reason}`;
+  reasonText.classList.add('reasonText');
+
+  li.appendChild(quoteText);
+  li.appendChild(reasonText);
+  ul.appendChild(li);
+});
+
+blacklistContainer.appendChild(ul);
+%>

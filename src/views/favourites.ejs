@@ -24,100 +24,88 @@
                 <div class="linear"></div>
             </div>
 
-              <div class="favourites" id="favourites">
-
-              </div>
+              <div class="favourites" id="favourites"></div>
 
             <div class="linearmain">
                 <div class="linear"></div>
                     <h2 class="lineartitle">Blacklisted</h2>
                 <div class="linear"></div>
              </div>
-
              
-             <div class="blacklist" id="blacklist">
-
-             </div>
+             <div class="blacklist" id="blacklist"></div>
 
               <a href="/home"><button class="btn2">← Back </button></a>
               <div class="emptyspan"></div>
          </div>
          <script>
 
-            const favouritesContainer = document.getElementById('favourites');
-            const favouriteQuotes = JSON.parse(localStorage.getItem('favouriteQuotes')) || [];
+            function fetchFavourites() {
+                    const favouritesContainer = document.getElementById('favourites');
+                    const favouriteQuotes = JSON.parse(localStorage.getItem('favouriteQuotes')) || [];
 
-            const ul = document.createElement('ul');
-            ul.classList.add('fav_list');
+                    const ul = document.createElement('ul');
+                    ul.classList.add('fav_list');
 
-            favouriteQuotes.forEach((quote) => {
-            const li = document.createElement('li');
-            li.classList.add('fav_list02');
-            const quoteText = document.createElement('span');
-            quoteText.textContent = quote;
-            quoteText.classList.add('quoteText');
+                    favouriteQuotes.forEach((quote) => {
+                    const li = document.createElement('li');
+                    li.classList.add('fav_list02');
+                    const quoteText = document.createElement('span');
+                    quoteText.textContent = quote;
+                    quoteText.classList.add('quoteText');
 
-            const authorText = document.createElement('span');
-            authorText.textContent = '- ' + quote.character;
-            authorText.classList.add('authorText');
-            
-            const clearButton = document.createElement('button');
-            clearButton.textContent = 'Clear';
-            clearButton.addEventListener('click', () => {
-                const index = favouriteQuotes.indexOf(quote);
-                if (index > -1) {
-                favouriteQuotes.splice(index, 1);
-                localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
-                ul.removeChild(li);
+                    const authorText = document.createElement('span');
+                    authorText.textContent = '- ' + quote.character;
+                    authorText.classList.add('authorText');
+                    
+                        const clearButton = document.createElement('button');
+                        clearButton.textContent = 'Clear';
+                        clearButton.addEventListener('click', () => {
+                            const index = favouriteQuotes.indexOf(quote);
+                            if (index > -1) {
+                            favouriteQuotes.splice(index, 1);
+                            localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
+                            ul.removeChild(li);
+                            }
+                        });
+                    
+                    li.appendChild(quoteText);
+                    li.appendChild(authorText);
+                    li.appendChild(clearButton);
+                    ul.appendChild(li);
+                    });
+
+                    favouritesContainer.appendChild(ul);
+            }
+
+            function fetchBlacklist() {
+
+                    console.log("Fetching blacklist...");
+                    const blacklistContainer = document.getElementById('blacklist');
+                    const blacklistQuotes = JSON.parse(localStorage.getItem('blacklistQuotes')) || [];
+
+                    console.log("Blacklist quotes:", blacklistQuotes);
+
+                    const ul02 = document.createElement('ul');
+                    ul02.classList.add('blacklist_list');
+
+                    blacklistQuotes.forEach((quote) => {
+                        const li02 = document.createElement('li');
+                        li02.classList.add('blacklist_entry');
+                        const quoteText = document.createElement('span');
+                        quoteText.textContent = quote;
+                        quoteText.classList.add('quoteText');
+
+
+                        li02.appendChild(quoteText);
+                        ul02.appendChild(li02);
+                    });
+
+                    blacklistContainer.appendChild(ul02);
+                    
                 }
-            });
-            
-            li.appendChild(quoteText);
-            li.appendChild(authorText);
-            li.appendChild(clearButton);
-            ul.appendChild(li);
-            });
 
-
-            favouritesContainer.appendChild(ul);
-            favouritesContainer.appendChild(clearButton);
-
-            //blacklist
-            
-            const BlacklistContainer = document.getElementById('blacklist');
-            const blacklistQuotes = JSON.parse(localStorage.getItem('blacklistQuotes')) || [];
-
-            const ul02 = document.createElement('ul');
-            ul02.classList.add('fav_list');
-
-            blacklistQuotes.forEach((quote) => {
-            const li = document.createElement('li');
-            li.classList.add('fav_list02');
-            const quoteText = document.createElement('span');
-            quoteText.textContent = quote;
-            quoteText.classList.add('quoteText');
-
-            
-            const clearButton = document.createElement('button');
-            clearButton.textContent = 'Clear';
-            clearButton.addEventListener('click', () => {
-                const index = blacklistQuotes.indexOf(quote);
-                if (index > -1) {
-                blacklistQuotes.splice(index, 1);
-                localStorage.setItem('blacklistQuotes', JSON.stringify(blacklistQuotes));
-                ul02.removeChild(li);   
-                }
-            });
-            
-            li.appendChild(quoteText);
-            li.appendChild(clearButton);
-            ul02.appendChild(li);
-            });
-
-
-            BlacklistContainer.appendChild(ul02);
-            BlacklistContainer.appendChild(clearButton);
-
+            document.addEventListener('DOMContentLoaded', fetchFavourites);
+            document.addEventListener('DOMContentLoaded', fetchBlacklist);
           </script>
     </main>
     <%- include('partials/footer.ejs') %>

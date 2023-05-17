@@ -66,6 +66,51 @@
     display: none;
   }
 
+
+.blacklist_list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: white;
+    overflow-y: scroll;
+    margin: 50px;
+    font-family: 'Cookie';
+    font-size: 1.4em;
+}
+
+.blacklist_entry {
+    width: 80%;
+    margin: 20px;
+    border-bottom: 2px solid black;
+    padding: 10px;
+    position: relative;
+    font-size: 1.5em;
+}
+
+.blacklist_entry button {
+    position: absolute;
+    right: 10px;
+    bottom: 50px;
+    height: 30px;
+    border-radius: 15px;
+    width: 115px;
+    background-color: #1d1d1d;
+    border: 1px solid gold;
+    color: #66cfb9;
+    cursor: pointer;
+}
+
+.blacklist_entry span {
+    display: block;
+}
+
+.blacklist_list::-webkit-scrollbar {
+    display: none;
+  }
+
+
   @media only screen and (max-width: 1567px) {
     .favourites, .blacklist {
         width: 100vw;
