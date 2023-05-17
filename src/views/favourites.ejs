@@ -58,6 +58,8 @@
                             quoteText.textContent = quote;
                             quoteText.classList.add('quoteText');
 
+                            console.log(quote);
+
                             const authorText = document.createElement('span');
                             authorText.textContent = '- ' + quote.character;
                             authorText.classList.add('authorText');
@@ -69,9 +71,9 @@
                         clearButton.addEventListener('click', () => {
                             const index = favouriteQuotes.indexOf(quote);
                             if (index > -1) {
-                            favouriteQuotes.splice(index, 1);
-                            localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
-                            ul.removeChild(li);
+                                favouriteQuotes.splice(index, 1);
+                                localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
+                                ul.removeChild(li);
                             }
                         });
                     

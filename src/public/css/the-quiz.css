@@ -61,6 +61,13 @@
     align-items: center;
 }
 
+.roundCount {
+    color: rgb(237, 165, 102);
+    font-size: 36px;
+    margin-top:35px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
 #addToBlacklist, #addToFavourite {
     height: 50px;
     width: 160px;
@@ -146,8 +153,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30vw;
-    height: 170px;
+    width: 40vw;
+    height: 200px;
     border-radius: 10px;
     padding: 20px;
     display: flex;
@@ -156,7 +163,7 @@
     align-items: center;
     text-align: center;
     color: white;
-    background-color: rgba(26, 26, 26, 0.712);
+    background-color: rgba(26, 26, 26, 0.827);
     border: 3px solid #ccc;
   }
 
@@ -168,15 +175,20 @@
   
   .closeButton {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    background: none;
+    color: white;
+    border: none;
   }
 
   .popupInput {
     width: 25vw;
     height: 70px;
     border-radius: 24px;
-    margin-top: 15px;
+    margin-top: 25px;
+    margin-bottom: 25px;
   }
 
 
@@ -197,19 +209,19 @@
         align-self: center;
     }
     .quoteBox {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 70vw;
+        margin-top: 50px;
     }
     .option {
         font-size: 24px;
     }
     #newQuote {
-        width: 30vw;
-        margin-top: 10px;
-        margin-bottom: 15px;
+        width: 18vw;
     }
     #reset {
-        margin-top: 15px;
-        width: 22vw;
+        width: 18vw;
     }
     .quoteBox h2 {
         width: 22vw;
@@ -245,10 +257,8 @@
     }
     #newQuote {
         width: 50vw;
-        margin-top: 10px;
     }
     #reset {
-        margin-top: 15px;
         width: 33vw;
     }
     .quoteBox h2 {

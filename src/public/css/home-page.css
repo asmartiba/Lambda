@@ -402,7 +402,6 @@ header {
     background: transparent;
     border: 1px solid gold;
     color: gold;
-    margin-top: 15px;
   }
 
   .btn1 {
@@ -422,7 +421,6 @@ header {
     background: transparent;
     border: 2px solid rgb(157, 219, 106);
     color:rgb(157, 219, 106);
-    margin-top: 15px;
     font-size: 18px;
     margin-bottom: 10px;
   }
@@ -435,7 +433,6 @@ header {
     background: transparent;
     border: 2px solid rgba(146, 55, 49, 0.841);
     color:rgba(216, 141, 107, 0.841);
-    margin-top: 15px;
     font-size: 18px;
   }
 
