@@ -153,8 +153,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30vw;
-    height: 170px;
+    width: 40vw;
+    height: 200px;
     border-radius: 10px;
     padding: 20px;
     display: flex;
@@ -163,7 +163,7 @@
     align-items: center;
     text-align: center;
     color: white;
-    background-color: rgba(26, 26, 26, 0.712);
+    background-color: rgba(26, 26, 26, 0.827);
     border: 3px solid #ccc;
   }
 
@@ -175,15 +175,20 @@
   
   .closeButton {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    background: none;
+    color: white;
+    border: none;
   }
 
   .popupInput {
     width: 25vw;
     height: 70px;
     border-radius: 24px;
-    margin-top: 15px;
+    margin-top: 25px;
+    margin-bottom: 25px;
   }
 
 

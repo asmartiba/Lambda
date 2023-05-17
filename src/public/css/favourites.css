@@ -12,7 +12,7 @@
     border-radius: 30vh;
     margin-bottom: 80px;
     border-top: 2px solid gold;
-    background: linear-gradient(to bottom, rgba(75, 10, 10, 0.774),  rgba(128, 72, 39, 0.425), transparent);
+    background: linear-gradient(to bottom, rgba(53, 5, 5, 0.911),  rgba(75, 35, 12, 0.763), transparent);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,11 +20,12 @@
 }
 
 .quoteText {
-    width: 70%;
+    width: 90vw;
 }
 
 .reasonText {
-    width: 70%;
+    width: 90vw;
+    color: rgb(204, 229, 178);
 }
 
 .fav_list {
@@ -38,10 +39,12 @@
     margin: 50px;
     font-family: 'Cookie';
     font-size: 1.4em;
+    display: flex;
+    align-items: center;
 }
 
 .fav_list02 {
-    width: 80%;
+    width: 100%;
     margin: 20px;
     border-bottom: 2px solid black;
     padding: 10px;
@@ -52,7 +55,6 @@
 .fav_list02 button {
     position: absolute;
     right: 10px;
-    bottom: 50px;
     height: 30px;
     border-radius: 15px;
     width: 115px;
@@ -64,6 +66,8 @@
 
 .fav_list02 span {
     display: block;
+    margin-right: 10px;
+    flex-grow: 1; 
 }
 
 .fav_list::-webkit-scrollbar {
