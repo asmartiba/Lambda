@@ -197,19 +197,19 @@
         align-self: center;
     }
     .quoteBox {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 70vw;
+        margin-top: 50px;
     }
     .option {
         font-size: 24px;
     }
     #newQuote {
-        width: 30vw;
-        margin-top: 10px;
-        margin-bottom: 15px;
+        width: 18vw;
     }
     #reset {
-        margin-top: 15px;
-        width: 22vw;
+        width: 18vw;
     }
     .quoteBox h2 {
         width: 22vw;
@@ -245,10 +245,8 @@
     }
     #newQuote {
         width: 50vw;
-        margin-top: 10px;
     }
     #reset {
-        margin-top: 15px;
         width: 33vw;
     }
     .quoteBox h2 {
