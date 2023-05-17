@@ -61,6 +61,13 @@
     align-items: center;
 }
 
+.roundCount {
+    color: rgb(237, 165, 102);
+    font-size: 36px;
+    margin-top:35px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
 #addToBlacklist, #addToFavourite {
     height: 50px;
     width: 160px;

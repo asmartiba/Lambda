@@ -57,7 +57,7 @@ body {
 
 .select__menu {
   width: 75vw;
-  height: 85vh;
+  height: 96vh;
   background: linear-gradient(#4e715b79, #1f111695);
   border: rgb(230, 138, 78) 2px solid;
   display: flex;

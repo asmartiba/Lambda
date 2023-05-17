@@ -24,7 +24,8 @@
 
             <div class="the_quiz" id="the_quiz">
 
-                    <h2>Round: <span id="round">1</span></h2>
+                    <h2 class="roundCount">Round <span id="round">1</span>/10</h2>
+
                     <div id="quoteContainer">
                         <p id="quote" class="quote"></p>
                         <div class="flexrow">
@@ -69,7 +70,7 @@
 
                 let selectedCharacter = null;
                 let selectedMovie = null;
-                let round = 1;
+                let round = 0;
                 let score = 0;
 
                 //functions
