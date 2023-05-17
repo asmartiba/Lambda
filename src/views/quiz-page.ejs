@@ -92,7 +92,11 @@
             }
 
             function getNewQuote() {
-                    // Reset border styling
+
+                    // Reset border and button styling
+
+                    document.getElementById('addToFavourite').style.background = '#011f0197'; 
+                    document.getElementById('addToBlacklist').style.background = '#25252583'; 
 
                     const options = document.querySelectorAll('.option');
                     options.forEach(option => {
