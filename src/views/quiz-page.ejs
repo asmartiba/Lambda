@@ -24,6 +24,8 @@
 
             <div class="the_quiz" id="the_quiz">
 
+                    <h2 class="roundCount">Round <span id="round">1</span>/10</h2>
+
                     <div id="quoteContainer">
                         <p id="quote" class="quote"></p>
                         <div class="flexrow">
@@ -68,7 +70,7 @@
 
                 let selectedCharacter = null;
                 let selectedMovie = null;
-                let round = 1;
+                let round = 0;
                 let score = 0;
 
                 //functions
@@ -157,6 +159,10 @@
                     options.forEach(option => {
                         option.style.border = 'none';
                     });
+
+                    // round increment 
+                    round++;
+                    document.getElementById('round').textContent = round;
 
                     // Fetch quote
 
@@ -331,7 +337,7 @@
                             });
 
                     document.getElementById('newQuote').addEventListener('click', getNewQuote);
-
+                    document.getElementById('round').textContent = round;
                     getNewQuote();
 
             </script>

@@ -57,7 +57,7 @@ body {
 
 .select__menu {
   width: 75vw;
-  height: 85vh;
+  height: 96vh;
   background: linear-gradient(#4e715b79, #1f111695);
   border: rgb(230, 138, 78) 2px solid;
   display: flex;
@@ -186,7 +186,6 @@ justify-content: center;
   border: 1px solid gold;
   color: gold;
   background-color: #4e0404;
-  margin-top: 10px;
 }
 
 .btn4:hover {
