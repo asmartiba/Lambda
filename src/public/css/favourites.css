@@ -23,6 +23,10 @@
     width: 70%;
 }
 
+.reasonText {
+    width: 70%;
+}
+
 .fav_list {
     list-style: none;
     padding: 0;
@@ -80,7 +84,7 @@
     font-size: 1.4em;
 }
 
-.blacklist_entry {
+.blacklist02 {
     width: 80%;
     margin: 20px;
     border-bottom: 2px solid black;
@@ -89,7 +93,7 @@
     font-size: 1.5em;
 }
 
-.blacklist_entry button {
+.blacklist02 button {
     position: absolute;
     right: 10px;
     bottom: 50px;
@@ -102,7 +106,7 @@
     cursor: pointer;
 }
 
-.blacklist_entry span {
+.blacklist02 span {
     display: block;
 }
 

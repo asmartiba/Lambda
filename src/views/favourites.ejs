@@ -47,16 +47,19 @@
                     ul.classList.add('fav_list');
 
                     favouriteQuotes.forEach((quote) => {
-                    const li = document.createElement('li');
-                    li.classList.add('fav_list02');
-                    const quoteText = document.createElement('span');
-                    quoteText.textContent = quote;
-                    quoteText.classList.add('quoteText');
+                            const li = document.createElement('li');
+                            li.classList.add('fav_list02');
 
-                    const authorText = document.createElement('span');
-                    authorText.textContent = '- ' + quote.character;
-                    authorText.classList.add('authorText');
+                            const quoteText = document.createElement('span');
+                            quoteText.textContent = quote;
+                            quoteText.classList.add('quoteText');
+
+                            const authorText = document.createElement('span');
+                            authorText.textContent = '- ' + quote.character;
+                            authorText.classList.add('authorText');
                     
+                    // clear button 
+
                         const clearButton = document.createElement('button');
                         clearButton.textContent = 'Clear';
                         clearButton.addEventListener('click', () => {
@@ -71,6 +74,7 @@
                     li.appendChild(quoteText);
                     li.appendChild(authorText);
                     li.appendChild(clearButton);
+                    
                     ul.appendChild(li);
                     });
 
@@ -85,24 +89,46 @@
 
                     console.log("Blacklist quotes:", blacklistQuotes);
 
-                    const ul02 = document.createElement('ul');
-                    ul02.classList.add('blacklist_list');
+                    const ul = document.createElement('ul');
+                    ul.classList.add('blacklist_list');
 
-                    blacklistQuotes.forEach((quote) => {
-                        const li02 = document.createElement('li');
-                        li02.classList.add('blacklist_entry');
-                        const quoteText = document.createElement('span');
-                        quoteText.textContent = quote;
-                        quoteText.classList.add('quoteText');
+                    blacklistQuotes.forEach((blacklistedQuote) => {
 
+                        if (blacklistedQuote !== null) {
 
-                        li02.appendChild(quoteText);
-                        ul02.appendChild(li02);
+                            const li = document.createElement('li');
+                            li.classList.add('blacklist02');
+
+                            const quoteText = document.createElement('span');
+                            quoteText.textContent = blacklistedQuote.quote;
+                            quoteText.classList.add('quoteText');
+
+                            const reason = document.createElement('span');
+                            reason.textContent = blacklistedQuote.reason;
+                            reason.classList.add('reasonText');
+
+                            const clearButton = document.createElement('button');
+                            clearButton.textContent = 'Clear';
+                            clearButton.addEventListener('click', () => {
+                                const index = blacklistQuotes.indexOf(blacklistedQuote);
+                                if (index > -1) {
+                                    blacklistQuotes.splice(index, 1);
+                                    localStorage.setItem('blacklistQuotes', JSON.stringify(blacklistQuotes));
+                                    ul.removeChild(li);
+                                }
+                            });
+
+                            li.appendChild(clearButton);
+                            li.appendChild(quoteText);
+                            li.appendChild(reason);
+                            ul.appendChild(li);
+                        }
                     });
 
-                    blacklistContainer.appendChild(ul02);
-                    
+                    blacklistContainer.appendChild(ul);
                 }
+
+
 
             document.addEventListener('DOMContentLoaded', fetchFavourites);
             document.addEventListener('DOMContentLoaded', fetchBlacklist);
