@@ -7,9 +7,8 @@
 }
 
 .the_quiz {
-    width: 90vw;
+    width: 100vw;
     height: 70vh;
-    border-radius: 30vh;
     margin-bottom: 100px;
     border-top: 2px solid gold;
     background: linear-gradient(to bottom, rgba(75, 10, 10, 0.774),  rgba(128, 72, 39, 0.425), transparent);
@@ -35,7 +34,7 @@
     color: gold;
     font-size:42px;
     height: auto;
-    width:60vw;
+    width:80vw;
     height:150px;
     margin:20px;
     border-radius: 60px;
@@ -194,8 +193,8 @@
 
 @media only screen and (max-width: 1667px) {
     .the_quiz {
-        width: 90vw;
-        border-radius: 20%;
+        width: 100vw;
+        border-radius: 0;
         height: auto;
     }
     #quoteContainer {
@@ -203,7 +202,7 @@
     }
     .quote {
         margin-top: 30px;
-        width:60vw;
+        width:80vw;
         height: 25vh;
         text-align: center;
         align-self: center;
