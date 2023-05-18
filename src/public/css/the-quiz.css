@@ -6,6 +6,10 @@
   font-display: swap;
 }
 
+.invisible {
+    display: none;
+}
+
 .the_quiz {
     width: 100vw;
     height: 70vh;

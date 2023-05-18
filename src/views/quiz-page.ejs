@@ -28,6 +28,7 @@
 
                     <div id="quoteContainer">
                         <p id="quote" class="quote"></p>
+                        <p id="character" class="invisible"></p>
                         <div class="flexrow">
                             <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
                             <button id="addToBlacklist">Blacklist</button>
@@ -93,7 +94,23 @@
                         .then(data => {
                             const randomIndex = Math.floor(Math.random() * data.docs.length);
                             const dialog = data.docs[randomIndex].dialog;
-                            document.getElementById('quote').textContent = dialog;
+                            const characterId = data.docs[randomIndex].character;
+
+                        // Fetch character data
+                            fetch(`${charUrl}/${characterId}`, {
+                                headers: {
+                                    'Authorization': `Bearer ${bearerToken}`
+                                }
+                            })
+                            .then(response => response.json())
+                            .then(characterData => {
+                                const characterName = characterData.docs[0].name;
+                                document.getElementById('quote').textContent = dialog;
+                                document.getElementById('character').textContent = characterName;
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
                         })
                         .catch(error => {
                             console.error('Error:', error);
@@ -101,18 +118,20 @@
                     }
 
                     function addToFavourite() {
-                        const quoteDialog = document.getElementById('quote').textContent;
+                    const quoteDialog = document.getElementById('quote').textContent;
+                    const characterName = document.getElementById('character').textContent;
 
-                        axios.post('/favourite', { dialog: quoteDialog })
-                            .then(response => {
-                                console.log('Added to favorites');
-                                console.log('check me', quoteDialog);
-                                document.getElementById('addToFavourite').style.background = '#5ebf45';
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
-                    }
+                    axios.post('/favourite', { dialog: quoteDialog, character: characterName })
+                        .then(response => {
+                            console.log('Added to favorites');
+                            console.log('Dialogue:', quoteDialog);
+                            console.log('Character:', characterName);
+                            document.getElementById('addToFavourite').style.background = '#5ebf45';
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                    });
+                }
 
 
                     document.getElementById('newQuote').addEventListener('click', getNewQuote);

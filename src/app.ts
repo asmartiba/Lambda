@@ -2,12 +2,25 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { Collection } from 'mongodb';
+import favourites from './favourites';
 
+
+// initialisation
 
 const {MongoClient} = require('mongodb');
-
 const uri: string = "mongodb+srv://asmartiba:1DZx58W3uFct3NC3@lambda.sfb8kon.mongodb.net/"
 const client = new MongoClient(uri, {useUnifiedTopology: true});
+
+const axios = require('axios');
+const app = express();
+app.use(bodyParser.json());
+
+app.set('views', path.join(__dirname,  'views'));
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// test
 
 const main = async () => {
   try {
@@ -22,16 +35,9 @@ const main = async () => {
   }
 }
 
-main();
+// main();
 
-const axios = require('axios');
-const app = express();
-app.use(bodyParser.json());
-
-app.set('views', path.join(__dirname,  'views'));
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+// router 
 
 app.get('/', (req, res) => {
   res.render('index', { title: 'Home' });
@@ -54,47 +60,10 @@ app.get('/home', (req, res) => {
 });
 
 
-// favourite page 
-
-interface Favourite {
-  quote: {
-    dialog: string;
-    character: string;
-  };
-}
-
-app.post('/favourite', async (req, res) => {
-  try {
-      const { dialog } = req.body;
-
-      if (typeof dialog !== 'string' || dialog === '') {
-          throw new Error('Invalid data');
-      }
-
-      await client.connect();
-      const db = client.db('LotrDB');
-      const collection = db.collection('favourites');
-
-      const quoteData = {
-          dialog: dialog
-      };
-
-      await collection.insertOne(quoteData);
-
-      res.sendStatus(200);
-  } catch (error) {
-      console.error('Error:', error);
-      res.sendStatus(500);
-  } finally {
-      await client.close();
-  }
-});
-
-
-
 app.get('/favourites', (req, res) => {
   res.render('favourites', {});
 });
+
 
 app.get('/book', async (req, res) => {
   try {
@@ -108,6 +77,7 @@ app.get('/book', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
 
 app.get('/character', async (req, res) => {
   try {
