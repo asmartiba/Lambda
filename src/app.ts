@@ -1,8 +1,5 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import path from 'path';
-import { Collection } from 'mongodb';
-import favourites from './favourites';
 
 
 // initialisation
@@ -13,11 +10,11 @@ const client = new MongoClient(uri, {useUnifiedTopology: true});
 
 const axios = require('axios');
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.set('views', path.join(__dirname,  'views'));
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // test
@@ -60,10 +57,62 @@ app.get('/home', (req, res) => {
 });
 
 
-app.get('/favourites', (req, res) => {
-  res.render('favourites', {});
+
+// FAVOURITES
+
+interface Favourite {
+  quote: {
+    dialog: string;
+    character: string;
+  };
+}
+
+app.post('/favouriteFetch', async (req, res) => {
+  try {
+    const { dialog, character } = req.body;
+
+    if (typeof dialog !== 'string' || dialog === '' || typeof character !== 'string' || character === '') {
+      throw new Error('Invalid data');
+    }
+
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('favourites');
+
+    const quoteData = {
+      dialog: dialog,
+      character: character
+    };
+
+    await collection.insertOne(quoteData);
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error:', error);
+    res.sendStatus(500);
+  } finally {
+    await client.close();
+  }
 });
 
+app.get('/favourites', async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('favourites');
+
+    const favorites = await collection.find().toArray();
+
+    res.render('favourites', { favorites });
+  } catch (error) {
+    console.error('Error:', error);
+    res.sendStatus(500);
+  } finally {
+    await client.close();
+  }
+});
+
+// BOOKS
 
 app.get('/book', async (req, res) => {
   try {
@@ -78,6 +127,7 @@ app.get('/book', async (req, res) => {
   }
 });
 
+// CHARACTERS
 
 app.get('/character', async (req, res) => {
   try {
@@ -91,6 +141,8 @@ app.get('/character', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+// MOVIES
 
 app.get('/movie', async (req, res) => {
   try {
