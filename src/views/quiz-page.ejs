@@ -30,7 +30,7 @@
                         <p id="quote" class="quote"></p>
                         <div class="flexrow">
                             <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
-                            <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
+                            <button id="addToBlacklist">Blacklist</button>
                         </div>
                     </div>
 
@@ -54,8 +54,9 @@
                             <button id="reset">Reset</button>
                         </div>
                     </div>
-
             </div>
+            
+            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
             <script>
 
@@ -75,264 +76,44 @@
 
                 //functions
 
-            function addToFavourite() {
-                const quote = document.getElementById('quote').textContent;
-                let favouriteQuotes = JSON.parse(localStorage.getItem('favouriteQuotes')) || [];
-                favouriteQuotes.push(quote);
-                localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
-                console.log('added to favourites');
-                document.getElementById('addToFavourite').style.background = '#5ebf45'; 
-            }
 
-            function addToBlacklist() {
-            
-                const quote = document.getElementById('quote').textContent;
 
-                    // Popup
-                    const popup = document.createElement('div');
-                    popup.className = 'popup';
+                function getNewQuote() {
+                        // round increment
+                        round++;
+                        document.getElementById('round').textContent = round;
 
-                    const closeButton = document.createElement('button');
-                    closeButton.innerHTML = 'x';
-                    closeButton.className = 'closeButton';
-                    closeButton.addEventListener('click', closePopup);
-                    popup.appendChild(closeButton);
-
-                    const heading = document.createElement('h2');
-                    heading.textContent = 'Type a reason for blacklisting:';
-                    popup.appendChild(heading);
-
-                    const reasonInput = document.createElement('input');
-                    reasonInput.type = 'text';
-                    reasonInput.className = 'popupInput';
-                    reasonInput.id = 'blacklistReason';
-                    popup.appendChild(reasonInput);
-
-                    const buttonContainer = document.createElement('div');
-                    buttonContainer.className = 'buttonContainer';
-
-                    const saveButton = document.createElement('button');
-                    saveButton.textContent = 'Save';
-                    saveButton.className = 'btn';
-                    saveButton.addEventListener('click', saveBlacklist);
-                    buttonContainer.appendChild(saveButton);
-
-                    const cancelButton = document.createElement('button');
-                    cancelButton.textContent = 'Cancel';
-                    cancelButton.className = 'btn';
-                    cancelButton.addEventListener('click', closePopup);
-                    buttonContainer.appendChild(cancelButton);
-
-                    popup.appendChild(buttonContainer);
-                    document.body.appendChild(popup);
-
-                    function closePopup() {
-                        document.body.removeChild(popup);
-                    }
-
-                    // adds to local storage, this one we can change to database too 
-
-                    function saveBlacklist() {
-                        const reason = reasonInput.value;
-                        const quote = document.getElementById('quote').textContent;
-
-                        let blacklistQuotes = JSON.parse(localStorage.getItem('blacklistQuotes')) || [];
-                        blacklistQuotes.push({ quote, reason });
-                        localStorage.setItem('blacklistQuotes', JSON.stringify(blacklistQuotes));
-
-                        console.log('Added to blacklist with reason:', reason);
-                        document.getElementById('addToBlacklist').style.backgroundColor = 'black';
-                        closePopup();
-                    }
-                }
-
-            function getNewQuote() {
-
-                    // Reset border and button styling
-
-                    document.getElementById('addToFavourite').style.background = '#011f0197'; 
-                    document.getElementById('addToBlacklist').style.background = '#25252583'; 
-
-                    const options = document.querySelectorAll('.option');
-                    options.forEach(option => {
-                        option.style.border = 'none';
-                    });
-
-                    // round increment 
-                    round++;
-                    document.getElementById('round').textContent = round;
-
-                    // Fetch quote
-
-                    fetch(quote, {
-                        headers: {
-                        'Authorization': `Bearer ${bearerToken}`
-                        }
-                    })
+                        // Fetch quote
+                        fetch(quote, {
+                            headers: {
+                                'Authorization': `Bearer ${bearerToken}`
+                            }
+                        })
                         .then(response => response.json())
                         .then(data => {
                             const randomIndex = Math.floor(Math.random() * data.docs.length);
-                            const quote = data.docs[randomIndex].dialog;
-                            const characterId = data.docs[randomIndex].character;
-                            const movieId = data.docs[randomIndex].movie;
-                            document.getElementById('quote').innerHTML = quote;
-
-                        // Fetch correct character
-
-                        fetch(`${charUrl}/${characterId}`, {
-                                headers: {
-                                Authorization: `Bearer ${bearerToken}`
-                                }
-                            })
-                        .then(response => response.json())
-                        .then(data => {
-                            const characterName = data.docs[0].name;
-                            const correctOptionIndex = Math.floor(Math.random() * 3) + 1;
-                            const correctOption = document.querySelector(`#charOption${correctOptionIndex}`);
-                            correctOption.textContent = characterName;
-                            correctOption.addEventListener('click', () => checkAnswer(correctOption, true, 'character'));
+                            const dialog = data.docs[randomIndex].dialog;
+                            document.getElementById('quote').textContent = dialog;
                         })
                         .catch(error => {
-                                console.error('Error:', error);
-                            });
+                            console.error('Error:', error);
+                        });
+                    }
 
-                            // Fetch correct movie
+                    function addToFavourite() {
+                        const quoteDialog = document.getElementById('quote').textContent;
 
-                            fetch(`${movieUrl}/${movieId}`, {
-                                headers: {
-                                Authorization: `Bearer ${bearerToken}`
-                                }
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                const movieName = data.docs[0].name;
-                                const correctOptionIndex = Math.floor(Math.random() * 3) + 4;
-                                const correctOption = document.querySelector(`#movieOption${correctOptionIndex}`);
-                                correctOption.textContent = movieName;
-                                correctOption.addEventListener('click', () => checkAnswer(correctOption, true, 'movie'));
+                        axios.post('/favourite', { dialog: quoteDialog })
+                            .then(response => {
+                                console.log('Added to favorites');
+                                console.log('check me', quoteDialog);
+                                document.getElementById('addToFavourite').style.background = '#5ebf45';
                             })
                             .catch(error => {
                                 console.error('Error:', error);
-                                });
-
-                            })
-
-                            // Fetch random characters
-
-                            fetch(`${charUrl}`, {
-                                headers: {
-                                Authorization: `Bearer ${bearerToken}`
-                                }
-                            })
-                                .then(response => response.json())
-                                .then(data => {
-                                    const charNames = data.docs.map(char => char.name);
-                                    const charOptions = document.querySelectorAll('#charOption1, #charOption2, #charOption3');
-                                    const correctOptionIndex = Math.floor(Math.random() * 3);
-                                    const correctOption = charOptions[correctOptionIndex];
-                                    correctOption.textContent = charNames[correctOptionIndex];
-
-                                charOptions.forEach((option, index) => {
-                                    if (index !== correctOptionIndex) {
-                                    let randomIndex = Math.floor(Math.random() * (charNames.length - 1));
-                                    if (randomIndex >= correctOptionIndex) {
-                                        randomIndex++;
-                                    }
-                                    option.textContent = charNames[randomIndex];
-                                    }
-                                       option.addEventListener('click', () => checkAnswer(option, false, 'character'));
-                                    });
-                                        }).catch(error => {
-                                        console.error('Error:', error);
-                                    });
-
-                           // Fetch random movies
-
-                            fetch(`${movieUrl}`, {
-                                headers: {
-                                Authorization: `Bearer ${bearerToken}`
-                                }
-                            })
-                                .then(response => response.json())
-                                .then(data => {
-                                    const movieNames = data.docs.map(movie => movie.name);
-                                    const movieOptions = document.querySelectorAll('#movieOption4, #movieOption5, #movieOption6');
-                                    const correctMovieOptionIndex = Math.floor(Math.random() * 3);
-                                    const correctMovieOption = movieOptions[correctMovieOptionIndex];
-                                    correctMovieOption.textContent = movieNames[correctMovieOptionIndex];
-
-                                movieOptions.forEach((option, index) => {
-                                    if (index !== correctMovieOptionIndex) {
-                                    let randomIndex = Math.floor(Math.random() * (movieNames.length - 1));
-                                    if (randomIndex >= correctMovieOptionIndex) {
-                                        randomIndex++;
-                                    }
-                                    option.textContent = movieNames[randomIndex];
-                                    }
-                                        option.addEventListener('click', () => checkAnswer(option, false, 'movie'));
-                                });
-                                    }).catch(error => {
-                                     console.error('Error:', error);
-                                });           
-}
-
-                            // Check answer
-
-                            function checkAnswer(option, isCorrect, optionType) {
-                                const options = document.querySelectorAll('.option');
-
-                                if (optionType === 'character') {
-                                    if (selectedCharacter) {
-                                    selectedCharacter.classList.remove('selected');
-                                    selectedCharacter.style.border = 'none';
-                                    }
-                                    selectedCharacter = option;
-                                } else if (optionType === 'movie') {
-                                    if (selectedMovie) {
-                                    selectedMovie.classList.remove('selected');
-                                    selectedMovie.style.border = 'none';
-                                    }
-                                    selectedMovie = option;
-                                }
-
-                                options.forEach(otherOption => {
-                                    otherOption.removeEventListener('click', handleOptionClick);
-                                    otherOption.style.pointerEvents = 'none';
-                                });
-
-                                if (isCorrect) {
-                                    option.classList.add('selected');
-                                    option.style.border = '2px solid green';
-                                    updateScore(0.5); // Update score by 0.5 for correct answer
-                                } else {
-                                    option.style.border = '2px solid red';
-                                }
-
-                                options.forEach(otherOption => {
-                                    if (otherOption !== option) {
-                                    otherOption.style.pointerEvents = 'auto';
-                                    }
-                                });
-                                }
-
-                                function updateScore(points) {
-                                const scoreElement = document.getElementById('score');
-                                const currentScore = parseFloat(scoreElement.textContent.split(':')[1].trim());
-                                const newScore = currentScore + points;
-                                scoreElement.textContent = `Score: ${newScore.toFixed(1)}`;
-                                }
-
-
-                            function handleOptionClick() {
-                                const optionType = this.parentElement.id === 'charOptions' ? 'character' : 'movie';
-                                checkAnswer(this, false, optionType);
-                            }
-
-                            const options = document.querySelectorAll('.option');
-
-                            options.forEach(option => {
-                                option.addEventListener('click', handleOptionClick);
                             });
+                    }
+
 
                     document.getElementById('newQuote').addEventListener('click', getNewQuote);
                     document.getElementById('round').textContent = round;
