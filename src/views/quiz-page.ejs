@@ -31,9 +31,20 @@
                         <p id="character" class="invisible"></p>
                         <div class="flexrow">
                             <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
-                            <button id="addToBlacklist">Blacklist</button>
+                            <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
                         </div>
                     </div>
+
+                    <div id="popupContainer" class="popup-container">
+                        <div class="popup">
+                          <h2>Add to Blacklist</h2>
+                          <textarea id="reasonInput" placeholder="Just give me a reason"></textarea>
+                          <div class="popup-buttons">
+                            <button onclick="addToBlacklist()">Add</button>
+                            <button onclick="hidePopup()">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
 
                     <div id="options" >
                         <div id="charOptions">
@@ -77,14 +88,18 @@
                 let round = 0;
                 let score = 0;
 
-                //functions
+                // Functions
 
 
 
                 function getNewQuote() {
-                        // round increment
+                        // Round increment
                         round++;
                         document.getElementById('round').textContent = round;
+
+                        // Reset button colors
+                        document.getElementById('addToFavourite').style.background = '#011f0197'; 
+                        document.getElementById('addToBlacklist').style.background = '#25252583'; 
 
                         // Fetch quote
                         fetch(quote, {
@@ -119,9 +134,12 @@
                         });
                     }
 
+                    // Favourites
+
                     function addToFavourite() {
                     const quoteDialog = document.getElementById('quote').textContent;
                     const characterName = document.getElementById('character').textContent;
+
 
                     axios.post('/favouriteFetch', { dialog: quoteDialog, character: characterName })
                         .then(response => {
@@ -135,7 +153,56 @@
                     });
                 }
 
-                    document.getElementById('newQuote').addEventListener('click', getNewQuote);
+                    // Blacklist 
+
+                    function showPopup() {
+                        const popupContainer = document.getElementById('popupContainer');
+                        popupContainer.style.display = 'block';
+                        }
+
+                        function hidePopup() {
+                        const popupContainer = document.getElementById('popupContainer');
+                        popupContainer.style.display = 'none';
+                        }
+
+                        function openAddToBlacklistPopup() {
+                        showPopup();
+                        }
+
+                        function resetReasonInput() {
+                            const reasonInput = document.getElementById('reasonInput');
+                            reasonInput.value = '';
+                        }
+
+                        function addToBlacklist() {
+                        const reasonInput = document.getElementById('reasonInput');
+                        const reason = reasonInput.value;
+
+                        if (!reason) {
+                            showPopup();
+                            return;
+                        }
+
+                        const quoteDialog = document.getElementById('quote').textContent;
+
+                        axios
+                            .post('/blacklistFetch', { dialog: quoteDialog, reason: reason })
+                            .then(response => {
+                            console.log('Added to blacklist');
+                            console.log('Dialogue:', quoteDialog);
+                            console.log('Reason:', reason);
+                            document.getElementById('addToBlacklist').style.background = 'black';
+                            hidePopup();
+                            })
+                            .catch(error => {
+                            console.error('Error:', error);
+                            });
+                        }
+
+                    document.getElementById('newQuote').addEventListener('click', function() {
+                            getNewQuote();
+                            resetReasonInput();
+                    });
                     document.getElementById('round').textContent = round;
                     getNewQuote();
 

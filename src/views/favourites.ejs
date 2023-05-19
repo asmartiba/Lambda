@@ -43,7 +43,18 @@
                 <div class="linear"></div>
               </div>
               
-              <div class="blacklist" id="blacklist"></div>
+              <div class="blacklist" id="blacklist">
+                <% for (const blacklist of blacklisted) { %>
+                  <div class="favouriteList">
+                    <div class="favouriteQuote">
+                      <h2 class="dialog"><%= blacklist.dialog %></h2>
+                      <h2 class="reason"><%= blacklist.reason %></h2>
+                      <h2 class="invisible" id="<%= blacklist._id %>"><%= blacklist._id %></h2>
+                    </div>
+                    <button class="btn" onclick="deleteBlacklist('<%= blacklist._id %>')">Clear</button>
+                  </div>
+                <% } %>
+              </div>
               
               <a href="/home"><button class="btn2">← Back</button></a>
               <div class="emptyspan"></div>
@@ -53,7 +64,11 @@
               <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
               
               <script>
+
+                // Delete elements
+
                 const deletedFavourites = [];
+                const deletedBlacklist = [];
               
                 const deleteFavourite = (favoriteId) => {
                   const favouriteElement = document.getElementById(favoriteId);
@@ -62,7 +77,7 @@
                   console.log(favouriteElement.id);
                   console.log('Deleting from favourites...', favoriteId);
               
-                  deletedFavourites.push(favoriteId); // Add the favorite ID to the array
+                  deletedFavourites.push(favoriteId); 
               
                   axios.post('/deleteFavourite', { favoriteIds: deletedFavourites })
                     .then(response => {
@@ -72,9 +87,24 @@
                       console.error('Error:', error);
                     });
                 };
+
+                const deleteBlacklist = (blacklistId) => {
+                    const blacklistElement = document.getElementById(blacklistId);
+                    blacklistElement.parentNode.parentNode.remove();
+                    console.log('Deleting from blacklist...', blacklistId);
+
+                    deletedBlacklist.push(blacklistId); 
+
+                    axios.post('/deleteBlacklist', { blacklistId })
+                      .then(response => {
+                        console.log('Deleted from blacklist');
+                      })
+                      .catch(error => {
+                        console.error('Error:', error);
+                      });
+                  };
               </script>
-              
-              
+                 
     </main>
     <%- include('partials/footer.ejs') %>
 </body>

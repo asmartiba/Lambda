@@ -70,11 +70,14 @@ app.get('/favourites', async (req, res) => {
   try {
     await client.connect();
     const db = client.db('LotrDB');
-    const collection = db.collection('favourites');
+    const favouritesCollection = db.collection('favourites');
+    const blacklistCollection = db.collection('blacklist');
 
-    const favorites = await collection.find().toArray();
+    const favorites = await favouritesCollection.find().toArray();
+    const blacklisted = await blacklistCollection.find().toArray();
 
-    res.render('favourites', { favorites });
+
+    res.render('favourites', { favorites, blacklisted  });
   } catch (error) {
     console.error('Error:', error);
     res.sendStatus(500);
@@ -104,6 +107,24 @@ app.post('/deleteFavourite', async (req, res) => {
   }
 });
 
+app.post('/deleteBlacklist', async (req, res) => {
+  try {
+    const { blacklistId } = req.body;
+
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('blacklist');
+
+    await collection.deleteOne({ _id: new ObjectId(blacklistId) });
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error deleting from blacklist:', error);
+    res.sendStatus(500);
+  } finally {
+    await client.close();
+  }
+});
 
 app.post('/favouriteFetch', async (req, res) => {
   try {
@@ -127,6 +148,30 @@ app.post('/favouriteFetch', async (req, res) => {
     await client.close();
   }
 });
+
+app.post('/blacklistFetch', async (req, res) => {
+  try {
+    const { dialog, reason } = req.body;
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('blacklist');
+
+    const quoteData = {
+      dialog: dialog,
+      reason: reason
+    };
+
+    await collection.insertOne(quoteData);
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error:', error);
+    res.sendStatus(500);
+  } finally {
+    await client.close();
+  }
+});
+
 
 
 
