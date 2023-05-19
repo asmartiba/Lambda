@@ -81,11 +81,10 @@
                 const movieUrl = 'https://the-one-api.dev/v2/movie';
 
                 // variables
-
-                let selectedCharacter = null;
-                let selectedMovie = null;
+                
                 let round = 0;
                 let score = 0;
+                let roundScore = 0;
 
                 // Functions : 
 
@@ -93,17 +92,18 @@
 
                     function updateScore() {
                         const maxScore = Math.min(round, 10); 
-                        score = score + roundScore;
-                        document.getElementById('score').textContent = `Score: ${score + roundScore} / ${maxScore}`;
-                        }
+                        score += 0.5;
+                        console.log('score incremented by 0.5', score);
+                        document.getElementById('score').textContent = `Score: ${score} / ${maxScore}`;
+                    }
 
                     // Quote
 
                 function getNewQuote() {
                             // Increment round
+                            
                             round++;
                             document.getElementById('round').textContent = round;
-                            roundScore = 0;
 
                             // Reset button colors
                             document.getElementById('addToFavourite').style.background = '#011f0197';
@@ -117,7 +117,6 @@
                                 option.style.border = 'none';
                             });
                             
-
                             // Fetch quote
                             fetch(quote, {
                                 headers: {
@@ -156,8 +155,6 @@
                                         sessionStorage.setItem('currentMovieTitle', movieTitle);
                                  })
 
-
-
                                 // Fetch two additional random characters
 
                                 fetch(`${charUrl}`, {
@@ -183,23 +180,26 @@
 
                                             const charOptions = [charOption1, charOption2, charOption3];
                                             shuffleArray(charOptions);
+
                                             const charOptionsContainer = document.getElementById('charOptions');
                                             charOptions.forEach(option => charOptionsContainer.appendChild(option));
                                             charOptions.forEach(option => {
-                                                option.addEventListener('click', function() {
+                                                option.addEventListener('click', function updateCharOption() {
                                                     const selectedCharacterName = this.textContent;
                                                     if (selectedCharacterName === characterName) {
-                                                        this.style.border = '2px solid green';
-                                                        roundScore += 0.5;
+                                                        this.style.border = '4px solid green';
                                                         updateScore();
                                                     } else {
-                                                        this.style.border = '2px solid red';
+                                                        this.style.border = '4px solid red';
                                                     }
                                                     charOptions.forEach(otherOption => {
                                                         if (otherOption !== this) {
                                                             otherOption.style.border = '';
                                                         }
                                                     });
+
+                                                    charOptions.forEach(option => option.removeEventListener('click', updateCharOption));
+
                                                 });
                                             });
                                         });
@@ -228,30 +228,31 @@
 
                                             const movieOptions = [movieOption4, movieOption5, movieOption6];
                                             shuffleArray(movieOptions);
+
                                             const movieOptionsContainer = document.getElementById('movieOptions');
                                             movieOptions.forEach(option => movieOptionsContainer.appendChild(option));
                                             movieOptions.forEach(option => {
-                                                option.addEventListener('click', function() {
+                                                option.addEventListener('click', function updateMovieOption() {
                                                     const selectedMovieTitle = this.textContent;
                                                     if (selectedMovieTitle === movieTitle) {
-                                                        this.style.border = '2px solid green';
-                                                        roundScore += 0.5;
+                                                        this.style.border = '4px solid green';
                                                         updateScore();
                                                     } else {
-                                                        this.style.border = '2px solid red';
+                                                        this.style.border = '4px solid red';
                                                     }
                                                     movieOptions.forEach(otherOption => {
                                                         if (otherOption !== this) {
                                                             otherOption.style.border = '';
                                                         }
                                                     });
+
+                                                    movieOptions.forEach(option => option.removeEventListener('click', updateMovieOption));
+
                                                 });
                                             });
                                         })
 
-                                    .catch(error => {
-                                    console.error('Error:', error);
-                                    });
+                                        
                                 })
                             })
                         }
@@ -275,7 +276,7 @@
 
                     function addToFavourite() {
                     const quoteDialog = document.getElementById('quote').textContent;
-                    const characterName = document.getElementById('character').textContent;
+                    const characterName = sessionStorage.getItem('currentCharacterName');
 
 
                     axios.post('/favouriteFetch', { dialog: quoteDialog, character: characterName })
