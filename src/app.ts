@@ -66,15 +66,48 @@ interface Favourite {
   };
 }
 
+app.get('/favourites', async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('favourites');
+
+    const favorites = await collection.find().toArray();
+
+    res.render('favourites', { favorites });
+  } catch (error) {
+    console.error('Error:', error);
+    res.sendStatus(500);
+  } finally {
+    await client.close();
+  }
+});
+
+app.post('/deleteFavourite', async (req, res) => {
+  try {
+    const { favoriteIds } = req.body;
+
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('favourites');
+
+    for (const favoriteId of favoriteIds) {
+      await collection.deleteOne({ _id: new ObjectId(favoriteId) });
+    }
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error deleting favourites:', error);
+    res.sendStatus(500);
+  } finally {
+    await client.close();
+  }
+});
+
 
 app.post('/favouriteFetch', async (req, res) => {
   try {
     const { dialog, character } = req.body;
-
-    if (typeof dialog !== 'string' || dialog === '' || typeof character !== 'string' || character === '') {
-      throw new Error('Invalid data');
-    }
-
     await client.connect();
     const db = client.db('LotrDB');
     const collection = db.collection('favourites');
@@ -95,23 +128,6 @@ app.post('/favouriteFetch', async (req, res) => {
   }
 });
 
-
-app.get('/favourites', async (req, res) => {
-  try {
-    await client.connect();
-    const db = client.db('LotrDB');
-    const collection = db.collection('favourites');
-
-    const favorites = await collection.find().toArray();
-
-    res.render('favourites', { favorites });
-  } catch (error) {
-    console.error('Error:', error);
-    res.sendStatus(500);
-  } finally {
-    await client.close();
-  }
-});
 
 
 // BOOKS

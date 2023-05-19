@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/favourites.css">
-    <title>Lord of the Rings</title>
+    <title>Favourites & Blacklist | Lord of the Rings</title>
 </head>
 <body>
     <main>
@@ -30,12 +30,11 @@
                   <div class="favouriteQuote">
                     <h2 class="dialog"><%= favorite.dialog %></h2>
                     <h2 class="author"><%= favorite.character %></h2>
-                    <h2  id="<%= favorite._id %>"><%= favorite._id %></h2>
+                    <h2 class="invisible" id="<%= favorite._id %>"><%= favorite._id %></h2>
                   </div>
                   <button class="btn" onclick="deleteFavourite('<%= favorite._id %>')">Clear</button>
                 </div>
                 <% } %>
-                <a href="#" onclick="removeDeletedFavorites()">Remove Deleted Favorites</a>
               </div>
               
               <div class="linearmain">
@@ -49,32 +48,31 @@
               <a href="/home"><button class="btn2">← Back</button></a>
               <div class="emptyspan"></div>
               </div>
-              
+
+              <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
               <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+              
               <script>
                 const deletedFavourites = [];
               
                 const deleteFavourite = (favoriteId) => {
                   const favouriteElement = document.getElementById(favoriteId);
                   favouriteElement.parentNode.parentNode.remove();
+                  console.log(favoriteId, "LOOK");
                   console.log(favouriteElement.id);
-                  deletedFavourites.push(favouriteElement.id);
-                  console.log('Deleting from favourites...');
-                };
-
-                const removeDeletedFavorites = () => {
-                    axios.post('/deleteFavourites', { deletedFavourites })
+                  console.log('Deleting from favourites...', favoriteId);
+              
+                  deletedFavourites.push(favoriteId); // Add the favorite ID to the array
+              
+                  axios.post('/deleteFavourite', { favoriteIds: deletedFavourites })
                     .then(response => {
-                        console.log('Deleted favorites:', response.data);
-                        // Clear the deleted favorites array
-                        deletedFavourites.length = 0;
+                      console.log('Deleted from favourites');
                     })
                     .catch(error => {
-                        console.error('Error:', error);
+                      console.error('Error:', error);
                     });
                 };
               </script>
-              
               
               
     </main>
