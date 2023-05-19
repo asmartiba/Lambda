@@ -125,7 +125,7 @@
 
                     axios.post('/favouriteFetch', { dialog: quoteDialog, character: characterName })
                         .then(response => {
-                            console.log('Added to favorites');
+                            console.log('Added to favourites');
                             console.log('Dialogue:', quoteDialog);
                             console.log('Character:', characterName);
                             document.getElementById('addToFavourite').style.background = '#5ebf45';

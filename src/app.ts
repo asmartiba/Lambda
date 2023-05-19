@@ -1,10 +1,10 @@
 import express from 'express';
 import path from 'path';
+const { MongoClient, ObjectId } = require('mongodb');
 
 
-// initialisation
+// DB initialisation
 
-const {MongoClient} = require('mongodb');
 const uri: string = "mongodb+srv://asmartiba:1DZx58W3uFct3NC3@lambda.sfb8kon.mongodb.net/"
 const client = new MongoClient(uri, {useUnifiedTopology: true});
 
@@ -57,7 +57,6 @@ app.get('/home', (req, res) => {
 });
 
 
-
 // FAVOURITES
 
 interface Favourite {
@@ -66,6 +65,7 @@ interface Favourite {
     character: string;
   };
 }
+
 
 app.post('/favouriteFetch', async (req, res) => {
   try {
@@ -95,6 +95,7 @@ app.post('/favouriteFetch', async (req, res) => {
   }
 });
 
+
 app.get('/favourites', async (req, res) => {
   try {
     await client.connect();
@@ -111,6 +112,7 @@ app.get('/favourites', async (req, res) => {
     await client.close();
   }
 });
+
 
 // BOOKS
 
