@@ -1,126 +1,85 @@
-@import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marck+Script&display=swap');
 
 @font-face {
-  src: url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
-  font-family: 'Cookie';
+    src: url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+    font-family: 'Handlee';
+    font-display: swap;
+  }
+
+@font-face {
+  src: url('https://fonts.googleapis.com/css2?family=Marck+Script&display=swap');
+  font-family: 'Marck Script';
   font-display: swap;
+}
+
+.invisible {
+    display: none;
 }
 
 .favourites, .blacklist {
     width: 75vw;
-    height: 50vh;
-    border-radius: 30vh;
+    height: 65vh;
+    border-radius: 20vh;
     margin-bottom: 80px;
     border-top: 2px solid gold;
     background: linear-gradient(to bottom, rgba(53, 5, 5, 0.911),  rgba(75, 35, 12, 0.763), transparent);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    overflow: scroll;
 }
 
-.quoteText {
-    width: 90vw;
-}
-
-.reasonText {
-    width: 90vw;
-    color: rgb(204, 229, 178);
-}
-
-.fav_list {
-    list-style: none;
-    padding: 0;
+.favouriteList, .blacklistList {
+    width: 90%;
+    height: auto; 
+    border-bottom: 2px rgba(255, 255, 255, 0.192) solid;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    color: white;
-    overflow-y: scroll;
-    margin: 50px;
-    font-family: 'Cookie';
-    font-size: 1.4em;
-    display: flex;
+    justify-content: space-around;
     align-items: center;
-}
-
-.fav_list02 {
-    width: 70%;
-    margin: 20px;
-    border-bottom: 2px solid black;
-    padding: 10px;
-    position: relative;
-    font-size: 1.5em;
-}
-
-.fav_list02 button {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    height: 30px;
-    border-radius: 15px;
-    width: 115px;
-    background-color: #1d1d1d;
-    border: 1px solid gold;
-    color: #66cfb9;
-    cursor: pointer;
-}
-
-.fav_list02 span {
-    display: block;
-    margin-right: 10px;
-    flex-grow: 1; 
-}
-
-.fav_list::-webkit-scrollbar {
-    display: none;
+    overflow: visible; 
   }
+  
 
-
-.blacklist_list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    color: white;
-    overflow-y: scroll;
-    margin: 50px;
-    font-family: 'Cookie';
-    font-size: 1.4em;
-    display: flex;
-    align-items: center;
+.favouriteList h2 {
+    width:600px;
+    margin: 24px;
 }
 
-.blacklist02 {
-    width: 70%;
-    margin: 20px;
-    border-bottom: 2px solid black;
-    padding: 10px;
-    position: relative;
-    font-size: 1.5em;
-}
-
-.blacklist02 button {
-    position: absolute;
-    right: 10px;
-    bottom: 50px;
+.favouriteList button {
+    width:120px;
     height: 30px;
-    border-radius: 15px;
-    width: 115px;
-    background-color: #1d1d1d;
-    border: 1px solid gold;
-    color: #66cfb9;
-    cursor: pointer;
 }
 
-.blacklist02 span {
-    display: block;
+.dialog {
+    font-family: 'Handlee';
+    font-size: 36px;
+    color: rgb(120, 223, 180);
 }
 
-.blacklist_list::-webkit-scrollbar {
-    display: none;
-  }
+.author {
+    color: rgb(201, 167, 105);
+    font-size: 32px;
+    font-family: 'Marck Script', Courier, monospace;
+}
 
+.favourites::-webkit-scrollbar,
+.blacklist::-webkit-scrollbar {
+  width: 0;
+  background-color: transparent; 
+}
+
+.favourites::-webkit-scrollbar-track,
+.blacklist::-webkit-scrollbar-track {
+  background-color: transparent; 
+}
+
+.favourites::-webkit-scrollbar-thumb,
+.blacklist::-webkit-scrollbar-thumb {
+  background-color: transparent; 
+
+}
 
   @media only screen and (max-width: 1567px) {
     .favourites, .blacklist {
@@ -128,49 +87,11 @@
         border-radius: 0%;
         height: 80vh;
     }
-    .fav_list02 button {
-        position: absolute;
-        right: 30px;
-        bottom: 30px;
-        width: 115px;
-    }
 }
 
 @media only screen and (max-width: 767px) {
     .favourites, .blacklist {
-        width: 100vw;
         height: 75vh;
-        border-radius: 0%;
         overflow: hidden;
-    }
-    .fav_list {
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: column;
-        justify-content: space-around;
-        color: white;
-        overflow-y: scroll;
-        margin: 0px;
-        font-size: 1.2em;
-        width: auto;
-    }
-    .fav_list02 {
-        width: 100vw;
-        margin: 10px;
-        border-bottom: 2px solid black;
-        padding: 10px;
-        font-size: 1.2em;
-    }
-    .fav_list02 button {
-        position: absolute;
-        right: 20px;
-        bottom: 20px;
-        height: 25px;
-        border-radius: 15px;
-        width: 65px;
-        background-color: #1d1d1d;
-        border: 1px solid gold;
-        color: #66cfb9;
-        cursor: pointer;
     }
 }

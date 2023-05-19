@@ -34,6 +34,17 @@
                         </div>
                     </div>
 
+                    <div id="popupContainer" class="popup-container">
+                        <div class="popup">
+                          <h2>Add to Blacklist</h2>
+                          <textarea id="reasonInput" placeholder="Just give me a reason"></textarea>
+                          <div class="popup-buttons">
+                            <button onclick="addToBlacklist()">Add</button>
+                            <button onclick="hidePopup()">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
+
                     <div id="options" >
                         <div id="charOptions">
                             <div id="charOption1" class="option"></div>
@@ -54,8 +65,11 @@
                             <button id="reset">Reset</button>
                         </div>
                     </div>
-
             </div>
+            
+            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
             <script>
 
@@ -73,268 +87,259 @@
                 let round = 0;
                 let score = 0;
 
-                //functions
+                // Functions : 
 
-            function addToFavourite() {
-                const quote = document.getElementById('quote').textContent;
-                let favouriteQuotes = JSON.parse(localStorage.getItem('favouriteQuotes')) || [];
-                favouriteQuotes.push(quote);
-                localStorage.setItem('favouriteQuotes', JSON.stringify(favouriteQuotes));
-                console.log('added to favourites');
-                document.getElementById('addToFavourite').style.background = '#5ebf45'; 
-            }
+                    // Score
 
-            function addToBlacklist() {
-            
-                const quote = document.getElementById('quote').textContent;
-
-                    // Popup
-                    const popup = document.createElement('div');
-                    popup.className = 'popup';
-
-                    const closeButton = document.createElement('button');
-                    closeButton.innerHTML = 'x';
-                    closeButton.className = 'closeButton';
-                    closeButton.addEventListener('click', closePopup);
-                    popup.appendChild(closeButton);
-
-                    const heading = document.createElement('h2');
-                    heading.textContent = 'Type a reason for blacklisting:';
-                    popup.appendChild(heading);
-
-                    const reasonInput = document.createElement('input');
-                    reasonInput.type = 'text';
-                    reasonInput.className = 'popupInput';
-                    reasonInput.id = 'blacklistReason';
-                    popup.appendChild(reasonInput);
-
-                    const buttonContainer = document.createElement('div');
-                    buttonContainer.className = 'buttonContainer';
-
-                    const saveButton = document.createElement('button');
-                    saveButton.textContent = 'Save';
-                    saveButton.className = 'btn';
-                    saveButton.addEventListener('click', saveBlacklist);
-                    buttonContainer.appendChild(saveButton);
-
-                    const cancelButton = document.createElement('button');
-                    cancelButton.textContent = 'Cancel';
-                    cancelButton.className = 'btn';
-                    cancelButton.addEventListener('click', closePopup);
-                    buttonContainer.appendChild(cancelButton);
-
-                    popup.appendChild(buttonContainer);
-                    document.body.appendChild(popup);
-
-                    function closePopup() {
-                        document.body.removeChild(popup);
-                    }
-
-                    // adds to local storage, this one we can change to database too 
-
-                    function saveBlacklist() {
-                        const reason = reasonInput.value;
-                        const quote = document.getElementById('quote').textContent;
-
-                        let blacklistQuotes = JSON.parse(localStorage.getItem('blacklistQuotes')) || [];
-                        blacklistQuotes.push({ quote, reason });
-                        localStorage.setItem('blacklistQuotes', JSON.stringify(blacklistQuotes));
-
-                        console.log('Added to blacklist with reason:', reason);
-                        document.getElementById('addToBlacklist').style.backgroundColor = 'black';
-                        closePopup();
-                    }
-                }
-
-            function getNewQuote() {
-
-                    // Reset border and button styling
-
-                    document.getElementById('addToFavourite').style.background = '#011f0197'; 
-                    document.getElementById('addToBlacklist').style.background = '#25252583'; 
-
-                    const options = document.querySelectorAll('.option');
-                    options.forEach(option => {
-                        option.style.border = 'none';
-                    });
-
-                    // round increment 
-                    round++;
-                    document.getElementById('round').textContent = round;
-
-                    // Fetch quote
-
-                    fetch(quote, {
-                        headers: {
-                        'Authorization': `Bearer ${bearerToken}`
+                    function updateScore() {
+                        const maxScore = Math.min(round, 10); 
+                        score = score + roundScore;
+                        document.getElementById('score').textContent = `Score: ${score + roundScore} / ${maxScore}`;
                         }
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            const randomIndex = Math.floor(Math.random() * data.docs.length);
-                            const quote = data.docs[randomIndex].dialog;
-                            const characterId = data.docs[randomIndex].character;
-                            const movieId = data.docs[randomIndex].movie;
-                            document.getElementById('quote').innerHTML = quote;
 
-                        // Fetch correct character
+                    // Quote
 
-                        fetch(`${charUrl}/${characterId}`, {
-                                headers: {
-                                Authorization: `Bearer ${bearerToken}`
-                                }
-                            })
-                        .then(response => response.json())
-                        .then(data => {
-                            const characterName = data.docs[0].name;
-                            const correctOptionIndex = Math.floor(Math.random() * 3) + 1;
-                            const correctOption = document.querySelector(`#charOption${correctOptionIndex}`);
-                            correctOption.textContent = characterName;
-                            correctOption.addEventListener('click', () => checkAnswer(correctOption, true, 'character'));
-                        })
-                        .catch(error => {
-                                console.error('Error:', error);
-                            });
+                function getNewQuote() {
 
-                            // Fetch correct movie
+                            // Increment round
+                            round++;
+                            document.getElementById('round').textContent = round;
+                            roundScore = 0;
 
-                            fetch(`${movieUrl}/${movieId}`, {
-                                headers: {
-                                Authorization: `Bearer ${bearerToken}`
-                                }
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                const movieName = data.docs[0].name;
-                                const correctOptionIndex = Math.floor(Math.random() * 3) + 4;
-                                const correctOption = document.querySelector(`#movieOption${correctOptionIndex}`);
-                                correctOption.textContent = movieName;
-                                correctOption.addEventListener('click', () => checkAnswer(correctOption, true, 'movie'));
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                });
+                            // Reset button colors
+                            document.getElementById('addToFavourite').style.background = '#011f0197';
+                            document.getElementById('addToBlacklist').style.background = '#25252583';
 
-                            })
-
-                            // Fetch random characters
-
-                            fetch(`${charUrl}`, {
-                                headers: {
-                                Authorization: `Bearer ${bearerToken}`
-                                }
-                            })
-                                .then(response => response.json())
-                                .then(data => {
-                                    const charNames = data.docs.map(char => char.name);
-                                    const charOptions = document.querySelectorAll('#charOption1, #charOption2, #charOption3');
-                                    const correctOptionIndex = Math.floor(Math.random() * 3);
-                                    const correctOption = charOptions[correctOptionIndex];
-                                    correctOption.textContent = charNames[correctOptionIndex];
-
-                                charOptions.forEach((option, index) => {
-                                    if (index !== correctOptionIndex) {
-                                    let randomIndex = Math.floor(Math.random() * (charNames.length - 1));
-                                    if (randomIndex >= correctOptionIndex) {
-                                        randomIndex++;
-                                    }
-                                    option.textContent = charNames[randomIndex];
-                                    }
-                                       option.addEventListener('click', () => checkAnswer(option, false, 'character'));
-                                    });
-                                        }).catch(error => {
-                                        console.error('Error:', error);
-                                    });
-
-                           // Fetch random movies
-
-                            fetch(`${movieUrl}`, {
-                                headers: {
-                                Authorization: `Bearer ${bearerToken}`
-                                }
-                            })
-                                .then(response => response.json())
-                                .then(data => {
-                                    const movieNames = data.docs.map(movie => movie.name);
-                                    const movieOptions = document.querySelectorAll('#movieOption4, #movieOption5, #movieOption6');
-                                    const correctMovieOptionIndex = Math.floor(Math.random() * 3);
-                                    const correctMovieOption = movieOptions[correctMovieOptionIndex];
-                                    correctMovieOption.textContent = movieNames[correctMovieOptionIndex];
-
-                                movieOptions.forEach((option, index) => {
-                                    if (index !== correctMovieOptionIndex) {
-                                    let randomIndex = Math.floor(Math.random() * (movieNames.length - 1));
-                                    if (randomIndex >= correctMovieOptionIndex) {
-                                        randomIndex++;
-                                    }
-                                    option.textContent = movieNames[randomIndex];
-                                    }
-                                        option.addEventListener('click', () => checkAnswer(option, false, 'movie'));
-                                });
-                                    }).catch(error => {
-                                     console.error('Error:', error);
-                                });           
-}
-
-                            // Check answer
-
-                            function checkAnswer(option, isCorrect, optionType) {
-                                const options = document.querySelectorAll('.option');
-
-                                if (optionType === 'character') {
-                                    if (selectedCharacter) {
-                                    selectedCharacter.classList.remove('selected');
-                                    selectedCharacter.style.border = 'none';
-                                    }
-                                    selectedCharacter = option;
-                                } else if (optionType === 'movie') {
-                                    if (selectedMovie) {
-                                    selectedMovie.classList.remove('selected');
-                                    selectedMovie.style.border = 'none';
-                                    }
-                                    selectedMovie = option;
-                                }
-
-                                options.forEach(otherOption => {
-                                    otherOption.removeEventListener('click', handleOptionClick);
-                                    otherOption.style.pointerEvents = 'none';
-                                });
-
-                                if (isCorrect) {
-                                    option.classList.add('selected');
-                                    option.style.border = '2px solid green';
-                                    updateScore(0.5); // Update score by 0.5 for correct answer
-                                } else {
-                                    option.style.border = '2px solid red';
-                                }
-
-                                options.forEach(otherOption => {
-                                    if (otherOption !== option) {
-                                    otherOption.style.pointerEvents = 'auto';
-                                    }
-                                });
-                                }
-
-                                function updateScore(points) {
-                                const scoreElement = document.getElementById('score');
-                                const currentScore = parseFloat(scoreElement.textContent.split(':')[1].trim());
-                                const newScore = currentScore + points;
-                                scoreElement.textContent = `Score: ${newScore.toFixed(1)}`;
-                                }
-
-
-                            function handleOptionClick() {
-                                const optionType = this.parentElement.id === 'charOptions' ? 'character' : 'movie';
-                                checkAnswer(this, false, optionType);
-                            }
+                            
+                            // Reset option borders
 
                             const options = document.querySelectorAll('.option');
-
                             options.forEach(option => {
-                                option.addEventListener('click', handleOptionClick);
+                                option.style.border = 'none';
                             });
+                            
 
-                    document.getElementById('newQuote').addEventListener('click', getNewQuote);
+                            // Fetch quote
+                            fetch(quote, {
+                                headers: {
+                                'Authorization': `Bearer ${bearerToken}`
+                                }
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                const randomIndex = Math.floor(Math.random() * data.docs.length);
+                                const dialog = data.docs[randomIndex].dialog;
+                                const characterId = data.docs[randomIndex].character;
+                                const movieId = data.docs[randomIndex].movie;
+
+                                // Fetch character data
+                                fetch(`${charUrl}/${characterId}`, {
+                                    headers: {
+                                    'Authorization': `Bearer ${bearerToken}`
+                                    }
+                                })
+                                    .then(response => response.json())
+                                    .then(characterData => {
+                                    const characterName = characterData.docs[0].name;
+                                    document.getElementById('quote').textContent = dialog;
+                                    sessionStorage.setItem('currentCharacterName', characterName);
+
+                                    // Fetch movie data
+                                    fetch(`${movieUrl}/${movieId}`, {
+                                        headers: {
+                                        'Authorization': `Bearer ${bearerToken}`
+                                        }
+                                    })
+                                        .then(response => response.json())
+                                        .then(movieData => {
+                                        const movieTitle = movieData.docs[0].name;
+                                        sessionStorage.setItem('currentMovieTitle', movieTitle);
+                                 })
+
+
+
+                                // Fetch two additional random characters
+
+                                fetch(`${charUrl}`, {
+                                        headers: {
+                                            'Authorization': `Bearer ${bearerToken}`
+                                        }
+                                    })
+                                        .then(response => response.json())
+                                        .then(allCharactersData => {
+                                            const characters = allCharactersData.docs.filter(doc => doc._id !== characterId);
+                                            const randomCharacters = getRandomElements(characters, 2);
+                                            const characterName = sessionStorage.getItem('currentCharacterName');
+
+                                            console.log('Correct character answer:', characterName);
+
+                                            const charOption1 = document.getElementById('charOption1');
+                                            const charOption2 = document.getElementById('charOption2');
+                                            const charOption3 = document.getElementById('charOption3');
+
+                                            charOption1.textContent = randomCharacters[0].name;
+                                            charOption2.textContent = randomCharacters[1].name;
+                                            charOption3.textContent = characterName;
+
+                                            const charOptions = [charOption1, charOption2, charOption3];
+                                            shuffleArray(charOptions);
+                                            const charOptionsContainer = document.getElementById('charOptions');
+                                            charOptions.forEach(option => charOptionsContainer.appendChild(option));
+                                            charOptions.forEach(option => {
+                                                option.addEventListener('click', function() {
+                                                    const selectedCharacterName = this.textContent;
+                                                    if (selectedCharacterName === characterName) {
+                                                        this.style.border = '2px solid green';
+                                                        roundScore += 0.5;
+                                                        updateScore();
+                                                    } else {
+                                                        this.style.border = '2px solid red';
+                                                    }
+                                                    charOptions.forEach(otherOption => {
+                                                        if (otherOption !== this) {
+                                                            otherOption.style.border = '';
+                                                        }
+                                                    });
+                                                });
+                                            });
+                                        });
+
+                                    // Fetch two additional random movies
+                                    fetch(`${movieUrl}`, {
+                                        headers: {
+                                            'Authorization': `Bearer ${bearerToken}`
+                                        }
+                                    })
+                                        .then(response => response.json())
+                                        .then(allMoviesData => {
+                                            const movies = allMoviesData.docs.filter(doc => doc._id !== movieId);
+                                            const randomMovies = getRandomElements(movies, 2);
+                                            const movieTitle = sessionStorage.getItem('currentMovieTitle');
+
+                                            console.log('Correct movie answer:', movieTitle);
+
+                                            const movieOption4 = document.getElementById('movieOption4');
+                                            const movieOption5 = document.getElementById('movieOption5');
+                                            const movieOption6 = document.getElementById('movieOption6');
+
+                                            movieOption4.textContent = randomMovies[0].name;
+                                            movieOption5.textContent = randomMovies[1].name;
+                                            movieOption6.textContent = movieTitle;
+
+                                            const movieOptions = [movieOption4, movieOption5, movieOption6];
+                                            shuffleArray(movieOptions);
+                                            const movieOptionsContainer = document.getElementById('movieOptions');
+                                            movieOptions.forEach(option => movieOptionsContainer.appendChild(option));
+                                            movieOptions.forEach(option => {
+                                                option.addEventListener('click', function() {
+                                                    const selectedMovieTitle = this.textContent;
+                                                    if (selectedMovieTitle === movieTitle) {
+                                                        this.style.border = '2px solid green';
+                                                        roundScore += 0.5;
+                                                        updateScore();
+                                                    } else {
+                                                        this.style.border = '2px solid red';
+                                                    }
+                                                    movieOptions.forEach(otherOption => {
+                                                        if (otherOption !== this) {
+                                                            otherOption.style.border = '';
+                                                        }
+                                                    });
+                                                });
+                                            });
+                                        })
+
+                                    .catch(error => {
+                                    console.error('Error:', error);
+                                    });
+                                })
+                            })
+                        }
+
+                            
+                    // Randomise slots
+
+                    function getRandomElements(array, count) {
+                        const shuffled = array.sort(() => Math.random() - 0.5);
+                        return shuffled.slice(0, count);
+                        }
+
+                        function shuffleArray(array) {
+                        for (let i = array.length - 1; i > 0; i--) {
+                            const j = Math.floor(Math.random() * (i + 1));
+                            [array[i], array[j]] = [array[j], array[i]];
+                        }
+                    }
+
+                    // Favourites
+
+                    function addToFavourite() {
+                    const quoteDialog = document.getElementById('quote').textContent;
+                    const characterName = document.getElementById('character').textContent;
+
+
+                    axios.post('/favouriteFetch', { dialog: quoteDialog, character: characterName })
+                        .then(response => {
+                            console.log('Added to favourites');
+                            console.log('Dialogue:', quoteDialog);
+                            console.log('Character:', characterName);
+                            document.getElementById('addToFavourite').style.background = '#5ebf45';
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                    });
+                }
+
+                    // Blacklist 
+
+                    function showPopup() {
+                        const popupContainer = document.getElementById('popupContainer');
+                        popupContainer.style.display = 'block';
+                        }
+
+                        function hidePopup() {
+                        const popupContainer = document.getElementById('popupContainer');
+                        popupContainer.style.display = 'none';
+                        }
+
+                        function openAddToBlacklistPopup() {
+                        showPopup();
+                        }
+
+                        function resetReasonInput() {
+                            const reasonInput = document.getElementById('reasonInput');
+                            reasonInput.value = '';
+                        }
+
+                        function addToBlacklist() {
+                        const reasonInput = document.getElementById('reasonInput');
+                        const reason = reasonInput.value;
+
+                        if (!reason) {
+                            showPopup();
+                            return;
+                        }
+
+                        const quoteDialog = document.getElementById('quote').textContent;
+
+                        axios
+                            .post('/blacklistFetch', { dialog: quoteDialog, reason: reason })
+                            .then(response => {
+                            console.log('Added to blacklist');
+                            console.log('Dialogue:', quoteDialog);
+                            console.log('Reason:', reason);
+                            document.getElementById('addToBlacklist').style.background = 'black';
+                            hidePopup();
+                            })
+                            .catch(error => {
+                            console.error('Error:', error);
+                            });
+                        }
+
+                    document.getElementById('newQuote').addEventListener('click', function() {
+                            getNewQuote();
+                            resetReasonInput();
+                    });
                     document.getElementById('round').textContent = round;
                     getNewQuote();
 
