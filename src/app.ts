@@ -133,22 +133,7 @@ app.post('/favouriteFetch', async (req, res) => {
 
 // BLACKLIST
 
-app.get('/blacklist', async (req, res) => {
-  try {
-    await client.connect();
-    const db = client.db('LotrDB');
-    const collection = db.collection('blacklist');
 
-    const blacklistedQuotes = await collection.find({}).toArray();
-
-    res.json(blacklistedQuotes);
-  } catch (error) {
-    console.error('Error:', error);
-    res.sendStatus(500);
-  } finally {
-    await client.close();
-  }
-});
 
 app.post('/blacklistFetch', async (req, res) => {
   try {

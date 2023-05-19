@@ -64,6 +64,12 @@
     font-family: 'Marck Script', Courier, monospace;
 }
 
+.reason {
+    color: rgb(190, 88, 75);
+    font-size: 32px;
+    font-family: 'Marck Script', Courier, monospace;
+}
+
 .favourites::-webkit-scrollbar,
 .blacklist::-webkit-scrollbar {
   width: 0;

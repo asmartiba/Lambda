@@ -36,11 +36,11 @@
 
                     <div id="popupContainer" class="popup-container">
                         <div class="popup">
-                          <h2>Add to Blacklist</h2>
-                          <textarea id="reasonInput" placeholder="Just give me a reason"></textarea>
+                          <h2>Blacklist quote</h2>
+                          <textarea id="reasonInput" placeholder="Just give me a reason..."></textarea>
                           <div class="popup-buttons">
-                            <button onclick="addToBlacklist()">Add</button>
-                            <button onclick="hidePopup()">Cancel</button>
+                            <button onclick="addToBlacklist()" style="background-color: rgb(26, 71, 26);">Add</button>
+                            <button onclick="hidePopup()" style="background-color: rgb(37, 37, 37);">Cancel</button>
                           </div>
                         </div>
                       </div>
@@ -94,7 +94,9 @@
                         const maxScore = Math.min(round, 10); 
                         score += 0.5;
                         console.log('score incremented by 0.5', score);
-                        document.getElementById('score').textContent = `Score: ${score} / ${maxScore}`;
+
+                        const scoreElement = document.getElementById('score');
+                        scoreElement.innerHTML = `Score: <span style="color: green;">${score}</span> / <span style="color: grey;">${maxScore}</span>`;
                     }
 
                     // Quote
@@ -250,9 +252,7 @@
 
                                                 });
                                             });
-                                        })
-
-                                        
+                                        }) 
                                 })
                             })
                         }
