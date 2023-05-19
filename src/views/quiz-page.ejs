@@ -28,7 +28,8 @@
 
                     <div id="quoteContainer">
                         <p id="quote" class="quote"></p>
-                        <p id="character" class="invisible"></p>
+                        <p id="character"></p>
+                        <p id="movie" ></p>
                         <div class="flexrow">
                             <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
                             <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
@@ -93,45 +94,138 @@
 
 
                 function getNewQuote() {
-                        // Round increment
-                        round++;
-                        document.getElementById('round').textContent = round;
+                            // Round increment
+                            round++;
+                            document.getElementById('round').textContent = round;
 
-                        // Reset button colors
-                        document.getElementById('addToFavourite').style.background = '#011f0197'; 
-                        document.getElementById('addToBlacklist').style.background = '#25252583'; 
+                            // Reset button colors
+                            document.getElementById('addToFavourite').style.background = '#011f0197';
+                            document.getElementById('addToBlacklist').style.background = '#25252583';
+                            
 
-                        // Fetch quote
-                        fetch(quote, {
-                            headers: {
-                                'Authorization': `Bearer ${bearerToken}`
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            const randomIndex = Math.floor(Math.random() * data.docs.length);
-                            const dialog = data.docs[randomIndex].dialog;
-                            const characterId = data.docs[randomIndex].character;
-
-                        // Fetch character data
-                            fetch(`${charUrl}/${characterId}`, {
+                            // Fetch quote
+                            fetch(quote, {
                                 headers: {
-                                    'Authorization': `Bearer ${bearerToken}`
+                                'Authorization': `Bearer ${bearerToken}`
                                 }
                             })
-                            .then(response => response.json())
-                            .then(characterData => {
-                                const characterName = characterData.docs[0].name;
-                                document.getElementById('quote').textContent = dialog;
-                                document.getElementById('character').textContent = characterName;
+                                .then(response => response.json())
+                                .then(data => {
+                                const randomIndex = Math.floor(Math.random() * data.docs.length);
+                                const dialog = data.docs[randomIndex].dialog;
+                                const characterId = data.docs[randomIndex].character;
+                                const movieId = data.docs[randomIndex].movie;
+
+                                // Fetch character data
+                                fetch(`${charUrl}/${characterId}`, {
+                                    headers: {
+                                    'Authorization': `Bearer ${bearerToken}`
+                                    }
+                                })
+                                    .then(response => response.json())
+                                    .then(characterData => {
+                                    const characterName = characterData.docs[0].name;
+                                    document.getElementById('quote').textContent = dialog;
+                                    document.getElementById('character').textContent = characterName;
+
+
+                                    sessionStorage.setItem('currentCharacterName', characterName);
+
+                                    // Fetch movie data
+                                    fetch(`${movieUrl}/${movieId}`, {
+                                        headers: {
+                                        'Authorization': `Bearer ${bearerToken}`
+                                        }
+                                    })
+                                        .then(response => response.json())
+                                        .then(movieData => {
+                                        const movieTitle = movieData.docs[0].name;
+                                        document.getElementById('movie').textContent = movieTitle;
+
+
+                                    sessionStorage.setItem('currentMovieTitle', movieTitle);
+
+                                 })
+
+
+
+                                // Fetch two additional random characters
+
+                                fetch(`${charUrl}`, {
+                                    headers: {
+                                    'Authorization': `Bearer ${bearerToken}`
+                                    }
+                                })
+                                    .then(response => response.json())
+                                    .then(allCharactersData => {
+                                        
+                                    const characters = allCharactersData.docs.filter(doc => doc._id !== characterId);
+                                    const randomCharacters = getRandomElements(characters, 2);
+                                    const characterName = document.getElementById('character').textContent;
+                                    
+                                    const charOption1 = document.getElementById('charOption1');
+                                    const charOption2 = document.getElementById('charOption2');
+                                    const charOption3 = document.getElementById('charOption3');
+
+                                    charOption1.textContent = randomCharacters[0].name;
+                                    charOption2.textContent = randomCharacters[1].name;
+                                    charOption3.textContent = sessionStorage.getItem('currentCharacterName');
+
+
+                                    const optionsContainer = document.getElementById('charOptions');
+                                    const options = Array.from(optionsContainer.getElementsByClassName('option'));
+                                        shuffleArray(options);
+                                        options.forEach(option => optionsContainer.appendChild(option));
+                                        })
+
+
+                                    // Fetch two additional random movies
+                                    fetch(`${movieUrl}`, {
+                                            headers: {
+                                            'Authorization': `Bearer ${bearerToken}`
+                                            }
+                                        })
+                                    .then(response => response.json())
+                                    .then(allMoviesData => {
+                                        
+                                    const movies = allMoviesData.docs.filter(doc => doc._id !== movieId);
+                                    const randomMovies = getRandomElements(movies, 2);
+                                    const movieTitle = document.getElementById('movie').textContent;
+                                    
+                                    const movieOption4 = document.getElementById('movieOption4');
+                                    const movieOption5 = document.getElementById('movieOption5');
+                                    const movieOption6 = document.getElementById('movieOption6');
+
+                                    movieOption4.textContent = randomMovies[0].name;
+                                    movieOption5.textContent = randomMovies[1].name;
+                                    movieOption6.textContent = sessionStorage.getItem('currentMovieTitle');
+
+                                    const optionsContainer = document.getElementById('movieOptions');
+                                    const options = Array.from(optionsContainer.getElementsByClassName('option'));
+                                        shuffleArray(options);
+                                        options.forEach(option => optionsContainer.appendChild(option));
+                                        })
+
+                                    .catch(error => {
+                                    console.error('Error:', error);
+                                    });
+                                })
                             })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
+                        }
+
+                            
+
+
+                    function getRandomElements(array, count) {
+                        const shuffled = array.sort(() => Math.random() - 0.5);
+                        return shuffled.slice(0, count);
+                        }
+
+                        function shuffleArray(array) {
+                        for (let i = array.length - 1; i > 0; i--) {
+                            const j = Math.floor(Math.random() * (i + 1));
+                            [array[i], array[j]] = [array[j], array[i]];
+                        }
                     }
 
                     // Favourites
