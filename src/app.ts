@@ -107,24 +107,6 @@ app.post('/deleteFavourite', async (req, res) => {
   }
 });
 
-app.post('/deleteBlacklist', async (req, res) => {
-  try {
-    const { blacklistId } = req.body;
-
-    await client.connect();
-    const db = client.db('LotrDB');
-    const collection = db.collection('blacklist');
-
-    await collection.deleteOne({ _id: new ObjectId(blacklistId) });
-
-    res.sendStatus(200);
-  } catch (error) {
-    console.error('Error deleting from blacklist:', error);
-    res.sendStatus(500);
-  } finally {
-    await client.close();
-  }
-});
 
 app.post('/favouriteFetch', async (req, res) => {
   try {
@@ -141,6 +123,25 @@ app.post('/favouriteFetch', async (req, res) => {
     await collection.insertOne(quoteData);
 
     res.sendStatus(200);
+  } catch (error) {
+    console.error('Error:', error);
+    res.sendStatus(500);
+  } finally {
+    await client.close();
+  }
+});
+
+// BLACKLIST
+
+app.get('/blacklist', async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('blacklist');
+
+    const blacklistedQuotes = await collection.find({}).toArray();
+
+    res.json(blacklistedQuotes);
   } catch (error) {
     console.error('Error:', error);
     res.sendStatus(500);
@@ -172,7 +173,24 @@ app.post('/blacklistFetch', async (req, res) => {
   }
 });
 
+app.post('/deleteBlacklist', async (req, res) => {
+  try {
+    const { blacklistId } = req.body;
 
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('blacklist');
+
+    await collection.deleteOne({ _id: new ObjectId(blacklistId) });
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error deleting from blacklist:', error);
+    res.sendStatus(500);
+  } finally {
+    await client.close();
+  }
+});
 
 
 // BOOKS

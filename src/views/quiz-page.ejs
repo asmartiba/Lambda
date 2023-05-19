@@ -100,7 +100,6 @@
                     // Quote
 
                 function getNewQuote() {
-
                             // Increment round
                             round++;
                             document.getElementById('round').textContent = round;
@@ -127,6 +126,7 @@
                             })
                                 .then(response => response.json())
                                 .then(data => {
+                                    
                                 const randomIndex = Math.floor(Math.random() * data.docs.length);
                                 const dialog = data.docs[randomIndex].dialog;
                                 const characterId = data.docs[randomIndex].character;
