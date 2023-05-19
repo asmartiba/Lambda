@@ -6,6 +6,7 @@
   font-display: swap;
 }
 
+
 .invisible {
     display: none;
 }
@@ -19,9 +20,9 @@
     display: flex;
     flex-direction: column;
     justify-content:center ;
-    overflow-y: hidden;
     align-items: center;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .emptyspan01 {
@@ -256,23 +257,26 @@
         height: auto;
         margin:0;
         margin-top:35px;
+        border-radius: 0%;
         border: none;
+        padding: 25px;
     }
 
     #options {
         margin-top:100px;
         margin-bottom:25px;
         height: auto;
+        flex-direction: column;
     }
     .option {
         width: 60vw;
-        margin-top: 20px;
+        margin-top: 60px;
     }
     .quoteBox {
         flex-direction: column;
     }
     #newQuote {
-        width: 50vw;
+        width: 40vw;
     }
     #reset {
         width: 33vw;
