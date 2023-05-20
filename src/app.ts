@@ -110,14 +110,15 @@ app.post('/deleteFavourite', async (req, res) => {
 
 app.post('/favouriteFetch', async (req, res) => {
   try {
-    const { dialog, character } = req.body;
+    const { dialog, character, characterId } = req.body;
     await client.connect();
     const db = client.db('LotrDB');
     const collection = db.collection('favourites');
 
     const quoteData = {
       dialog: dialog,
-      character: character
+      character: character,
+      characterId: characterId
     };
 
     await collection.insertOne(quoteData);

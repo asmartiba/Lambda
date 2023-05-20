@@ -40,6 +40,11 @@
     align-items: center;
     overflow: visible; 
   }
+
+.favouriteQuote a {
+  text-decoration: underline dotted;
+  text-decoration-color: rgb(178, 211, 88);
+}
   
 
 .favouriteList h2 {
@@ -85,6 +90,37 @@
 .blacklist::-webkit-scrollbar-thumb {
   background-color: transparent; 
 
+}
+
+.popup-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  max-height: 40vh; /* Increase max-height to limit the popup height */
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-content {
+  color: black;
+  font-size: 18px;
+}
+
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: rgb(22, 22, 22);
+  font-size: 35px;
+  cursor: pointer;
 }
 
   @media only screen and (max-width: 1567px) {

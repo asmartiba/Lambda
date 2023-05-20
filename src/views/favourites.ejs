@@ -29,9 +29,10 @@
                 <div class="favouriteList">
                   <div class="favouriteQuote">
                     <h2 class="dialog"><%= favorite.dialog %></h2>
-                    <h2 class="author"><%= favorite.character %></h2>
+                    <a href="https://lotr.fandom.com/wiki/<%= favorite.character %>" target="_blank"><h2 class="author"><%= favorite.character %></h2></a>
                     <h2 class="invisible" id="<%= favorite._id %>"><%= favorite._id %></h2>
                   </div>
+                  <button class="btn" onclick="fetchQuotes('<%= favorite.characterId %>')">Fetch Quotes</button>
                   <button class="btn" onclick="deleteFavourite('<%= favorite._id %>')">Clear</button>
                 </div>
                 <% } %>
@@ -64,6 +65,54 @@
               <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
               
               <script>
+
+                // Fetch other quotes 
+                
+                function createQuotesPopup(quotesContent) {
+                        const popupContainer = document.createElement('div');
+                        popupContainer.classList.add('popup-container');
+
+                        const popupContent = document.createElement('div');
+                        popupContent.classList.add('popup-content');
+                        popupContent.innerHTML = quotesContent;
+
+                        const closeButton = document.createElement('span');
+                        closeButton.classList.add('popup-close');
+                        closeButton.innerHTML = 'x';
+                        closeButton.addEventListener('click', () => {
+                          document.body.removeChild(popupContainer);
+                        });
+
+                        popupContainer.appendChild(closeButton);
+                        popupContainer.appendChild(popupContent);
+                        document.body.appendChild(popupContainer);
+                      }
+                
+                async function fetchQuotes(characterId) {
+                    const quoteEndpoint = `https://the-one-api.dev/v2/character/${characterId}/quote`;
+                    const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
+                    const headers = {
+                      'Authorization': `Bearer ${bearerToken}`
+                    };
+
+                    try {
+                        const response = await fetch(quoteEndpoint, { headers });
+                        const quotesData = await response.json();
+
+                        // Display the fetched quotes in a popup
+                        if (quotesData.docs.length > 0) {
+                          let quotesContent = '';
+                          for (const quote of quotesData.docs) {
+                            quotesContent += `<p>${quote.dialog}</p>`;
+                          }
+                          createQuotesPopup(quotesContent);
+                        } else {
+                          console.log('No other quotes found for the character.');
+                        }
+                      } catch (error) {
+                        console.log('Error fetching quotes:', error);
+                      }
+                    }
 
                 // Delete elements
 
