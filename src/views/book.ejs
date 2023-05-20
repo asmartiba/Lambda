@@ -14,7 +14,6 @@
 
         </div>
 
-
         <div class="hero">
 
             <div class="linearmain">
@@ -24,40 +23,31 @@
             </div>
 
             <div class="books">
-                <% function getBookImg(name) {
-                    switch (name) {
-                        case 'The Fellowship Of The Ring':
-                            return 'img/The_Fellowship_of_the_Ring.jpg';
-                        case 'The Two Towers':
-                            return 'img/The_Two_Towers.jpg';
-                        case 'The Return Of The King':
-                            return 'img/The_Return_of_the_King.jpg';
-                        default:
-                            return '';
-                    }
-                } %>
-
-
-                <% books.forEach(function(book) { %>
-                  <div class="book">
-                    <img src="<%- getBookImg(book.name) %>" alt="book">
-                    <ul>
-                      <li data-name="<%= book.name %>" data-img="<%- getBookImg(book.name) %>"><%= book.name %></li>
-                    </ul>
-                    <button class="btn">Read more</button>
-                  </div>
-                <% }); %>
+              <div class="book">
+                <img src="/img/The_Fellowship_of_the_Ring.jpg" alt="Image">
+                <h2>The Fellowship of the Ring</h2>
+                <button class="btn" onclick="showPopup('The Fellowship Of The Ring')">Read more</button>
               </div>
-              
-              <a href="/home"><button class="btn2">← Back </button></a>
-              <div class="emptyspan"></div>
-              
-              <div class="popup">
-                <div class="popup-content">
-                  <span class="close-btn">&times;</span>
-                  <div class="book-info"></div>
-                </div>
+            
+              <div class="book">
+                <img src="img/The_Two_Towers.jpg" alt="Image">
+                <h2>The Two Towers</h2>
+                <button class="btn" onclick="showPopup('The Two Towers')">Read more</button>
               </div>
+            
+              <div class="book">
+                <img src="img/The_Return_of_the_King.jpg" alt="Image">
+                <h2>The Return of the King</h2>
+                <button class="btn" onclick="showPopup('The Return Of The King')">Read more</button>
+              </div>
+            </div>
+            
+            <div class="popup-container" id="popupContainer">
+              <div class="popup-content">
+                <h2 id="popupBookName"></h2>
+                <button class="close-btn" onclick="hidePopup()">Close</button>
+              </div>
+            </div>        
 
             <script>
               const bookInfoMap = {
@@ -66,25 +56,19 @@
                 'The Return Of The King': 'The Return of the King is the third and final volume of J.R.R. Tolkien`s `The Lord of the Rings` trilogy. It follows the members of the Fellowship of the Ring as they make their final stand against the dark lord Sauron and his army in the epic battle for Middle-earth. The book also includes the story of the hobbits Frodo and Sam`s perilous journey to Mount Doom to destroy the One Ring, which holds the power to control all other rings and bring darkness to the world. `The Return of the King` is a tale of courage, sacrifice, and the triumph of good over evil, and is considered one of the greatest works of fantasy literature ever written.'
               };
             
-              const books = document.querySelectorAll('.book');
-              const popup = document.querySelector('.popup');
-              const popupContent = document.querySelector('.popup-content');
-              const closeBtn = document.querySelector('.close-btn');
-            
-              books.forEach(function(book) {
-                const btn = book.querySelector('.btn');
-                const bookName = book.querySelector('li').getAttribute('data-name');
-                const bookInfo = bookInfoMap[bookName];
-            
-                btn.addEventListener('click', function() {
-                  popupContent.innerHTML = bookInfo;
-                  popup.style.display = 'block';
-                });
-              });
-            
-              closeBtn.addEventListener('click', function() {
-                popup.style.display = 'none';
-              });
+              function showPopup(bookName) {
+                  const popupContainer = document.getElementById('popupContainer');
+                  const popupBookName = document.getElementById('popupBookName');
+
+                  popupBookName.textContent = bookInfoMap[bookName];
+                  popupContainer.style.display = 'block';
+                }
+
+                function hidePopup() {
+                  const popupContainer = document.getElementById('popupContainer');
+                  popupContainer.style.display = 'none';
+                }
+
             </script>
 
     </main>

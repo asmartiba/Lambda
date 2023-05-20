@@ -110,14 +110,15 @@ app.post('/deleteFavourite', async (req, res) => {
 
 app.post('/favouriteFetch', async (req, res) => {
   try {
-    const { dialog, character } = req.body;
+    const { dialog, character, characterId } = req.body;
     await client.connect();
     const db = client.db('LotrDB');
     const collection = db.collection('favourites');
 
     const quoteData = {
       dialog: dialog,
-      character: character
+      character: character,
+      characterId: characterId
     };
 
     await collection.insertOne(quoteData);
@@ -133,22 +134,7 @@ app.post('/favouriteFetch', async (req, res) => {
 
 // BLACKLIST
 
-app.get('/blacklist', async (req, res) => {
-  try {
-    await client.connect();
-    const db = client.db('LotrDB');
-    const collection = db.collection('blacklist');
 
-    const blacklistedQuotes = await collection.find({}).toArray();
-
-    res.json(blacklistedQuotes);
-  } catch (error) {
-    console.error('Error:', error);
-    res.sendStatus(500);
-  } finally {
-    await client.close();
-  }
-});
 
 app.post('/blacklistFetch', async (req, res) => {
   try {
