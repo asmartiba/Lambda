@@ -31,6 +31,8 @@
 
                 <div id="quoteContainer">
                     <p id="quote" class="quote"></p>
+                    <p id="character" class="character"></p>
+                    <button id="fetchQuotes" onclick="fetchQuotesByCharacter()">Fetch Quotes</button>
                     <div class="flexrow">
                         <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
                         <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
@@ -47,6 +49,17 @@
                       </div>
                     </div>
                   </div>
+
+                  <div id="quotePopupContainer" class="quotesPopupContainer">
+                    <div class="quotesPopup">
+                      <h2>Quotes by Character</h2>
+                      <div id="quotesContent"></div>
+                      <div class="popup-buttons">
+                        <button onclick="hideQuotesPopup()" style="background-color: rgb(37, 37, 37);">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                  
 
                 <div>
                     <div class="quoteBox">
@@ -239,13 +252,60 @@
                                 .then(response => response.json())
                                 .then(characterData => {
                                 const characterName = characterData.docs[0].name;
-                                document.getElementById('quote').textContent = dialog;
-                                sessionStorage.setItem('currentCharacterName', characterName);
                                 const charId = characterId;
+                                document.getElementById('quote').textContent = dialog;
+                                document.getElementById('character').textContent = characterName;
+                                sessionStorage.setItem('currentCharacterName', characterName);
                                 sessionStorage.setItem('currentCharId', charId);
                                 })
+
+                            // Fetch quotes by character data
+                            fetch(`${charUrl}/${characterId}/quote`, {
+                                headers: {
+                                'Authorization': `Bearer ${bearerToken}`
+                                }
                             })
+                                .then(response => response.json())
+                                .then(quotesData => {
+                                    const quotes = quotesData.docs.map(quote => quote.dialog);
+                                    const quotesContent = quotes.join('<br>');
+                                    createQuotesPopup(quotesContent);
+                                });
+                            })
+                                                   
              }
+
+             // Fetch quotes by character
+
+             function showQuotesPopup() {
+                    document.getElementById('quotePopupContainer').style.display = 'block';
+                    }
+
+                    function hideQuotesPopup() {
+                    document.getElementById('quotePopupContainer').style.display = 'none';
+                    }
+
+
+             function fetchQuotesByCharacter() {
+                    const characterName = sessionStorage.getItem('currentCharacterName');
+                    const charId = sessionStorage.getItem('currentCharId');
+
+                    // Fetch quotes by character data
+                    fetch(`${charUrl}/${charId}/quote`, {
+                        headers: {
+                        'Authorization': `Bearer ${bearerToken}`
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(quotesData => {
+                        const quotes = quotesData.docs.map(quote => quote.dialog);
+                        const quotesContent = quotes.join('<br>');
+                        document.getElementById('quotesContent').innerHTML = quotesContent;
+                        showQuotesPopup();
+                    });
+                    }
+
+            
 
             // Favourites
 
@@ -313,6 +373,8 @@
                             console.error('Error:', error);
                             });
                         }
+
+                        
 
              document.getElementById('newQuote').addEventListener('click', function() {
                             getNewQuote();
