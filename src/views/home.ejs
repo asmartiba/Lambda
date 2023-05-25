@@ -28,7 +28,33 @@
             </div>
 
             <div class="quiz__box">
-                <a href="/quiz-page"><button class="btn2">The Quiz </button></a>
+
+                <div id="quoteContainer">
+                    <p id="quote" class="quote"></p>
+                    <div class="flexrow">
+                        <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
+                        <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
+                    </div>
+                </div>
+
+                <div id="popupContainer" class="popup-container">
+                    <div class="popup">
+                      <h2>Blacklist quote</h2>
+                      <textarea id="reasonInput" placeholder="Just give me a reason..."></textarea>
+                      <div class="popup-buttons">
+                        <button onclick="addToBlacklist()" style="background-color: rgb(26, 71, 26);">Add</button>
+                        <button onclick="hidePopup()" style="background-color: rgb(37, 37, 37);">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+
+                <div>
+                    <div class="quoteBox">
+                        <button id="newQuote">New Quote</button>
+                    </div>
+                </div>
+
+                <a href="/quiz-page"><button class="btn2">Start The Quiz </button></a>
             </div>
 
             <div class="linearmain">
@@ -173,6 +199,128 @@
                 <a href="/about"><button class="btn2">About Us... </button></a>
             </div>
         </div>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <script>
+            
+            const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
+            const quote = 'https://the-one-api.dev/v2/quote'; 
+            const charUrl = 'https://the-one-api.dev/v2/character';
+            const movieUrl = 'https://the-one-api.dev/v2/movie';
+
+             // Quote
+             function getNewQuote() {
+
+                        // Reset button colors
+                        document.getElementById('addToFavourite').style.background = '#011f0197';
+                        document.getElementById('addToBlacklist').style.background = '#25252583';
+
+                        // Fetch quote
+                        fetch(quote, {
+                            headers: {
+                            'Authorization': `Bearer ${bearerToken}`
+                            }
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                            const randomIndex = Math.floor(Math.random() * data.docs.length);
+                            const dialog = data.docs[randomIndex].dialog;
+                            const characterId = data.docs[randomIndex].character;
+                            const movieId = data.docs[randomIndex].movie;
+
+                            // Fetch character data
+                            fetch(`${charUrl}/${characterId}`, {
+                                headers: {
+                                'Authorization': `Bearer ${bearerToken}`
+                                }
+                            })
+                                .then(response => response.json())
+                                .then(characterData => {
+                                const characterName = characterData.docs[0].name;
+                                document.getElementById('quote').textContent = dialog;
+                                sessionStorage.setItem('currentCharacterName', characterName);
+                                const charId = characterId;
+                                sessionStorage.setItem('currentCharId', charId);
+                                })
+                            })
+             }
+
+            // Favourites
+
+                function addToFavourite() {
+                    const quoteDialog = document.getElementById('quote').textContent;
+                    const characterName = sessionStorage.getItem('currentCharacterName');
+                    const characterId = sessionStorage.getItem('currentCharId');
+
+
+                    axios.post('/favouriteFetch', { dialog: quoteDialog, character: characterName, characterId: characterId })
+                        .then(response => {
+                            console.log('Added to favourites');
+                            console.log('Dialogue:', quoteDialog);
+                            console.log('Character:', characterName);
+                            console.log('Id:', characterId);
+                            document.getElementById('addToFavourite').style.background = '#5ebf45';
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                    });
+                }
+
+                    // Blacklist 
+
+                    function showPopup() {
+                            const popupContainer = document.getElementById('popupContainer');
+                            popupContainer.style.display = 'block';
+                        }
+
+                        function hidePopup() {
+                            const popupContainer = document.getElementById('popupContainer');
+                            popupContainer.style.display = 'none';
+                        }
+
+                        function openAddToBlacklistPopup() {
+                        showPopup();
+                        }
+
+                        function resetReasonInput() {
+                            const reasonInput = document.getElementById('reasonInput');
+                            reasonInput.value = '';
+                        }
+
+                        function addToBlacklist() {
+                        const reasonInput = document.getElementById('reasonInput');
+                        const reason = reasonInput.value;
+
+                        if (!reason) {
+                            showPopup();
+                            return;
+                        }
+
+                        const quoteDialog = document.getElementById('quote').textContent;
+
+                        axios
+                            .post('/blacklistFetch', { dialog: quoteDialog, reason: reason })
+                            .then(response => {
+                            console.log('Added to blacklist');
+                            console.log('Dialogue:', quoteDialog);
+                            console.log('Reason:', reason);
+                            document.getElementById('addToBlacklist').style.background = 'black';
+                            hidePopup();
+                            })
+                            .catch(error => {
+                            console.error('Error:', error);
+                            });
+                        }
+
+             document.getElementById('newQuote').addEventListener('click', function() {
+                            getNewQuote();
+                    });
+
+            getNewQuote();
+
+        </script>
     </main>
     <%- include('partials/footer.ejs') %>
 </body>
