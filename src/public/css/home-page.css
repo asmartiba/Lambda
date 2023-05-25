@@ -190,15 +190,134 @@ header {
   }
 
   .quiz__box {
-    height: 25vh;
-    width: 65vw;
+    height: 65vh;
+    width: 85vw;
     background: linear-gradient(to bottom, rgba(107, 20, 20, 0.774),  rgba(126, 70, 38, 0.541), transparent);
     border-radius: 12vh;
     text-align: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+
+  .quote {
+    color: gold;
+    font-size:42px;
+    height: auto;
+    width:85vw;
+    height:150px;
+    background: linear-gradient(to bottom, rgba(250, 126, 68, 0.774),  rgba(36, 7, 3, 0.678), transparent);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 2px solid rgb(192, 192, 192);
+    font-family: 'Cookie';
+    margin-top: 100px;
+}
+
+#addToBlacklist, #addToFavourite {
+  height: 50px;
+  width: 160px;
+  margin: 30px;
+  border-radius: 25px;
+}
+
+#addToBlacklist {
+  background: #25252583;
+  color: white;
+}
+
+#addToFavourite {
+  background: #011f0197;
+  color: white;
+}
+
+
+#newQuote {
+  width: 20vw;
+  height: 60px;
+  border-radius: 30px;
+  background: transparent;
+  border: 2px solid gold;
+  font-size: 38px;
+  font-family: 'Cookie';
+  color: #f1c8c8c0;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+  width:15vw;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+  background: none;
+  color: white;
+  border: none;
+}
+
+.popup-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  border-radius: 8px;
+  height: 15vh;
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: black;
+  font-family: 'Handlee';
+  font-size: 32px;
+}
+
+.popup textarea {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 10px;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 18px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.popup-buttons button {
+  margin-left: 10px;
+  width: 120px;
+  height: 30px;
+  color: white;
+  border-radius: 15px;
+}
 
   .books__box {
     width: 80vw;
