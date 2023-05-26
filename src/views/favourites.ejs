@@ -100,7 +100,6 @@
                         const response = await fetch(quoteEndpoint, { headers });
                         const quotesData = await response.json();
 
-                        // Display the fetched quotes in a popup
                         if (quotesData.docs.length > 0) {
                           let quotesContent = '';
                           for (const quote of quotesData.docs) {

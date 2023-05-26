@@ -50,7 +50,7 @@
                     </div>
                   </div>
 
-                  <div id="quotePopupContainer" class="quotesPopupContainer">
+                  <div id="quotePopupContainer" class="quotePopupContainer">
                     <div class="quotesPopup">
                       <h2>Quotes by Character</h2>
                       <div id="quotesContent"></div>
@@ -278,7 +278,8 @@
              // Fetch quotes by character
 
              function showQuotesPopup() {
-                    document.getElementById('quotePopupContainer').style.display = 'block';
+                    document.getElementById('quotePopupContainer').style.display = 'flex';
+                    quotePopupContainer.classList.add('quotePopupContainer');
                     }
 
                     function hideQuotesPopup() {
@@ -297,12 +298,12 @@
                         }
                     })
                     .then(response => response.json())
-                    .then(quotesData => {
-                        const quotes = quotesData.docs.map(quote => quote.dialog);
-                        const quotesContent = quotes.join('<br>');
-                        document.getElementById('quotesContent').innerHTML = quotesContent;
-                        showQuotesPopup();
-                    });
+                        .then(quotesData => {
+                            const quotes = quotesData.docs.map(quote => quote.dialog);
+                            const quotesContent = quotes.join('<br>');
+                            document.getElementById('quotesContent').innerHTML = quotesContent;
+                            showQuotesPopup();
+                        });
                     }
 
             

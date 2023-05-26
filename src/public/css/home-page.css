@@ -320,7 +320,7 @@ header {
   border-radius: 15px;
 }
 
-.quotesPopupContainer {
+.quotePopupContainer {
   display: none;
   position: fixed;
   top: 0;
@@ -330,9 +330,26 @@ header {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
   overflow-y: scroll;
+  justify-content: center;
+  align-items: center;
 }
 
+.quotesPopup {
+  width: 50vw;
+  height: 40vh;
+  background-color: darkgrey;
+  border: 2px solid gold;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
 
+#quotesContent {
+  overflow-y: scroll;
+  width: 50vw;
+  height: 35vh;
+}
 
   .books__box {
     width: 80vw;
