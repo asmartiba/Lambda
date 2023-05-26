@@ -31,8 +31,11 @@
 
                 <div id="quoteContainer">
                     <p id="quote" class="quote"></p>
-                    <p id="character" class="character"></p>
-                    <button id="fetchQuotes" onclick="fetchQuotesByCharacter()">Fetch Quotes</button>
+                    <div class="author">
+                        <p id="character" class="character"></p>
+                        <p id="quotesNumber" class="quotesNumber"></p> 
+                        <button id="fetchQuotes" onclick="fetchQuotesByCharacter()" class="btn">Fetch Quotes</button>
+                    </div>
                     <div class="flexrow">
                         <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
                         <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
@@ -60,14 +63,8 @@
                     </div>
                   </div>
                   
-
-                <div>
-                    <div class="quoteBox">
-                        <button id="newQuote">New Quote</button>
-                    </div>
-                </div>
-
-                <a href="/quiz-page"><button class="btn2">Start The Quiz </button></a>
+                <button id="newQuote" class="btn2">New Quote</button>
+                <a href="/quiz-page"><button class="startQuiz">Start The Quiz </button></a>
             </div>
 
             <div class="linearmain">
@@ -268,8 +265,9 @@
                                 .then(response => response.json())
                                 .then(quotesData => {
                                     const quotes = quotesData.docs.map(quote => quote.dialog);
-                                    const quotesContent = quotes.join('<br>');
-                                    createQuotesPopup(quotesContent);
+                                    const quotesNumber = quotesData.docs.length;
+                                    document.getElementById('quotesNumber').innerHTML = `  -   This character has ${quotesNumber} other quotes`;
+                                    console.log(quotesNumber);
                                 });
                             })
                                                    

@@ -192,7 +192,7 @@ header {
   .quiz__box {
     height: 65vh;
     width: 85vw;
-    background: linear-gradient(to bottom, rgba(107, 20, 20, 0.774),  rgba(126, 70, 38, 0.541), transparent);
+    background: linear-gradient(to bottom, rgba(39, 6, 6, 0.918),  rgba(0, 0, 0, 0.979), rgba(2, 31, 29, 0.979), transparent);
     border-radius: 12vh;
     text-align: center;
     display: flex;
@@ -202,12 +202,12 @@ header {
   }
 
   .quote {
-    color: gold;
+    color: rgb(236, 219, 123);
     font-size:42px;
     height: auto;
     width:85vw;
     height:150px;
-    background: linear-gradient(to bottom, rgba(250, 126, 68, 0.774),  rgba(36, 7, 3, 0.678), transparent);
+    background: linear-gradient(to bottom, rgba(180, 74, 25, 0.774),  rgba(36, 7, 3, 0.678), transparent);
     text-align: center;
     display: flex;
     align-items: center;
@@ -215,6 +215,14 @@ header {
     border-top: 2px solid rgb(192, 192, 192);
     font-family: 'Cookie';
     margin-top: 100px;
+}
+
+#quoteContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 }
 
 #addToBlacklist, #addToFavourite {
@@ -227,24 +235,15 @@ header {
 #addToBlacklist {
   background: #25252583;
   color: white;
+  font-size: 1.2em;
 }
 
 #addToFavourite {
   background: #011f0197;
   color: white;
+  font-size: 1.2em;
 }
 
-
-#newQuote {
-  width: 20vw;
-  height: 60px;
-  border-radius: 30px;
-  background: transparent;
-  border: 2px solid gold;
-  font-size: 38px;
-  font-family: 'Cookie';
-  color: #f1c8c8c0;
-}
 
 .buttonContainer {
   display: flex;
@@ -332,6 +331,7 @@ header {
   overflow-y: scroll;
   justify-content: center;
   align-items: center;
+  padding:30px;
 }
 
 .quotesPopup {
@@ -345,10 +345,17 @@ header {
   align-items: center;
 }
 
+.quotesPopup h2 {
+  font-family: 'Dancing Script';
+  font-size: 38px;
+  color: darkred;
+}
+
 #quotesContent {
   overflow-y: scroll;
   width: 50vw;
   height: 35vh;
+  margin: 10px;
 }
 
   .books__box {
@@ -417,6 +424,29 @@ header {
   .character__box img {  
     height: 450px;
     margin: 25px;
+  }
+
+  .character {
+    font-family: 'Dancing Script';
+    color: rgb(122, 231, 180);
+    font-size: 50px;
+    padding-bottom: 14px;
+  }
+
+  .quotesNumber {
+    font-family:Arial, Helvetica, sans-serif;
+    color: rgb(247, 211, 206);
+    font-size: 20px;
+    margin-left:50px;
+    margin-right: 30px;
+  }
+
+  .author {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
   }
 
   .movies__box {
@@ -568,10 +598,10 @@ header {
   .btn2 {
     width: 200px;
     height: 60px;
-    border-radius: 15px;
-    background: transparent;
-    border: 2px solid rgb(157, 219, 106);
-    color:rgb(157, 219, 106);
+    border-radius: 30px;
+    background: rgba(0, 0, 0, 0.74);
+    border: 2px solid rgb(118, 231, 169);
+    color:white;
     font-size: 18px;
     margin-bottom: 10px;
   }
@@ -585,6 +615,17 @@ header {
     border: 2px solid rgba(146, 55, 49, 0.841);
     color:rgba(216, 141, 107, 0.841);
     font-size: 18px;
+  }
+
+  .startQuiz {
+    width: 400px;
+    height: 60px;
+    border-radius: 30px;
+    background: rgba(0, 0, 0, 0.863);
+    border: 2px solid lightcoral;
+    color:white;
+    font-size:22px;
+    margin-top:30px;
   }
 
 
