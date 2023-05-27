@@ -190,7 +190,7 @@ header {
   }
 
   .quiz__box {
-    height: 65vh;
+    height: 85vh;
     width: 85vw;
     background: linear-gradient(to bottom, rgba(39, 6, 6, 0.918),  rgba(0, 0, 0, 0.979), rgba(2, 31, 29, 0.979), transparent);
     border-radius: 12vh;
@@ -201,12 +201,17 @@ header {
     align-items: center;
   }
 
+  .theQuote {
+    height: 45vh;
+    width: auto;
+  }
+
   .quote {
     color: rgb(236, 219, 123);
-    font-size:42px;
+    font-size:38px;
     height: auto;
     width:85vw;
-    height:150px;
+    height:160px;
     background: linear-gradient(to bottom, rgba(180, 74, 25, 0.774),  rgba(36, 7, 3, 0.678), transparent);
     text-align: center;
     display: flex;
@@ -278,11 +283,12 @@ header {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.777);
+  border: 3px solid black;
   padding: 20px;
   border-radius: 8px;
-  height: 15vh;
-  width: 20vw;
+  height: 35vh;
+  width: 40vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -291,10 +297,16 @@ header {
 
 .popup h2 {
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: black;
-  font-family: 'Handlee';
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-size: 32px;
+}
+
+.popup p {
+  font-size:24px;
+  color: black;
+  margin-bottom:20px;
 }
 
 .popup textarea {
@@ -356,6 +368,42 @@ header {
   width: 50vw;
   height: 35vh;
   margin: 10px;
+}
+
+.selectModeContainer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  overflow-y: scroll;
+}
+
+.selectPopup h2 {
+  font-size: 32px;
+  color: white;
+  margin-bottom: 15px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.selectPopup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(19, 19, 19, 0.859);
+  border: 3px solid rgb(240, 165, 103);
+  padding: 20px;
+  border-radius: 12px;
+  height: 45vh;
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
   .books__box {
@@ -429,16 +477,17 @@ header {
   .character {
     font-family: 'Dancing Script';
     color: rgb(122, 231, 180);
-    font-size: 50px;
+    font-size: 40px;
     padding-bottom: 14px;
   }
 
   .quotesNumber {
     font-family:Arial, Helvetica, sans-serif;
-    color: rgb(247, 211, 206);
-    font-size: 20px;
-    margin-left:50px;
-    margin-right: 30px;
+    color: rgb(224, 245, 128);
+    width: auto;
+    font-size: 22px;
+    margin-right: 20px;
+    margin-left:40px; 
   }
 
   .author {
@@ -446,7 +495,7 @@ header {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 40vw;
+    width: 70vw;
   }
 
   .movies__box {
@@ -597,7 +646,7 @@ header {
 
   .btn2 {
     width: 200px;
-    height: 60px;
+    height: 50px;
     border-radius: 30px;
     background: rgba(0, 0, 0, 0.74);
     border: 2px solid rgb(118, 231, 169);
@@ -616,6 +665,19 @@ header {
     color:rgba(216, 141, 107, 0.841);
     font-size: 18px;
   }
+
+  .selectButton {
+    width: 30vw;
+    height: 65px;
+    margin-bottom: 25px;;
+    border-radius: 30px;
+    font-family: 'Dancing Script';
+    font-size: 38px;
+    border: 3px solid darkgoldenrod;
+    background-color: rgb(97, 8, 8);
+    color: darkgoldenrod;
+  }
+
 
   .startQuiz {
     width: 400px;
@@ -637,50 +699,7 @@ header {
   .btn2:hover {
     background-color: #040d1a8c;
   }
-
-
-  /* Quiz */
-
-  #game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-  }
-
-  #quote-container {
-    margin-bottom: 30px;
-  }
   
-  #image-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
-  }
-  #quote-container {
-    margin-bottom: 30px;
-  }
-  
-  #image-container img {
-    margin: 10px;
-    cursor: pointer;
-  }
-
-  #reset-button {
-    font-size: 18px;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  #Start {
-    display: none;
-    overflow: hidden;
-    padding: 0.5rem;
-  }
 
   /* Responsive Media Queries */
 

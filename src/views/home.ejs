@@ -30,7 +30,9 @@
             <div class="quiz__box">
 
                 <div id="quoteContainer">
-                    <p id="quote" class="quote"></p>
+                    <div class="theQuote">
+                        <p id="quote" class="quote"></p>
+                    </div>
                     <div class="author">
                         <p id="character" class="character"></p>
                         <p id="quotesNumber" class="quotesNumber"></p> 
@@ -39,16 +41,29 @@
                     <div class="flexrow">
                         <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
                         <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
+                        <button id="newQuote" class="btn2">New Quote</button>
                     </div>
                 </div>
 
                 <div id="popupContainer" class="popup-container">
                     <div class="popup">
                       <h2>Blacklist quote</h2>
+                      <p>Blacklist quotes will not appear in quiz</p>
                       <textarea id="reasonInput" placeholder="Just give me a reason..."></textarea>
                       <div class="popup-buttons">
                         <button onclick="addToBlacklist()" style="background-color: rgb(26, 71, 26);">Add</button>
                         <button onclick="hidePopup()" style="background-color: rgb(37, 37, 37);">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="selectModeContainer" class="selectModeContainer">
+                    <div class="selectPopup">
+                      <h2>Select mode</h2>
+
+                      <div>
+                        <a href="/quiz-page"><button class="selectButton">10 Rounds</button></a>
+                        <a href="/quiz-page"><button class="selectButton">Sudden Death</button></a>
                       </div>
                     </div>
                   </div>
@@ -63,8 +78,7 @@
                     </div>
                   </div>
                   
-                <button id="newQuote" class="btn2">New Quote</button>
-                <a href="/quiz-page"><button class="startQuiz">Start The Quiz </button></a>
+                <button class="startQuiz" onClick="showSelectPopup()">Start The Quiz </button>
             </div>
 
             <div class="linearmain">
@@ -272,6 +286,17 @@
                             })
                                                    
              }
+
+             // Select mode popup
+
+             function showSelectPopup() {
+                    document.getElementById('selectModeContainer').style.display = 'flex';
+                    quotePopupContainer.classList.add('selectModeContainer');
+                    }
+
+                    function hideSelectPopup() {
+                    document.getElementById('selectModeContainer').style.display = 'none';
+                    }
 
              // Fetch quotes by character
 
