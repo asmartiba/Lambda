@@ -36,12 +36,13 @@
                     <div class="author">
                         <p id="character" class="character"></p>
                         <p id="quotesNumber" class="quotesNumber"></p> 
-                        <button id="fetchQuotes" onclick="fetchQuotesByCharacter()" class="btn">Fetch Quotes</button>
+                        <button id="fetchQuotes" onclick="fetchQuotesByCharacter()">Fetch Quotes</button>
                     </div>
-                    <div class="flexrow">
+                    <div class="quoteButtons">
                         <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
                         <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
-                        <button id="newQuote" class="btn2">New Quote</button>
+                        <button id="newQuote">New Quote</button>
+                        <button id="startQuiz" onClick="showSelectPopup()">Start The Quiz </button> 
                     </div>
                 </div>
 
@@ -61,9 +62,10 @@
                     <div class="selectPopup">
                       <h2>Select mode</h2>
 
-                      <div>
+                      <div class="flexcolumn">
                         <a href="/quiz-page"><button class="selectButton">10 Rounds</button></a>
                         <a href="/quiz-page"><button class="selectButton">Sudden Death</button></a>
+                        <button class="btn" onclick="hideSelectPopup()">Close</button>
                       </div>
                     </div>
                   </div>
@@ -77,8 +79,6 @@
                       </div>
                     </div>
                   </div>
-                  
-                <button class="startQuiz" onClick="showSelectPopup()">Start The Quiz </button>
             </div>
 
             <div class="linearmain">
@@ -280,7 +280,7 @@
                                 .then(quotesData => {
                                     const quotes = quotesData.docs.map(quote => quote.dialog);
                                     const quotesNumber = quotesData.docs.length;
-                                    document.getElementById('quotesNumber').innerHTML = `  -   This character has ${quotesNumber} other quotes`;
+                                    document.getElementById('quotesNumber').innerHTML = `This character has ${quotesNumber} other quotes`;
                                     console.log(quotesNumber);
                                 });
                             })

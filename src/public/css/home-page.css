@@ -81,6 +81,14 @@ header {
     font-size: 60px;
   }
 
+  .flexcolumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
   footer {
     width: 100vw;
     background-color: rgb(24, 2, 2);
@@ -204,6 +212,7 @@ header {
   .theQuote {
     height: 45vh;
     width: auto;
+    margin: 50px;
   }
 
   .quote {
@@ -230,7 +239,7 @@ header {
   align-items: center;
 }
 
-#addToBlacklist, #addToFavourite {
+#addToBlacklist, #addToFavourite, #fetchQuotes, #newQuote, #startQuiz {
   height: 50px;
   width: 160px;
   margin: 30px;
@@ -246,6 +255,25 @@ header {
 #addToFavourite {
   background: #011f0197;
   color: white;
+  font-size: 1.2em;
+}
+
+#fetchQuotes {
+  background: #472a0097;
+  color: white;
+  font-size: 1.2em;
+}
+
+#newQuote {
+  background: #43020297;
+  color: white;
+  font-size: 1.2em;
+}
+
+#startQuiz {
+  background: #010c1bb8;
+  color: gold;
+  border: 2px solid gold;
   font-size: 1.2em;
 }
 
@@ -343,7 +371,6 @@ header {
   overflow-y: scroll;
   justify-content: center;
   align-items: center;
-  padding:30px;
 }
 
 .quotesPopup {
@@ -678,19 +705,6 @@ header {
     color: darkgoldenrod;
   }
 
-
-  .startQuiz {
-    width: 400px;
-    height: 60px;
-    border-radius: 30px;
-    background: rgba(0, 0, 0, 0.863);
-    border: 2px solid lightcoral;
-    color:white;
-    font-size:22px;
-    margin-top:30px;
-  }
-
-
   .btn:hover {
     background-color: #040d1a8c;
   }
@@ -762,18 +776,20 @@ header {
       width: 70vw;
     }
     .quiz__box {
+      height: auto;
       width: 100vw;
       border-radius: 0;
     }
     .books__box {
       width: 100vw;
-      height: 100vh;
+      height: auto;
       display: flex;
       flex-direction: column;
     }
     .book__box {
       width:80vw;
       margin-top:15px;
+      margin-bottom:35px;
     }
     .book__box img {
       height: 200px;
@@ -789,7 +805,6 @@ header {
       height: auto; 
       border-radius: 0%;
     }
-
     .character__box {
       width: 100vw;
       display: flex;
@@ -797,19 +812,16 @@ header {
       align-items: center;
       justify-content: space-around;
     }
-  
     .character__box h2 {  
       color: rgb(255, 227, 203);
       font-size: 0.9em;
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       text-align: center;
     }
-  
     .character__box img {  
       height: 350px;
       margin: 0px;
     }
-
     .movies__box {
       width: 100vw;
       height: auto;
@@ -817,7 +829,6 @@ header {
       justify-content: center;
       border: none;
     }
-  
     .movie__box {
       height: auto;
       width: 100vw;
@@ -826,21 +837,18 @@ header {
       margin:0;
       border-radius: 0%;
     }
-  
     .movie__box img {
       margin-top: 25px;
       height: 30vh;
       width: auto;
       padding-bottom: 15px;
     }
-
     .developers {
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: auto;
     }
-  
     .developer {
       width: 100vw;
       height: 200px;
@@ -849,7 +857,6 @@ header {
       border-bottom: 2px white solid;
       display: flex;
     }
-  
     .developer img {
       height: 150px;
       width: 150px;
@@ -857,7 +864,6 @@ header {
       object-fit: cover;
       border-top: 3px solid gold;
     }
-  
     .developer h2 {
       font-family:'Dancing Script', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
       color: gold;
@@ -896,5 +902,34 @@ header {
       width:70vw;
       font-size: 28px;
       text-align: center;
+    }
+    .quote {
+      width: 100vw;
+    }
+    .author {
+      display: flex;
+      flex-direction: column;
+    }
+    .quoteButtons {
+      display: flex;
+      flex-direction: column;
+    }
+    .popup {
+      width:85vw;
+      height:40vh;
+    }
+    .quotesPopup {
+      width: 100vw;
+      height:60vh;
+    }
+    #quotesContent {
+      width:80vw;
+    }
+    .selectPopup {
+      width: 90vw;
+      height:70vh;
+    }
+    .selectButton {
+      width: 70vw;
     }
   }
