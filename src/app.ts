@@ -17,22 +17,6 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// test
-
-const main = async () => {
-  try {
-    await client.connect();
-    let list = await client.db().admin().listDatabases();
-    console.log(list);
-  }
-  catch(e) {
-    console.log(e);
-  } finally {
-    await client.close();
-  }
-}
-
-// main();
 
 // router 
 
@@ -40,8 +24,8 @@ app.get('/', (req, res) => {
   res.render('index', { title: 'Home' });
 });
 
-app.get('/sign-up', (req, res) => {
-  res.render('sign-up', { title: 'Sign up' });
+app.get('/signup', (req, res) => {
+  res.render('signup', { title: 'Sign up' });
 });
 
 app.get('/quiz-page', (req, res) => {
@@ -56,6 +40,58 @@ app.get('/home', (req, res) => {
   res.render('home');
 });
 
+// LOGIN
+
+app.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    await client.connect();
+    const db = client.db('LotrDB');
+    const signupCollection = db.collection('signup');
+
+    const user = await signupCollection.findOne({ username, password });
+
+    if (user && user.password === password) {
+      res.status(200).json({ message: 'Login successful' });
+    } else {
+      res.status(401).json({ message: 'Invalid login' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'An error occurred' });
+  } finally {
+    await client.close();
+  }
+});
+
+// SIGN UP
+
+
+app.post('/signup', async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+
+    await client.connect();
+    const db = client.db('LotrDB');
+    const signupCollection = db.collection('signup');
+
+    const signupData = {
+      username: username,
+      email: email,
+      password: password
+    };
+
+    await signupCollection.insertOne(signupData);
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error:', error);
+    res.sendStatus(500);
+  } finally {
+    await client.close();
+  }
+});
 
 // FAVOURITES
 

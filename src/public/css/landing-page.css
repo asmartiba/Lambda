@@ -35,6 +35,10 @@ body {
   }
 }
 
+.emptyspan {
+  height:50px;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -58,7 +62,7 @@ body {
 .select__menu {
   width: 75vw;
   height: 96vh;
-  background: linear-gradient(#4e715b79, #1f111695);
+  background: linear-gradient(#293a2fc4, #220e15c2);
   border: rgb(230, 138, 78) 2px solid;
   display: flex;
   flex-direction: column;
