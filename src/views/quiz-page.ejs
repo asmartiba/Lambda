@@ -24,6 +24,7 @@
 
             <div class="the_quiz" id="the_quiz">
 
+                    <h1>Welcome to the quiz, <%= username %>!</h1>
                     <h2 class="roundCount">Round <span id="round">1</span>/10</h2>
 
                     <div id="quoteContainer">
@@ -103,15 +104,12 @@
                                 const scoreElement = document.getElementById('score');
                                 scoreElement.innerHTML = `Score: <span style="color: green;">${score}</span>`;
                                 console.log('score is incremented by 0.5', score);
-                                if (round === 10) {
-                                    showScorePopup();
-                            }
                         }
 
                         function showScorePopup() {
                                     const scoreContainer = document.getElementById('scoreContainer');
                                     const scoreElement = document.getElementById('scoreboard');
-                                    const scoreText = `Score: <span style="color: green;">${score} / </span> / <span style="color: grey;">10</span>`;
+                                    const scoreText = `<span style="color: white;">Your score: </span>  <span style="color: green;">${score} / </span> / <span style="color: grey;">10</span>`;
                                     scoreElement.innerHTML = scoreText;
                                     scoreContainer.style.display = 'flex';
                                 }
@@ -130,6 +128,10 @@
                         // Reset button colors
                         document.getElementById('addToFavourite').style.background = '#011f0197';
                         document.getElementById('addToBlacklist').style.background = '#25252583';
+
+                        if (round > 10) {
+                                    showScorePopup();
+                            }
 
                         // Reset option borders
                         const options = document.querySelectorAll('.option');

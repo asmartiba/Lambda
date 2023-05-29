@@ -89,7 +89,7 @@
               
               <script>
 
-                // Fetch other quotes 
+            // Fetch other quotes 
             const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
             const quote = 'https://the-one-api.dev/v2/quote'; 
             const charUrl = 'https://the-one-api.dev/v2/character';
@@ -194,6 +194,7 @@
                         .then((response) => {
                           console.log('Reason updated successfully');
                           hidePopup();
+                          location.reload();
                         })
                         .catch((error) => {
                           console.error('Error updating reason:', error);

@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 const { MongoClient, ObjectId } = require('mongodb');
+const cookieParser = require('cookie-parser');
 
 
 // DB initialisation
@@ -16,7 +17,7 @@ app.set('views', path.join(__dirname,  'views'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(cookieParser());
 
 // router 
 
@@ -29,8 +30,11 @@ app.get('/signup', (req, res) => {
 });
 
 app.get('/quiz-page', (req, res) => {
-  res.render('quiz-page', { title: 'The Quiz' });
+  const username = req.cookies.username; // Access the stored username from the cookie
+
+  res.render('quiz-page', { title: 'The Quiz', username: username }); // Pass the username as a variable
 });
+
 
 app.get('/about', (req, res) => {
   res.render('about', { title: 'About Us' });
@@ -53,7 +57,8 @@ app.post('/login', async (req, res) => {
     const user = await signupCollection.findOne({ username, password });
 
     if (user && user.password === password) {
-      res.status(200).json({ message: 'Login successful' });
+      res.cookie('username', user.username); 
+      res.status(200).json({ message: 'Login successful'});
     } else {
       res.status(401).json({ message: 'Invalid login' });
     }
