@@ -109,7 +109,7 @@
                         function showScorePopup() {
                                     const scoreContainer = document.getElementById('scoreContainer');
                                     const scoreElement = document.getElementById('scoreboard');
-                                    const scoreText = `<span style="color: white;">Your score: </span>  <span style="color: green;">${score} / </span> / <span style="color: grey;">10</span>`;
+                                    const scoreText = `<span style="color: white;"> <%= username %> </span>  <span style="color: green;">${score} / </span> / <span style="color: grey;">10</span>`;
                                     scoreElement.innerHTML = scoreText;
                                     scoreContainer.style.display = 'flex';
                                 }
