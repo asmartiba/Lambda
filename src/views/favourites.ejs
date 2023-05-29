@@ -62,9 +62,22 @@
                       <h2 class="reason"><span style="color: rgb(177, 174, 160)">Reason:</span> <%= blacklist.reason %></h2>
                       <h2 class="invisible" id="<%= blacklist._id %>"><%= blacklist._id %></h2>
                     </div>
+                    <button class="btn" onclick="editReason('<%= blacklist._id %>')">Edit Reason</button>
                     <button class="btn" onclick="deleteBlacklist('<%= blacklist._id %>')">Clear</button>
                   </div>
                 <% } %>
+              </div>
+
+              <div id="popupContainer" class="popup-container">
+                <div class="popup">
+                  <h2>Blacklist quote</h2>
+                  <p>Blacklist quotes will not appear in quiz</p>
+                  <textarea id="reasonInput" placeholder="Just give me a reason..."></textarea>
+                  <div class="popup-buttons">
+                    <button id="confirm" style="background-color: rgb(26, 71, 26);">Edit reason</button>
+                    <button onclick="hidePopup()" style="background-color: rgb(37, 37, 37);">Cancel</button>
+                  </div>
+                </div>
               </div>
               
               <a href="/home"><button class="btn2">← Back</button></a>
@@ -147,6 +160,51 @@
                         console.error('Error:', error);
                       });
                   };
+                  
+
+                // Edit reason
+                  let currentBlacklistId = null;
+
+                  const editReason = (blacklistId) => {
+                    currentBlacklistId = blacklistId;
+                    const reasonInput = document.getElementById('reasonInput');
+                    reasonInput.value = ''; 
+                    reasonInput.focus(); 
+                    showPopup(); 
+                  };
+
+                  const showPopup = () => {
+                    const popupContainer = document.getElementById('popupContainer');
+                    popupContainer.style.display = 'block';
+                  };
+
+                  const hidePopup = () => {
+                    currentBlacklistId = null;
+                    const popupContainer = document.getElementById('popupContainer');
+                    popupContainer.style.display = 'none';
+                  };
+
+                  const handleConfirm = () => {
+                    const reasonInput = document.getElementById('reasonInput');
+                    const reason = reasonInput.value.trim();
+
+                    if (reason !== '') {
+                      axios
+                        .post('/editBlacklistReason', { blacklistId: currentBlacklistId, reason })
+                        .then((response) => {
+                          console.log('Reason updated successfully');
+                          hidePopup();
+                        })
+                        .catch((error) => {
+                          console.error('Error updating reason:', error);
+                        });
+                    }
+                  };
+
+                  // Add an event listener to the confirm button
+                  const confirmButton = document.getElementById('confirm');
+                  confirmButton.addEventListener('click', handleConfirm);
+
               </script>
                  
     </main>

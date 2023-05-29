@@ -134,8 +134,7 @@ app.post('/favouriteFetch', async (req, res) => {
 
 // BLACKLIST
 
-
-
+//fetch:
 app.post('/blacklistFetch', async (req, res) => {
   try {
     const { dialog, reason } = req.body;
@@ -159,6 +158,30 @@ app.post('/blacklistFetch', async (req, res) => {
   }
 });
 
+//edit:
+app.post('/editBlacklistReason', async (req, res) => {
+  try {
+    const { blacklistId, reason } = req.body;
+
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('blacklist');
+
+    await collection.updateOne(
+      { _id: new ObjectId(blacklistId) },
+      { $set: { reason: reason } }
+    );
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error editing blacklist reason:', error);
+    res.sendStatus(500);
+  } finally {
+    await client.close();
+  }
+});
+
+//delete:
 app.post('/deleteBlacklist', async (req, res) => {
   try {
     const { blacklistId } = req.body;
