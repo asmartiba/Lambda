@@ -49,7 +49,21 @@
                       <div id="scoreContainer" class="scoreContainer">
                         <div class="scorePopup">
                           <h2>Score Board</h2>
-                          <div id="scoreboard" class="scoreboard"></div>
+                          <div id="scoreboard" class="scoreboard">
+                            <% if (scores.length > 0) { %>
+                              <ul>
+                                <% scores.forEach(scoreData => { %>
+                                  <li>
+                                    <span style="color: white;"><%= scoreData.username %></span>
+                                    <span style="color: green;"><%= scoreData.score %></span> / <span style="color: grey;">10</span>
+                                  </li>
+                                <% }); %>
+                              </ul>
+                            <% } else { %>
+                              <p>No scores available.</p>
+                            <% } %>
+                          </div>
+                          
                           <div class="popup-buttons">
                             <button onclick="hideScorePopup()" style="background-color: rgb(37, 37, 37);">Close</button>
                           </div>
@@ -95,6 +109,7 @@
                 
                 let round = 0;
                 let score = 0;
+                let username = '<%= username %>';
 
                     // Functions:
 
@@ -106,18 +121,48 @@
                                 console.log('score is incremented by 0.5', score);
                         }
 
-                        function showScorePopup() {
-                                    const scoreContainer = document.getElementById('scoreContainer');
-                                    const scoreElement = document.getElementById('scoreboard');
-                                    const scoreText = `<span style="color: white;"> <%= username %> </span>  <span style="color: green;">${score} / </span> / <span style="color: grey;">10</span>`;
-                                    scoreElement.innerHTML = scoreText;
-                                    scoreContainer.style.display = 'flex';
+                        function saveScoreToMongoDB() {
+                                axios
+                                    .post('/scores', {
+                                    username: username,
+                                    score: score
+                                    })
+                                    .then(response => {
+                                    console.log('Score saved to MongoDB:', response.data);
+                                    })
+                                    .catch(error => {
+                                    console.error('Failed to save score to MongoDB:', error);
+                                    });
                                 }
 
-                                function hideScorePopup() {
+                        function showScorePopup() {
+                            const scoreContainer = document.getElementById('scoreContainer');
+                            const scoreElement = document.getElementById('scoreboard');
+                            scoreContainer.style.display = 'flex';
+
+                            axios.get('/scores')
+                                .then(response => {
+                                const scores = response.data;
+
+                                let scoreList = '<ul>';
+                                scores.forEach(scoreData => {
+                                    const { username, score } = scoreData;
+                                    scoreList += `<li><span style="color: white;">${username}</span> - <span style="color: green;">${score}</span></li>`;
+                                });
+                                scoreList += '</ul>';
+
+                                scoreElement.innerHTML = scoreList;
+                                })
+                                .catch(error => {
+                                console.error('Failed to retrieve scores from MongoDB:', error);
+                                });
+                            }
+
+
+                            function hideScorePopup() {
                                     const scoreContainer = document.getElementById('scoreContainer');
                                     scoreContainer.style.display = 'none';
-                                }
+                            }
 
                         // Quote
                         function getNewQuote() {
@@ -130,6 +175,7 @@
                         document.getElementById('addToBlacklist').style.background = '#25252583';
 
                         if (round > 10) {
+                                    saveScoreToMongoDB();
                                     showScorePopup();
                             }
 

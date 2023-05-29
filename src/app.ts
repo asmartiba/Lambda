@@ -29,11 +29,24 @@ app.get('/signup', (req, res) => {
   res.render('signup', { title: 'Sign up' });
 });
 
-app.get('/quiz-page', (req, res) => {
-  const username = req.cookies.username; // Access the stored username from the cookie
+app.get('/quiz-page', async (req, res) => {
+  const username = req.cookies.username;
 
-  res.render('quiz-page', { title: 'The Quiz', username: username }); // Pass the username as a variable
+  try {
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('score');
+    const scores = await collection.find({}).toArray();
+
+    res.render('quiz-page', { title: 'The Quiz', username: username, scores: scores });
+  } catch (error) {
+    console.error('Failed to retrieve scores from MongoDB:', error);
+    res.render('quiz-page', { title: 'The Quiz', username: username, scores: [] });
+  } finally {
+    client.close();
+  }
 });
+
 
 
 app.get('/about', (req, res) => {
@@ -242,6 +255,32 @@ app.post('/deleteBlacklist', async (req, res) => {
   }
 });
 
+// SCORE
+
+app.post('/scores', async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('score');
+
+    const { username, score } = req.body;
+
+    const response = {
+      username,
+      score,
+    };
+
+
+    await collection.insertOne(response);
+
+    res.status(200).json({ message: 'Score stored in MongoDB' });
+  } catch (error) {
+    console.error('Error storing score in MongoDB:', error);
+    res.status(500).json({ error: 'Failed to store score in MongoDB' });
+  } finally {
+    client.close();
+  }
+});
 
 // BOOKS
 
