@@ -23,12 +23,13 @@
     border-radius: 20vh;
     margin-bottom: 80px;
     border-top: 2px solid gold;
-    background: linear-gradient(to bottom, rgba(53, 5, 5, 0.911),  rgba(75, 35, 12, 0.763), transparent);
+    background: linear-gradient(to bottom,rgba(10, 34, 19, 0.411), rgba(19, 1, 1, 0.911) , rgba(75, 35, 12, 0.763), transparent);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     overflow: scroll;
+    box-sizing: border-box; 
 }
 
 .favouriteList, .blacklistList {
@@ -39,11 +40,39 @@
     justify-content: space-around;
     align-items: center;
     overflow: visible; 
+    
   }
 
 .favouriteQuote a {
   text-decoration: underline dotted;
   text-decoration-color: rgb(178, 211, 88);
+}
+
+.favouritesListContainer {
+  width: 90%;
+  position: relative;
+  margin-top: 60px; 
+}
+
+.filter {
+  width: 75vw;
+  text-align: center;
+  font-size: 32px;
+  color: white;
+  background: linear-gradient(to bottom, black, transparent);
+  margin-bottom: 15px;
+  position: sticky;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  top: 0;
+  z-index: 2;
+}
+
+.filter input {
+  width: 300px;
+  height: 35px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 20px;
 }
   
 
@@ -165,6 +194,8 @@
   font-size: 35px;
   cursor: pointer;
 }
+
+
 
   @media only screen and (max-width: 1567px) {
     .favourites, .blacklist {

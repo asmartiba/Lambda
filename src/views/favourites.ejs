@@ -24,12 +24,20 @@
                 <div class="linear"></div>
             </div>
 
+
+            
             <div class="favourites" id="favourites">
+              <div class="filter">
+                <input type="text" id="characterFilter" placeholder="Filter by name" oninput="filterFavorites()" />
+              </div>
+              <div class="favouritesListContainer">
                 <% for (const favorite of favorites) { %>
-                <div class="favouriteList">
+                <div class="favouriteList" data-character="<%= favorite.character %>">
                   <div class="favouriteQuote">
                     <h2 class="dialog"><%= favorite.dialog %></h2>
-                    <a href="https://lotr.fandom.com/wiki/<%= favorite.character %>" target="_blank"><h2 class="author"><%= favorite.character %></h2></a>
+                    <a href="https://lotr.fandom.com/wiki/<%= favorite.character %>" target="_blank">
+                      <h2 class="author"><%= favorite.character %></h2>
+                    </a>
                     <h2 class="invisible" id="<%= favorite._id %>"><%= favorite._id %></h2>
                   </div>
                   <button class="btn" onclick="fetchQuotes('<%= favorite.characterId %>')">Fetch Quotes</button>
@@ -37,6 +45,8 @@
                 </div>
                 <% } %>
               </div>
+            </div>
+            
 
               <div id="quotePopupContainer" class="quotePopupContainer">
                 <div class="quotesPopup">
@@ -201,6 +211,23 @@
                         });
                     }
                   };
+
+                  // Filter by character name
+                  function filterFavorites() {
+                      const input = document.getElementById("characterFilter");
+                      const filterValue = input.value.toLowerCase();
+                      const favourites = document.getElementById("favourites");
+                      const favouriteLists = favourites.getElementsByClassName("favouriteList");
+
+                      for (let i = 0; i < favouriteLists.length; i++) {
+                        const characterName = favouriteLists[i].dataset.character.toLowerCase();
+                        if (characterName.includes(filterValue)) {
+                          favouriteLists[i].style.display = "block";
+                        } else {
+                          favouriteLists[i].style.display = "none";
+                        }
+                      }
+                    } 
 
                   // Add an event listener to the confirm button
                   const confirmButton = document.getElementById('confirm');

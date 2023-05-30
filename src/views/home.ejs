@@ -365,6 +365,7 @@
                         }
 
                         function openAddToBlacklistPopup() {
+                        resetReasonInput();
                         showPopup();
                         }
 
@@ -391,6 +392,7 @@
                             console.log('Dialogue:', quoteDialog);
                             console.log('Reason:', reason);
                             document.getElementById('addToBlacklist').style.background = 'black';
+                            resetReasonInput();
                             hidePopup();
                             })
                             .catch(error => {
