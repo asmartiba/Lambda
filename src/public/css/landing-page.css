@@ -53,10 +53,69 @@ body {
 
 .login-form input {
   width: 140px;
-  margin-top: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   height: 30px;
   border-radius: 15px;
   text-align: center;
+}
+
+.passwordContainer {
+  margin-top: 20px;
+  background-color: rgba(0, 0, 0, 0.753);
+  border: 2px solid white;
+  height:220px;
+  border-radius: 40px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#getPasswordButton, #makeAccount {
+  width: 160px;
+  height: 50px;
+  border-radius: 20px;
+  font-size: 16px;
+  color: white;
+  text-transform: uppercase;
+}
+
+#getPasswordButton {
+  background-color: #442304;
+  border: 2px solid gold;
+}
+
+#makeAccount {
+  background-color: #0a3b06;
+  border: 2px solid lightgreen;
+}
+
+#tempPassword {
+  font-size: 22px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#tempPassword.dots {
+  font-family: "Courier New", monospace;
+  letter-spacing: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#viewPasswordButton, #copyPasswordButton {
+  width: 140px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #420808;
+  color: white;
+}
+
+#message {
+  color: lightcoral;
 }
 
 .select__menu {
@@ -69,7 +128,6 @@ body {
   justify-content: space-evenly;
   align-items: center;
 }
-
 
 .select__menu h3 {
     color: rgb(236, 219, 61);

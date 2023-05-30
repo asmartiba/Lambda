@@ -8,78 +8,120 @@
     <title>Lord of the Rings</title>
 </head>
 <html>
-  <head>
-    <title>Lambda</title>
-    <link rel="stylesheet" href="/css/landing-page.css">
-  </head>
+      <head>
+        <title>Lambda</title>
+        <link rel="stylesheet" href="/css/landing-page.css">
+      </head>
   <body>
-    <div class="select__menu">
-      
-        <div class="forums">
-          <div>
-            <div class="linearmain">
-              <div class="linear"></div>
-                  <h2 class="lineartitle">Sign up</h2>
-              <div class="linear"></div>
-           </div>
+          <div class="select__menu">
+            
             <form class="login-form">
               <input type="text" value="" placeholder="username" id="username" name="username" required>
               <input type="email" value="" placeholder="email" id="email" name="email" required>
-              <button id="getPasswordButton" class="btn4">Get password</button>
-              <p id="tempPassword"></p>
-
+              <div class="flexrow">
+                <button id="getPasswordButton">Get password</button>
+                <button id="makeAccount">Make account</button>
+              </div>
+              <div class="passwordContainer">
+                  <p id="message"></p>
+                  <p id="tempPassword" class="tempPassword">Click to generate a password</p>
+                  <div class="flexrow">
+                    <button id="viewPasswordButton">View</button>
+                    <button id="copyPasswordButton">Copy</button>
+                  </div>
+              </div>
               <div class="emptyspan"></div>
-              <button id="makeAccount" class="btn4">Make account</button>
               <p>Already have an account? <a href="/">Sign in</a></p>
             </form>
+
           </div>
-        </div>
+          <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    </div>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+          <script>
+              let password = "";
+              let passwordVisible = false;
 
-    <script>
-      let password = ""; 
-    
-      function generateRandomPassword(length) {
-        const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        let password = "";
-        for (let i = 0; i < length; i++) {
-          const randomIndex = Math.floor(Math.random() * charset.length);
-          password += charset[randomIndex];
-        }
-        return password;
-      }
-    
-      function handleGetPassword(event) {
-        event.preventDefault();
-        if (password === "") {
-          password = generateRandomPassword(8);
-        }
-        const tempPasswordElement = document.getElementById("tempPassword");
-        tempPasswordElement.textContent = "Generated Password: " + password;
-      }
-    
-      function handleMakeAccount(event) {
-        event.preventDefault();
-        const username = document.getElementById("username").value;
-        const email = document.getElementById("email").value;
-    
-        axios.post('/signup', { username, email, password })
-          .then(response => {
-            console.log(response.data);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      }
-    
-      const getPasswordButton = document.getElementById('getPasswordButton');
-      getPasswordButton.addEventListener('click', handleGetPassword);
-    
-      const makeAccountButton = document.getElementById('makeAccount');
-      makeAccountButton.addEventListener('click', handleMakeAccount);
-    </script>
-  </body>
+                function generateRandomPassword(length) {
+                  const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                  let password = "";
+                  for (let i = 0; i < length; i++) {
+                    const randomIndex = Math.floor(Math.random() * charset.length);
+                    password += charset[randomIndex];
+                  }
+                  return password;
+                }
+
+              function handleGetPassword(event) {
+                event.preventDefault();
+                if (password === "") {
+                  password = generateRandomPassword(8);
+                }
+                const tempPasswordElement = document.getElementById("tempPassword");
+                tempPasswordElement.textContent = "Generated password: " + "*".repeat(password.length);
+                passwordVisible = false;
+                tempPasswordElement.style.color = 'lightgreen';
+              }
+
+              function handleViewPassword(event) {
+                event.preventDefault();
+                const viewPasswordButton = document.getElementById("viewPasswordButton");
+                const tempPasswordElement = document.getElementById("tempPassword");
+                if (passwordVisible) {
+                  tempPasswordElement.textContent = "Generated password: " + "*".repeat(password.length);
+                  viewPasswordButton.style.color = "white";
+                  passwordVisible = false;
+                } else {
+                  tempPasswordElement.textContent = "Generated password: " + password;
+                  viewPasswordButton.style.color = "green";
+                  passwordVisible = true;
+                }
+              }
+
+                function handleCopyPassword(event) {
+                        event.preventDefault();
+                        const copyPasswordButton = document.getElementById("copyPasswordButton");
+                        const tempPasswordElement = document.getElementById("tempPassword");
+                        const passwordToCopy = passwordVisible ? password : tempPasswordElement.textContent;
+
+                        navigator.clipboard.writeText(passwordToCopy).then(() => {
+                          copyPasswordButton.textContent = "Copied";
+                          copyPasswordButton.style.color = "green";
+                        });
+                    }
+        
+                    function handleMakeAccount(event) {
+  event.preventDefault();
+  const username = document.getElementById("username").value;
+  const email = document.getElementById("email").value;
+
+  if (username === "" || email === "" || password === "") {
+    const messageElement = document.getElementById("message");
+    messageElement.textContent = "Please fill in the username, email, and generate a password.";
+    return;
+  }
+
+  axios.post('/signup', { username, email, password })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
+
+        
+                const makeAccountButton = document.getElementById('makeAccount');
+                makeAccountButton.addEventListener('click', handleMakeAccount);
+
+                const viewPasswordButton = document.getElementById("viewPasswordButton");
+                viewPasswordButton.addEventListener("click", handleViewPassword);
+
+                const getPasswordButton = document.getElementById("getPasswordButton");
+                getPasswordButton.addEventListener("click", handleGetPassword);
+
+                const copyPasswordButton = document.getElementById("copyPasswordButton");
+                copyPasswordButton.addEventListener("click", handleCopyPassword);
+         </script>
+    </body>
 </html>
