@@ -113,6 +113,13 @@
     text-align: center;
 }
 
+#options h2 {
+    color: rgb(255, 195, 65);
+    font-size: 32px;
+    opacity: 80%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 .option {
     background: linear-gradient(to bottom, transparent, #240101d5);
     width: 22vw;
