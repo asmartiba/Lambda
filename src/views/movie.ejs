@@ -1,61 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/movies.css">
-    <title>Movie | Lord of the Rings</title>
-</head>
-<body>
-    <%- include('partials/header.ejs') %>
-    <main>
-        <div class="emptyspan">
+        <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link rel="stylesheet" href="/css/movies.css">
+                    <title>Movie | Lord of the Rings</title>
+                </head>
+                <body>
+                    <%- include('partials/header.ejs') %>
+                    <main>
+                        <div class="emptyspan">
 
-        </div>
+                        </div>
 
 
-        <div class="hero">
+                        <div class="hero">
 
-            <div class="linearmain">
-                <div class="linear"></div>
-                    <h2 class="lineartitle">Movies</h2>
-                <div class="linear"></div>
-            </div>
+                            <div class="linearmain">
+                                <div class="linear"></div>
+                                    <h2 class="lineartitle">Movies</h2>
+                                <div class="linear"></div>
+                            </div>
 
-            <div id="movie-list" class="movies"></div>
-            <a href="/home"><button class="btn2">← Back</button></a>
+                            <div id="movie-list" class="movies"></div>
+                            <a href="/home"><button class="btn2">← Back</button></a>
 
-            <div class="emptyspan"></div>
-            
-            <script>
-                fetch('https://the-one-api.dev/v2/movie', {
-                  headers: {
-                    Authorization: 'Bearer OeUeZhk8zm3i_1f4FjF9'
-                  }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const movieList = document.getElementById('movie-list');
-                    data.docs.forEach(movie => {
-                        const div = document.createElement('div');
-                        const name = document.createElement('h1');
-                        const awardsNomination = document.createElement('h2');
-                        const awarded = document.createElement('h2');
+                            <div class="emptyspan"></div>
+                            
+                            <script>
+                                fetch('https://the-one-api.dev/v2/movie', {
+                                headers: {
+                                    Authorization: 'Bearer OeUeZhk8zm3i_1f4FjF9'
+                                }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    const movieList = document.getElementById('movie-list');
+                                    data.docs.forEach(movie => {
+                                        const div = document.createElement('div');
+                                        const name = document.createElement('h1');
+                                        const awardsNomination = document.createElement('h2');
+                                        const awarded = document.createElement('h2');
 
-                        name.textContent = `${movie.name}`;
-                        awardsNomination.textContent = `Nominated for an Academy Award: ${movie.academyAwardNominations}`;
-                        awarded.textContent = `Academy Award wins: ${movie.academyAwardWins}`;
-                        div.appendChild(name);
-                        div.appendChild(awardsNomination);
-                        div.appendChild(awarded);
-                        movieList.appendChild(div);
-                    });
-                })
-                .catch(error => console.error(error));
-            </script>
-
-    </main>
-    <%- include('partials/footer.ejs') %>
-</body>
+                                        name.textContent = `${movie.name}`;
+                                        awardsNomination.textContent = `Nominated for an Academy Award: ${movie.academyAwardNominations}`;
+                                        awarded.textContent = `Academy Award wins: ${movie.academyAwardWins}`;
+                                        div.appendChild(name);
+                                        div.appendChild(awardsNomination);
+                                        div.appendChild(awarded);
+                                        movieList.appendChild(div);
+                                    });
+                                })
+                                .catch(error => console.error(error));
+                            </script>
+                </main>
+                 <%- include('partials/footer.ejs') %>
+        </body>
 </html>

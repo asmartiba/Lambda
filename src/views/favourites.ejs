@@ -1,261 +1,261 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/favourites.css">
-    <title>Favourites & Blacklist | Lord of the Rings</title>
-</head>
-<body>
-    <main>
-        <div class="emptyspan">
+    <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link rel="stylesheet" href="/css/favourites.css">
+                    <title>Favourites & Blacklist | Lord of the Rings</title>
+                </head>
+                <body>
+                    <main>
+                        <div class="emptyspan">
 
-        </div>
+                        </div>
 
-        <%- include('partials/header.ejs') %>
-
-
-        <div class="hero">
-
-            <div class="linearmain">
-                <div class="linear"></div>
-                    <h2 class="lineartitle">Favourites</h2>
-                <div class="linear"></div>
-            </div>
+                        <%- include('partials/header.ejs') %>
 
 
-            
-            <div class="favourites" id="favourites">
-              <div class="filter">
-                <input type="text" id="characterFilter" placeholder="Filter by name" oninput="filterFavourites()" />
-                <button id="downloadButton" class="downloadBtn" onclick="downloadFavourites()">Download Favourites</button>
-              </div>
-              <div class="favouritesListContainer">
-                <% for (const favourite of favourites) { %>
-                <div class="favouriteList" data-character="<%= favourite.character %>">
-                  <div class="favouriteQuote">
-                    <h2 class="dialog"><%= favourite.dialog %></h2>
-                    <a href="https://lotr.fandom.com/wiki/<%= favourite.character %>" target="_blank">
-                      <h2 class="author"><%= favourite.character %></h2>
-                    </a>
-                    <h2 class="invisible" id="<%= favourite._id %>"><%= favourite._id %></h2>
-                  </div>
-                  <button class="btn" onclick="fetchQuotes('<%= favourite.characterId %>')">Fetch Quotes</button>
-                  <button class="btn" onclick="deleteFavourite('<%= favourite._id %>')">Clear</button>
-                </div>
-                <% } %>
-              </div>
-            </div>
-            
+                        <div class="hero">
 
-              <div id="quotePopupContainer" class="quotePopupContainer">
-                <div class="quotesPopup">
-                  <h2>Quotes by Character</h2>
-                  <div id="quotesContent"></div>
-                  <div class="popup-buttons">
-                    <button onclick="hideQuotesPopup()" style="background-color: rgb(37, 37, 37);">Close</button>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="linearmain">
-                <div class="linear"></div>
-                <h2 class="lineartitle">Blacklisted</h2>
-                <div class="linear"></div>
-              </div>
-              
-              <div class="blacklist" id="blacklist">
-                <% for (const blacklist of blacklisted) { %>
-                  <div class="favouriteList">
-                    <div class="favouriteQuote">
-                      <h2 class="dialog"><%= blacklist.dialog %></h2>
-                      <h2 class="reason"><span style="color: rgb(177, 174, 160)">Reason:</span> <%= blacklist.reason %></h2>
-                      <h2 class="invisible" id="<%= blacklist._id %>"><%= blacklist._id %></h2>
-                    </div>
-                    <button class="btn" onclick="editReason('<%= blacklist._id %>')">Edit Reason</button>
-                    <button class="btn" onclick="deleteBlacklist('<%= blacklist._id %>')">Clear</button>
-                  </div>
-                <% } %>
-              </div>
-
-              <div id="popupContainer" class="popup-container">
-                <div class="popup">
-                  <h2>Blacklist quote</h2>
-                  <p>Blacklist quotes will not appear in quiz</p>
-                  <textarea id="reasonInput" placeholder="Just give me a reason..."></textarea>
-                  <div class="popup-buttons">
-                    <button id="confirm" style="background-color: rgb(26, 71, 26);">Edit reason</button>
-                    <button onclick="hidePopup()" style="background-color: rgb(37, 37, 37);">Cancel</button>
-                  </div>
-                </div>
-              </div>
-              
-              <a href="/home"><button class="btn2">← Back</button></a>
-              <div class="emptyspan"></div>
-              </div>
-
-              <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-              <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-              
-              <script>
-
-            // Fetch other quotes 
-            const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
-            const quote = 'https://the-one-api.dev/v2/quote'; 
-            const charUrl = 'https://the-one-api.dev/v2/character';
-    
-
-                  function showQuotesPopup() {
-                    document.getElementById('quotePopupContainer').style.display = 'flex';
-                    quotePopupContainer.classList.add('quotePopupContainer');
-                    }
-
-                    function hideQuotesPopup() {
-                    document.getElementById('quotePopupContainer').style.display = 'none';
-                    }
-
-                
-                      function fetchQuotes(characterId) {
-                          // Fetch quotes by character data
-                          fetch(`${charUrl}/${characterId}/quote`, {
-                              headers: {
-                                  'Authorization': `Bearer ${bearerToken}`
-                              }
-                          })
-                          .then(response => response.json())
-                          .then(quotesData => {
-                              const quotes = quotesData.docs.map(quote => quote.dialog);
-                              const quotesContent = quotes.join('<br>');
-                              document.getElementById('quotesContent').innerHTML = quotesContent;
-                              showQuotesPopup();
-                          });
-                      }
+                            <div class="linearmain">
+                                <div class="linear"></div>
+                                    <h2 class="lineartitle">Favourites</h2>
+                                <div class="linear"></div>
+                            </div>
 
 
-                // Delete elements
+                            
+                            <div class="favourites" id="favourites">
+                              <div class="filter">
+                                <input type="text" id="characterFilter" placeholder="Filter by name" oninput="filterFavourites()" />
+                                <button id="downloadButton" class="downloadBtn" onclick="downloadFavourites()">Download Favourites</button>
+                              </div>
+                              <div class="favouritesListContainer">
+                                <% for (const favourite of favourites) { %>
+                                <div class="favouriteList" data-character="<%= favourite.character %>">
+                                  <div class="favouriteQuote">
+                                    <h2 class="dialog"><%= favourite.dialog %></h2>
+                                    <a href="https://lotr.fandom.com/wiki/<%= favourite.character %>" target="_blank">
+                                      <h2 class="author"><%= favourite.character %></h2>
+                                    </a>
+                                    <h2 class="invisible" id="<%= favourite._id %>"><%= favourite._id %></h2>
+                                  </div>
+                                  <button class="btn" onclick="fetchQuotes('<%= favourite.characterId %>')">Fetch Quotes</button>
+                                  <button class="btn" onclick="deleteFavourite('<%= favourite._id %>')">Clear</button>
+                                </div>
+                                <% } %>
+                              </div>
+                            </div>
+                            
 
-                const deletedFavourites = [];
-                const deletedBlacklist = [];
-              
-                const deleteFavourite = (favouriteId) => {
-                  const favouriteElement = document.getElementById(favouriteId);
-                  favouriteElement.parentNode.parentNode.remove();
-                  console.log(favouriteId, "LOOK");
-                  console.log(favouriteElement.id);
-                  console.log('Deleting from favourites...', favouriteId);
-              
-                  deletedFavourites.push(favouriteId); 
-              
-                  axios.post('/deleteFavourite', { favouriteIds: deletedFavourites })
-                    .then(response => {
-                      console.log('Deleted from favourites');
-                    })
-                    .catch(error => {
-                      console.error('Error:', error);
-                    });
-                };
+                              <div id="quotePopupContainer" class="quotePopupContainer">
+                                <div class="quotesPopup">
+                                  <h2>Quotes by Character</h2>
+                                  <div id="quotesContent"></div>
+                                  <div class="popup-buttons">
+                                    <button onclick="hideQuotesPopup()" style="background-color: rgb(37, 37, 37);">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div class="linearmain">
+                                <div class="linear"></div>
+                                <h2 class="lineartitle">Blacklisted</h2>
+                                <div class="linear"></div>
+                              </div>
+                              
+                              <div class="blacklist" id="blacklist">
+                                <% for (const blacklist of blacklisted) { %>
+                                  <div class="favouriteList">
+                                    <div class="favouriteQuote">
+                                      <h2 class="dialog"><%= blacklist.dialog %></h2>
+                                      <h2 class="reason"><span style="color: rgb(177, 174, 160)">Reason:</span> <%= blacklist.reason %></h2>
+                                      <h2 class="invisible" id="<%= blacklist._id %>"><%= blacklist._id %></h2>
+                                    </div>
+                                    <button class="btn" onclick="editReason('<%= blacklist._id %>')">Edit Reason</button>
+                                    <button class="btn" onclick="deleteBlacklist('<%= blacklist._id %>')">Clear</button>
+                                  </div>
+                                <% } %>
+                              </div>
 
-                const deleteBlacklist = (blacklistId) => {
-                    const blacklistElement = document.getElementById(blacklistId);
-                    blacklistElement.parentNode.parentNode.remove();
-                    console.log('Deleting from blacklist...', blacklistId);
+                              <div id="popupContainer" class="popup-container">
+                                <div class="popup">
+                                  <h2>Blacklist quote</h2>
+                                  <p>Blacklist quotes will not appear in quiz</p>
+                                  <textarea id="reasonInput" placeholder="Just give me a reason..."></textarea>
+                                  <div class="popup-buttons">
+                                    <button id="confirm" style="background-color: rgb(26, 71, 26);">Edit reason</button>
+                                    <button onclick="hidePopup()" style="background-color: rgb(37, 37, 37);">Cancel</button>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <a href="/home"><button class="btn2">← Back</button></a>
+                              <div class="emptyspan"></div>
+                              </div>
 
-                    deletedBlacklist.push(blacklistId); 
+                              <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+                              <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                              
+                              <script>
 
-                    axios.post('/deleteBlacklist', { blacklistId })
-                      .then(response => {
-                        console.log('Deleted from blacklist');
-                      })
-                      .catch(error => {
-                        console.error('Error:', error);
-                      });
-                  };
-                  
+                            // Fetch other quotes 
+                            const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
+                            const quote = 'https://the-one-api.dev/v2/quote'; 
+                            const charUrl = 'https://the-one-api.dev/v2/character';
+                    
 
-                // Edit reason
-                  let currentBlacklistId = null;
+                                  function showQuotesPopup() {
+                                    document.getElementById('quotePopupContainer').style.display = 'flex';
+                                    quotePopupContainer.classList.add('quotePopupContainer');
+                                    }
 
-                  const editReason = (blacklistId) => {
-                    currentBlacklistId = blacklistId;
-                    const reasonInput = document.getElementById('reasonInput');
-                    reasonInput.value = ''; 
-                    reasonInput.focus(); 
-                    showPopup(); 
-                  };
+                                    function hideQuotesPopup() {
+                                    document.getElementById('quotePopupContainer').style.display = 'none';
+                                    }
 
-                  const showPopup = () => {
-                    const popupContainer = document.getElementById('popupContainer');
-                    popupContainer.style.display = 'block';
-                  };
-
-                  const hidePopup = () => {
-                    currentBlacklistId = null;
-                    const popupContainer = document.getElementById('popupContainer');
-                    popupContainer.style.display = 'none';
-                  };
-
-                  const handleConfirm = () => {
-                    const reasonInput = document.getElementById('reasonInput');
-                    const reason = reasonInput.value.trim();
-
-                    if (reason !== '') {
-                      axios
-                        .post('/editBlacklistReason', { blacklistId: currentBlacklistId, reason })
-                        .then((response) => {
-                          console.log('Reason updated successfully');
-                          hidePopup();
-                          location.reload();
-                        })
-                        .catch((error) => {
-                          console.error('Error updating reason:', error);
-                        });
-                    }
-                  };
-
-                  // Filter by character name
-                  function filterFavourites() {
-                      const input = document.getElementById("characterFilter");
-                      const filterValue = input.value.toLowerCase();
-                      const favourites = document.getElementById("favourites");
-                      const favouriteLists = favourites.getElementsByClassName("favouriteList");
-
-                      for (let i = 0; i < favouriteLists.length; i++) {
-                        const characterName = favouriteLists[i].dataset.character.toLowerCase();
-                        if (characterName.includes(filterValue)) {
-                          favouriteLists[i].style.display = "flex";
-                        } else {
-                          favouriteLists[i].style.display = "none";
-                        }
-                      }
-                    } 
-
-                  // Download
-
-                  function downloadFavourites() {
-                      fetch('/downloadFavourites')
-                        .then(response => response.blob())
-                        .then(blob => {
-                          const url = window.URL.createObjectURL(blob);
-                          const a = document.createElement('a');
-                          a.href = url;
-                          a.download = 'favourites.txt';
-                          a.click();
-                          window.URL.revokeObjectURL(url);
-                        })
-                        .catch(error => {
-                          console.error('Error:', error);
-                        });
-                    }
+                                
+                                      function fetchQuotes(characterId) {
+                                          // Fetch quotes by character data
+                                          fetch(`${charUrl}/${characterId}/quote`, {
+                                              headers: {
+                                                  'Authorization': `Bearer ${bearerToken}`
+                                              }
+                                          })
+                                          .then(response => response.json())
+                                          .then(quotesData => {
+                                              const quotes = quotesData.docs.map(quote => quote.dialog);
+                                              const quotesContent = quotes.join('<br>');
+                                              document.getElementById('quotesContent').innerHTML = quotesContent;
+                                              showQuotesPopup();
+                                          });
+                                      }
 
 
-                  // Add an event listener to the confirm button
-                  const confirmButton = document.getElementById('confirm');
-                  confirmButton.addEventListener('click', handleConfirm);
+                                // Delete elements
 
-              </script>
-                 
-    </main>
-    <%- include('partials/footer.ejs') %>
-</body>
+                                const deletedFavourites = [];
+                                const deletedBlacklist = [];
+                              
+                                const deleteFavourite = (favouriteId) => {
+                                  const favouriteElement = document.getElementById(favouriteId);
+                                  favouriteElement.parentNode.parentNode.remove();
+                                  console.log(favouriteId, "LOOK");
+                                  console.log(favouriteElement.id);
+                                  console.log('Deleting from favourites...', favouriteId);
+                              
+                                  deletedFavourites.push(favouriteId); 
+                              
+                                  axios.post('/deleteFavourite', { favouriteIds: deletedFavourites })
+                                    .then(response => {
+                                      console.log('Deleted from favourites');
+                                    })
+                                    .catch(error => {
+                                      console.error('Error:', error);
+                                    });
+                                };
+
+                                const deleteBlacklist = (blacklistId) => {
+                                    const blacklistElement = document.getElementById(blacklistId);
+                                    blacklistElement.parentNode.parentNode.remove();
+                                    console.log('Deleting from blacklist...', blacklistId);
+
+                                    deletedBlacklist.push(blacklistId); 
+
+                                    axios.post('/deleteBlacklist', { blacklistId })
+                                      .then(response => {
+                                        console.log('Deleted from blacklist');
+                                      })
+                                      .catch(error => {
+                                        console.error('Error:', error);
+                                      });
+                                  };
+                                  
+
+                                // Edit reason
+                                  let currentBlacklistId = null;
+
+                                  const editReason = (blacklistId) => {
+                                    currentBlacklistId = blacklistId;
+                                    const reasonInput = document.getElementById('reasonInput');
+                                    reasonInput.value = ''; 
+                                    reasonInput.focus(); 
+                                    showPopup(); 
+                                  };
+
+                                  const showPopup = () => {
+                                    const popupContainer = document.getElementById('popupContainer');
+                                    popupContainer.style.display = 'block';
+                                  };
+
+                                  const hidePopup = () => {
+                                    currentBlacklistId = null;
+                                    const popupContainer = document.getElementById('popupContainer');
+                                    popupContainer.style.display = 'none';
+                                  };
+
+                                  const handleConfirm = () => {
+                                    const reasonInput = document.getElementById('reasonInput');
+                                    const reason = reasonInput.value.trim();
+
+                                    if (reason !== '') {
+                                      axios
+                                        .post('/editBlacklistReason', { blacklistId: currentBlacklistId, reason })
+                                        .then((response) => {
+                                          console.log('Reason updated successfully');
+                                          hidePopup();
+                                          location.reload();
+                                        })
+                                        .catch((error) => {
+                                          console.error('Error updating reason:', error);
+                                        });
+                                    }
+                                  };
+
+                                  // Filter by character name
+                                  function filterFavourites() {
+                                      const input = document.getElementById("characterFilter");
+                                      const filterValue = input.value.toLowerCase();
+                                      const favourites = document.getElementById("favourites");
+                                      const favouriteLists = favourites.getElementsByClassName("favouriteList");
+
+                                      for (let i = 0; i < favouriteLists.length; i++) {
+                                        const characterName = favouriteLists[i].dataset.character.toLowerCase();
+                                        if (characterName.includes(filterValue)) {
+                                          favouriteLists[i].style.display = "flex";
+                                        } else {
+                                          favouriteLists[i].style.display = "none";
+                                        }
+                                      }
+                                    } 
+
+                                  // Download
+
+                                  function downloadFavourites() {
+                                      fetch('/downloadFavourites')
+                                        .then(response => response.blob())
+                                        .then(blob => {
+                                          const url = window.URL.createObjectURL(blob);
+                                          const a = document.createElement('a');
+                                          a.href = url;
+                                          a.download = 'favourites.txt';
+                                          a.click();
+                                          window.URL.revokeObjectURL(url);
+                                        })
+                                        .catch(error => {
+                                          console.error('Error:', error);
+                                        });
+                                    }
+
+
+                                  // Add an event listener to the confirm button
+                                  const confirmButton = document.getElementById('confirm');
+                                  confirmButton.addEventListener('click', handleConfirm);
+
+                              </script>
+                                
+                  </main>
+                  <%- include('partials/footer.ejs') %>
+        </body>
 </html>

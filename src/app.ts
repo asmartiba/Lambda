@@ -40,12 +40,12 @@ app.get('/quiz-page', async (req, res) => {
 
     const scores = await collection.find({}).sort({ score: -1 }).toArray();
 
-    res.render('quiz-page', { title: 'The Quiz', username: username, scores: scores });
+      res.render('quiz-page', { title: 'The Quiz', username: username, scores: scores });
   } catch (error) {
     console.error(error);
-    res.render('quiz-page', { title: 'The Quiz', username: username, scores: [] });
+      res.render('quiz-page', { title: 'The Quiz', username: username, scores: [] });
   } finally {
-    client.close();
+      client.close();
   }
 });
 
@@ -59,12 +59,12 @@ app.get('/sudden-death', async (req, res) => {
 
     const scores = await collection.find({}).sort({ score: -1 }).toArray();
 
-    res.render('sudden-death', { title: 'The Quiz (Sudden Death)', username: username, scores: scores });
+      res.render('sudden-death', { title: 'The Quiz (Sudden Death)', username: username, scores: scores });
   } catch (error) {
     console.error(error);
-    res.render('sudden-death', { title: 'The Quiz (Sudden Death)', username: username, scores: [] });
+      res.render('sudden-death', { title: 'The Quiz (Sudden Death)', username: username, scores: [] });
   } finally {
-    client.close();
+      client.close();
   }
 });
 
@@ -91,16 +91,16 @@ app.post('/login', async (req, res) => {
     const user = await signupCollection.findOne({ username, password });
 
     if (user && user.password === password) {
-      res.cookie('username', user.username); 
-      res.status(200).json({ message: 'Login successful'});
+        res.cookie('username', user.username); 
+        res.status(200).json({ message: 'Login successful'});
     } else {
-      res.status(401).json({ message: 'Invalid login' });
+        res.status(401).json({ message: 'Invalid login' });
     }
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ message: 'An error occurred' });
+      res.status(500).json({ message: 'An error occurred' });
   } finally {
-    await client.close();
+      await client.close();
   }
 });
 
@@ -123,12 +123,12 @@ app.post('/signup', async (req, res) => {
 
     await signupCollection.insertOne(signupData);
 
-    res.sendStatus(200);
+      res.sendStatus(200);
   } catch (error) {
-    console.error('Error:', error);
-    res.sendStatus(500);
+      console.error('Error:', error);
+      res.sendStatus(500);
   } finally {
-    await client.close();
+      await client.close();
   }
 });
 
@@ -152,12 +152,12 @@ app.get('/favourites', async (req, res) => {
     const blacklisted = await blacklistCollection.find().toArray();
 
 
-    res.render('favourites', { favourites, blacklisted  });
+      res.render('favourites', { favourites, blacklisted  });
   } catch (error) {
-    console.error('Error:', error);
-    res.sendStatus(500);
+      console.error('Error:', error);
+      res.sendStatus(500);
   } finally {
-    await client.close();
+      await client.close();
   }
 });
 
@@ -173,12 +173,12 @@ app.post('/deleteFavourite', async (req, res) => {
       await collection.deleteOne({ _id: new ObjectId(favouriteId) });
     }
 
-    res.sendStatus(200);
+      res.sendStatus(200);
   } catch (error) {
-    console.error('Error deleting favourites:', error);
-    res.sendStatus(500);
+      console.error('Error deleting favourites:', error);
+      res.sendStatus(500);
   } finally {
-    await client.close();
+      await client.close();
   }
 });
 
@@ -198,12 +198,12 @@ app.post('/favouriteFetch', async (req, res) => {
 
     await collection.insertOne(quoteData);
 
-    res.sendStatus(200);
+      res.sendStatus(200);
   } catch (error) {
-    console.error('Error:', error);
-    res.sendStatus(500);
+      console.error('Error:', error);
+      res.sendStatus(500);
   } finally {
-    await client.close();
+      await client.close();
   }
 });
 
@@ -220,10 +220,10 @@ app.get('/downloadFavourites', async (req, res) => {
     res.set('Content-Disposition', 'attachment; filename="favourites.txt"');
     res.send(textContent);
   } catch (error) {
-    console.error('Error downloading favourites:', error);
-    res.sendStatus(500);
+      console.error('Error downloading favourites:', error);
+      res.sendStatus(500);
   } finally {
-    await client.close();
+      await client.close();
   }
 });
 
@@ -248,10 +248,10 @@ app.post('/blacklistFetch', async (req, res) => {
 
     res.sendStatus(200);
   } catch (error) {
-    console.error('Error:', error);
-    res.sendStatus(500);
+      console.error('Error:', error);
+      res.sendStatus(500);
   } finally {
-    await client.close();
+      await client.close();
   }
 });
 
@@ -271,10 +271,10 @@ app.post('/editBlacklistReason', async (req, res) => {
 
     res.sendStatus(200);
   } catch (error) {
-    console.error('Error editing blacklist reason:', error);
-    res.sendStatus(500);
+      console.error('Error editing blacklist reason:', error);
+      res.sendStatus(500);
   } finally {
-    await client.close();
+      await client.close();
   }
 });
 
@@ -291,10 +291,10 @@ app.post('/deleteBlacklist', async (req, res) => {
 
     res.sendStatus(200);
   } catch (error) {
-    console.error('Error deleting from blacklist:', error);
-    res.sendStatus(500);
+      console.error('Error deleting from blacklist:', error);
+      res.sendStatus(500);
   } finally {
-    await client.close();
+      await client.close();
   }
 });
 
@@ -318,10 +318,10 @@ app.post('/scores', async (req, res) => {
 
     res.status(200).json({ message: 'Score stored in MongoDB' });
   } catch (error) {
-    console.error('Error storing score in MongoDB:', error);
-    res.status(500).json({ error: 'Failed to store score in MongoDB' });
+      console.error('Error storing score in MongoDB:', error);
+      res.status(500).json({ error: 'Failed to store score in MongoDB' });
   } finally {
-    client.close();
+      client.close();
   }
 });
 
@@ -343,10 +343,10 @@ app.post('/scoresSD', async (req, res) => {
 
     res.status(200).json({ message: 'Score stored in MongoDB' });
   } catch (error) {
-    console.error('Error storing score in MongoDB:', error);
-    res.status(500).json({ error: 'Failed to store score in MongoDB' });
+      console.error('Error storing score in MongoDB:', error);
+      res.status(500).json({ error: 'Failed to store score in MongoDB' });
   } finally {
-    client.close();
+      client.close();
   }
 });
 
@@ -360,8 +360,8 @@ app.get('/book', async (req, res) => {
     const books = response.data.docs;
     res.render('book', { books });
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Server Error');
+      console.error(error);
+      res.status(500).send('Server Error');
   }
 });
 
@@ -375,8 +375,8 @@ app.get('/character', async (req, res) => {
     const characters = response.data.docs;
     res.render('character', { characters });
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Server Error');
+      console.error(error);
+      res.status(500).send('Server Error');
   }
 });
 
@@ -390,8 +390,8 @@ app.get('/movie', async (req, res) => {
     const movies = response.data.docs;
     res.render('movie', { movies });
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Server Error');
+      console.error(error);
+      res.status(500).send('Server Error');
   }
 });
 

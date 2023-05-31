@@ -1,162 +1,162 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/characters.css">
-    <title>Characters | Lord of the Rings</title>
-</head>
-<body>
-    <%- include('partials/header.ejs') %>
-    <main>
-        <div class="emptyspan02">
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link rel="stylesheet" href="/css/characters.css">
+                    <title>Characters | Lord of the Rings</title>
+                </head>
+                <body>
+                    <%- include('partials/header.ejs') %>
+                    <main>
+                        <div class="emptyspan02">
 
-        </div>
-        <div class="hero">
+                        </div>
+                        <div class="hero">
 
-                <div class="linearmain">
-                    <div class="linear"></div>
-                        <h2 class="lineartitle">Characters</h2>
-                    <div class="linear"></div>
-                </div>
+                                <div class="linearmain">
+                                    <div class="linear"></div>
+                                        <h2 class="lineartitle">Characters</h2>
+                                    <div class="linear"></div>
+                                </div>
 
-                <div id="quotePopupContainer" class="quotePopupContainer">
-                    <div class="quotesPopup">
-                      <h2>Quotes by Character</h2>
-                      <div class="quoteCount" id="quoteCount"></div> 
-                      <div id="quotesContent"></div>
-                      <div class="popup-buttons">
-                        <button onclick="hideQuotesPopup()" style="background-color: rgb(37, 37, 37);">Close</button>
-                      </div>
-                    </div>
-                </div>
-                <div class="characters">
-                    <input type="text" id="name-filter" placeholder="Filter by name" />
-                    <div id="character-list"></div>
-                </div>
-                <a href="/home"><button class="btn2">← Back</button></a>
-                <div class="emptyspan"></div>
-        </div>
+                                <div id="quotePopupContainer" class="quotePopupContainer">
+                                    <div class="quotesPopup">
+                                    <h2>Quotes by Character</h2>
+                                    <div class="quoteCount" id="quoteCount"></div> 
+                                    <div id="quotesContent"></div>
+                                    <div class="popup-buttons">
+                                        <button onclick="hideQuotesPopup()" style="background-color: rgb(37, 37, 37);">Close</button>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="characters">
+                                    <input type="text" id="name-filter" placeholder="Filter by name" />
+                                    <div id="character-list"></div>
+                                </div>
+                                <a href="/home"><button class="btn2">← Back</button></a>
+                                <div class="emptyspan"></div>
+                        </div>
 
-    
-        <script>
-            const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
-            const quote = 'https://the-one-api.dev/v2/quote'; 
-            const charUrl = 'https://the-one-api.dev/v2/character';
-            const movieUrl = 'https://the-one-api.dev/v2/movie';
+                    
+                        <script>
+                            const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
+                            const quote = 'https://the-one-api.dev/v2/quote'; 
+                            const charUrl = 'https://the-one-api.dev/v2/character';
+                            const movieUrl = 'https://the-one-api.dev/v2/movie';
 
-            fetch(charUrl, {
-                headers: {
-                Authorization: `Bearer ${bearerToken}`
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                const characterList = document.getElementById('character-list');
-                const nameFilter = document.getElementById('name-filter');
-
-                const displayAllCharacters = () => {
-                characterList.innerHTML = '';
-
-                data.docs.forEach(character => {
-                    const div = document.createElement('div');
-                    const name = document.createElement('h1');
-                    const race = document.createElement('h3');
-                    const gender = document.createElement('h3');
-                    const quoteButton = document.createElement('button');
-
-                    const nameLink = document.createElement('a');
-                    nameLink.href = `https://lotr.fandom.com/wiki/${encodeURIComponent(character.name)}`;
-                    nameLink.textContent = character.name;
-
-                    name.textContent = character.name;
-                    race.textContent = `Race: ${character.race}`;
-                    gender.textContent = `Gender: ${character.gender}`;
-                    quoteButton.textContent = 'Fetch Quotes';
-
-                    quoteButton.addEventListener('click', () => {
-                    fetchQuotesByCharacter(character._id);
-                    });
-
-                    div.appendChild(nameLink);
-                    div.appendChild(race);
-                    div.appendChild(gender);
-                    div.appendChild(quoteButton);
-                    characterList.appendChild(div);
-                });
-                };
-
-                // Display all characters on page load
-                displayAllCharacters();
-
-                nameFilter.addEventListener('input', () => {
-                const filterValue = nameFilter.value.toLowerCase();
-
-                characterList.innerHTML = '';
-
-                data.docs.forEach(character => {
-                    if (character.name.toLowerCase().includes(filterValue)) {
-                    const div = document.createElement('div');
-                    const name = document.createElement('h1');
-                    const race = document.createElement('h3');
-                    const gender = document.createElement('h3');
-                    const quoteButton = document.createElement('button');
-
-                    const nameLink = document.createElement('a');
-                    nameLink.href = `https://lotr.fandom.com/wiki/${encodeURIComponent(character.name)}`;
-                    nameLink.textContent = character.name;
-
-                    name.textContent = character.name;
-                    race.textContent = `Race: ${character.race}`;
-                    gender.textContent = `Gender: ${character.gender}`;
-                    quoteButton.textContent = 'Fetch Quotes';
-
-                    quoteButton.addEventListener('click', () => {
-                        fetchQuotesByCharacter(character._id);
-                    });
-
-                    div.appendChild(nameLink);
-                    div.appendChild(race);
-                    div.appendChild(gender);
-                    div.appendChild(quoteButton);
-                    characterList.appendChild(div);
-                    }
-                });
-                });
-            })
-            .catch(error => console.error(error));
-
-
-                function showQuotesPopup() {
-                    document.getElementById('quotePopupContainer').style.display = 'flex';
-                    quotePopupContainer.classList.add('quotePopupContainer');
-                    }
-
-                function hideQuotesPopup() {
-                    document.getElementById('quotePopupContainer').style.display = 'none';
-                    }
-
-                    function fetchQuotesByCharacter(charId) {
-                            fetch(`${charUrl}/${charId}/quote`, {
+                            fetch(charUrl, {
                                 headers: {
-                                'Authorization': `Bearer ${bearerToken}`
+                                Authorization: `Bearer ${bearerToken}`
                                 }
                             })
                             .then(response => response.json())
-                            .then(quotesData => {
-                                const quotes = quotesData.docs.map(quote => quote.dialog);
-                                const quotesContent = quotes.join('<br>');
-                                document.getElementById('quotesContent').innerHTML = quotesContent;
-                                const quoteCount = quotes.length;
-                                document.getElementById('quoteCount').textContent = `This character has ${quoteCount} quote(s)`;
-                                showQuotesPopup();
-                            });
-                            }
+                            .then(data => {
+                                const characterList = document.getElementById('character-list');
+                                const nameFilter = document.getElementById('name-filter');
 
-        </script>
+                                const displayAllCharacters = () => {
+                                characterList.innerHTML = '';
 
-    </main>
-    <%- include('partials/footer.ejs') %>
-</body>
+                                data.docs.forEach(character => {
+                                    const div = document.createElement('div');
+                                    const name = document.createElement('h1');
+                                    const race = document.createElement('h3');
+                                    const gender = document.createElement('h3');
+                                    const quoteButton = document.createElement('button');
+
+                                    const nameLink = document.createElement('a');
+                                    nameLink.href = `https://lotr.fandom.com/wiki/${encodeURIComponent(character.name)}`;
+                                    nameLink.textContent = character.name;
+
+                                    name.textContent = character.name;
+                                    race.textContent = `Race: ${character.race}`;
+                                    gender.textContent = `Gender: ${character.gender}`;
+                                    quoteButton.textContent = 'Fetch Quotes';
+
+                                    quoteButton.addEventListener('click', () => {
+                                    fetchQuotesByCharacter(character._id);
+                                    });
+
+                                    div.appendChild(nameLink);
+                                    div.appendChild(race);
+                                    div.appendChild(gender);
+                                    div.appendChild(quoteButton);
+                                    characterList.appendChild(div);
+                                });
+                                };
+
+                                // Display all characters on page load
+                                displayAllCharacters();
+
+                                nameFilter.addEventListener('input', () => {
+                                const filterValue = nameFilter.value.toLowerCase();
+
+                                characterList.innerHTML = '';
+
+                                data.docs.forEach(character => {
+                                    if (character.name.toLowerCase().includes(filterValue)) {
+                                    const div = document.createElement('div');
+                                    const name = document.createElement('h1');
+                                    const race = document.createElement('h3');
+                                    const gender = document.createElement('h3');
+                                    const quoteButton = document.createElement('button');
+
+                                    const nameLink = document.createElement('a');
+                                    nameLink.href = `https://lotr.fandom.com/wiki/${encodeURIComponent(character.name)}`;
+                                    nameLink.textContent = character.name;
+
+                                    name.textContent = character.name;
+                                    race.textContent = `Race: ${character.race}`;
+                                    gender.textContent = `Gender: ${character.gender}`;
+                                    quoteButton.textContent = 'Fetch Quotes';
+
+                                    quoteButton.addEventListener('click', () => {
+                                        fetchQuotesByCharacter(character._id);
+                                    });
+
+                                    div.appendChild(nameLink);
+                                    div.appendChild(race);
+                                    div.appendChild(gender);
+                                    div.appendChild(quoteButton);
+                                    characterList.appendChild(div);
+                                    }
+                                });
+                                });
+                            })
+                            .catch(error => console.error(error));
+
+
+                                function showQuotesPopup() {
+                                    document.getElementById('quotePopupContainer').style.display = 'flex';
+                                    quotePopupContainer.classList.add('quotePopupContainer');
+                                    }
+
+                                function hideQuotesPopup() {
+                                    document.getElementById('quotePopupContainer').style.display = 'none';
+                                    }
+
+                                    function fetchQuotesByCharacter(charId) {
+                                            fetch(`${charUrl}/${charId}/quote`, {
+                                                headers: {
+                                                'Authorization': `Bearer ${bearerToken}`
+                                                }
+                                            })
+                                            .then(response => response.json())
+                                            .then(quotesData => {
+                                                const quotes = quotesData.docs.map(quote => quote.dialog);
+                                                const quotesContent = quotes.join('<br>');
+                                                document.getElementById('quotesContent').innerHTML = quotesContent;
+                                                const quoteCount = quotes.length;
+                                                document.getElementById('quoteCount').textContent = `This character has ${quoteCount} quote(s)`;
+                                                showQuotesPopup();
+                                            });
+                                        }
+
+                        </script>
+
+                    </main>
+                    <%- include('partials/footer.ejs') %>
+            </body>
 </html>

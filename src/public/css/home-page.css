@@ -239,9 +239,16 @@ header {
   align-items: center;
 }
 
-#addToBlacklist, #addToFavourite, #fetchQuotes, #newQuote {
+#addToBlacklist, #addToFavourite, #fetchQuotes {
   height: 50px;
   width: 160px;
+  margin: 30px;
+  border-radius: 25px;
+}
+
+#newQuote {
+  height: 50px;
+  width: 220px;
   margin: 30px;
   border-radius: 25px;
 }

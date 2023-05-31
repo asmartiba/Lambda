@@ -1,229 +1,253 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/landing-page.css">
-    <title>Lord of the Rings</title>
-</head>
-<html>
-  <head>
-    <title>Lambda</title>
-    <link rel="stylesheet" href="/css/landing-page.css">
-  </head>
-  <body>
-    <div class="select__menu">
+    <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <link rel="stylesheet" href="/css/landing-page.css">
+          <title>Lord of the Rings</title>
+      </head>
+      <html>
+        <head>
+          <title>Lambda</title>
+          <link rel="stylesheet" href="/css/landing-page.css">
+        </head>
+        <body>
+          <div class="select__menu">
 
-        <div class="forums">
+              <div class="forums">
 
-          <div>
-            <div class="linearmain">
-              <div class="linear"></div>
-                  <h2 class="lineartitle">Login</h2>
-              <div class="linear"></div>
-           </div>
-           <form id="loginForm" class="login-form" action="/login" method="POST">
-              <input type="text" value="" placeholder="username" id="username" name="username" required>
-              <input type="password" value="" placeholder="password" id="password" name="password" required>
-              <button class="btn4">Login</button>
-              <p>Don't have an account yet? <a href="/signup">Sign up</a></p>
-              <p id="loginStatusMessage" style="color: red;">Login to access projects...</p>
-            </form>
+                <div>
+                  <div class="linearmain">
+                    <div class="linear"></div>
+                        <h2 class="lineartitle">Login</h2>
+                    <div class="linear"></div>
+                </div>
+                <form id="loginForm" class="login-form" action="/login" method="POST">
+                    <input type="text" value="" placeholder="username" id="username" name="username" required>
+                    <input type="password" value="" placeholder="password" id="password" name="password" required>
+                    <button class="btn4">Login</button>
+                    <p>Don't have an account yet? <a href="/signup">Sign up</a></p>
+                    <p id="loginStatusMessage" style="color: red;">Login to access projects...</p>
+                  </form>
+                </div>
+              </div>
+
+              <div class="projects">
+                <a href="/home">
+                  <div class="project__icon first__project">
+                    <h3>Lord of the Rings</h3>
+                  </div>
+                </a>
+                <a href="#">
+                  <div class="project__icon second__project">
+                    <h3>Pokemon</h3>
+                  </div>
+                </a>
+                <a href="#">
+                  <div class="project__icon third__project">
+                    <h3>FIFA</h3>
+                  </div>
+                </a>
+                <a href="#">
+                  <div class="project__icon fourth__project">
+                    <h3>Lego Masters</h3>
+                  </div>
+                </a>
+                <a href="#">
+                  <div class="project__icon fifth__project">
+                    <h3>Fortnite</h3>
+                  </div>
+                </a>
+                <a href="#">
+                  <div class="project__icon sixth__project">
+                    <h3>Magic: The Gathering</h3>
+                  </div>
+                </a>
+                <a href="#">
+                  <div class="project__icon seventh__project">
+                    <h3>National Bank</h3>
+                  </div>
+                </a>
+              </div>
           </div>
-        </div>
 
-        <div class="projects">
-          <a href="/home">
-            <div class="project__icon first__project">
-              <h3>Lord of the Rings</h3>
-            </div>
-          </a>
-          <a href="#">
-            <div class="project__icon second__project">
-              <h3>Pokemon</h3>
-            </div>
-          </a>
-          <a href="#">
-            <div class="project__icon third__project">
-              <h3>FIFA</h3>
-            </div>
-          </a>
-          <a href="#">
-            <div class="project__icon fourth__project">
-              <h3>Lego Masters</h3>
-            </div>
-          </a>
-          <a href="#">
-            <div class="project__icon fifth__project">
-              <h3>Fortnite</h3>
-            </div>
-          </a>
-          <a href="#">
-            <div class="project__icon sixth__project">
-              <h3>Magic: The Gathering</h3>
-            </div>
-          </a>
-          <a href="#">
-            <div class="project__icon seventh__project">
-              <h3>National Bank</h3>
-            </div>
-          </a>
-        </div>
-    </div>
+          <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+          <script>
+                const projectLinks = document.querySelectorAll('.project__icon');
+                const loginForm = document.querySelector('.login-form');
+                const loginStatusMessage = document.getElementById('loginStatusMessage'); 
 
-    <script>
-          const projectLinks = document.querySelectorAll('.project__icon');
-          const loginForm = document.querySelector('.login-form');
-          const loginStatusMessage = document.getElementById('loginStatusMessage'); 
 
-          // Login, query from database
-                          
-                loginForm.addEventListener('submit', async (event) => {
-                  event.preventDefault();
+                const isLoggedIn = () => {
+                      const userToken = localStorage.getItem('userToken');
+                      
+                      return !!userToken; 
+                    };
 
-                  const usernameInput = document.getElementById('username');
-                  const passwordInput = document.getElementById('password');
-                  const username = usernameInput.value;
-                  const password = passwordInput.value;
+                // Clear login token
+                    window.addEventListener('DOMContentLoaded', () => {
+                      localStorage.removeItem('userToken');
+                  });
 
-                  try {
-                    const response = await fetch('/login', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json'
-                      },
-                      body: JSON.stringify({ username, password })
-                    });
 
-                    if (response.ok) {
-                      loginStatusMessage.textContent = 'You are now logged in.';
-                      loginStatusMessage.style.color = 'green';
-                      loginStatusMessage.style.textAlign = 'center';
-                    } else {
-                      loginStatusMessage.textContent = 'Invalid login.';
-                      loginStatusMessage.style.color = 'red';
-                      loginStatusMessage.style.textAlign = 'center';
-                    }
-                  } catch (error) {
-                    console.error('Error:', error);
-                    loginStatusMessage.textContent = 'An error occurred. Please try again later.';
-                    loginStatusMessage.style.color = 'red';
+                // Check login status when the page loads
+                window.addEventListener('DOMContentLoaded', () => {
+                  if (isLoggedIn()) {
+                    loginStatusMessage.textContent = 'You are now logged in.';
+                    loginStatusMessage.style.color = 'green';
+                    loginStatusMessage.style.textAlign = 'center';
                   }
                 });
 
-            // Pop-up
+                // Login, query from database
+                                
+                      loginForm.addEventListener('submit', async (event) => {
+                        event.preventDefault();
 
-            const showPopup = () => {
-                const popupContainer = document.createElement('div');
-                popupContainer.id = 'popup-container';
-                popupContainer.classList.add('popup-container');
+                        const usernameInput = document.getElementById('username');
+                        const passwordInput = document.getElementById('password');
+                        const username = usernameInput.value;
+                        const password = passwordInput.value;
 
-                const overlay = document.createElement('div');
-                overlay.classList.add('overlay');
+                        try {
+                          const response = await fetch('/login', {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ username, password })
+                          });
 
-                const popupBox = document.createElement('div');
-                popupBox.classList.add('popup-box');
+                          if (response.ok) {
+                            const { userToken } = await response.json();
+                            loginStatusMessage.textContent = 'You are now logged in.';
+                            loginStatusMessage.style.color = 'green';
+                            loginStatusMessage.style.textAlign = 'center';
+                            localStorage.setItem('userToken', userToken);
+                          } else {
+                            loginStatusMessage.textContent = 'Invalid login.';
+                            loginStatusMessage.style.color = 'red';
+                            loginStatusMessage.style.textAlign = 'center';
+                          }
+                        } catch (error) {
+                          console.error('Error:', error);
+                          loginStatusMessage.textContent = 'An error occurred. Please try again later.';
+                          loginStatusMessage.style.color = 'red';
+                        }
+                      });
 
-                const message = document.createElement('h2');
-                message.textContent = 'You must login first before selecting a project.';
-                message.style.color = 'white';
+                  // Pop-up
 
-                const message02 = document.createElement('p');
-                message02.textContent = `Don't have an account yet? `;
-                message02.style.color = 'white';
+                  const showPopup = () => {
+                      const popupContainer = document.createElement('div');
+                      popupContainer.id = 'popup-container';
+                      popupContainer.classList.add('popup-container');
 
-                const signUpLink = document.createElement('a');
-                signUpLink.textContent = 'Sign up';
-                signUpLink.href = '/sign-up';
-                signUpLink.style.color = '#6897cc';
-                signUpLink.style.textDecoration = 'none';
+                      const overlay = document.createElement('div');
+                      overlay.classList.add('overlay');
 
-                message02.appendChild(signUpLink);
+                      const popupBox = document.createElement('div');
+                      popupBox.classList.add('popup-box');
 
-                const closeButton = document.createElement('button');
-                closeButton.id = 'close-popup';
-                closeButton.classList.add('close-btn');
-                closeButton.textContent = 'X';
-                closeButton.addEventListener('click', () => {
-                popupContainer.remove();
-              });
+                      const message = document.createElement('h2');
+                      message.textContent = 'You must login first before selecting a project.';
+                      message.style.color = 'white';
 
-                popupBox.appendChild(message);
-                popupBox.appendChild(message02);
-                popupBox.appendChild(closeButton);
+                      const message02 = document.createElement('p');
+                      message02.textContent = `Don't have an account yet? `;
+                      message02.style.color = 'white';
 
-                popupContainer.appendChild(overlay);
-                popupContainer.appendChild(popupBox);
+                      const signUpLink = document.createElement('a');
+                      signUpLink.textContent = 'Sign up';
+                      signUpLink.href = '/sign-up';
+                      signUpLink.style.color = '#6897cc';
+                      signUpLink.style.textDecoration = 'none';
 
-                document.body.appendChild(popupContainer);
-          };
+                      message02.appendChild(signUpLink);
 
+                      const closeButton = document.createElement('button');
+                      closeButton.id = 'close-popup';
+                      closeButton.classList.add('close-btn');
+                      closeButton.textContent = 'X';
+                      closeButton.addEventListener('click', () => {
+                      popupContainer.remove();
+                    });
 
-          const preventDefaultAndShowPopup = event => {
-            event.preventDefault();
-            showPopup();
-          };
+                      popupBox.appendChild(message);
+                      popupBox.appendChild(message02);
+                      popupBox.appendChild(closeButton);
 
-          const showPopup02 = () => {
-                const popupContainer = document.createElement('div');
-                popupContainer.id = 'popup-container';
-                popupContainer.classList.add('popup-container');
+                      popupContainer.appendChild(overlay);
+                      popupContainer.appendChild(popupBox);
 
-                const overlay = document.createElement('div');
-                overlay.classList.add('overlay');
-
-                const popupBox = document.createElement('div');
-                popupBox.classList.add('popup-box');
-
-                const message = document.createElement('h2');
-                message.textContent = 'Project unavailable.';
-                message.style.color = 'white';
-
-                const closeButton = document.createElement('button');
-                closeButton.id = 'close-popup';
-                closeButton.classList.add('close-btn');
-                closeButton.textContent = 'X';
-                closeButton.addEventListener('click', () => {
-                popupContainer.remove();
-              });
-
-                popupBox.appendChild(message);
-                popupBox.appendChild(closeButton);
-
-                popupContainer.appendChild(overlay);
-                popupContainer.appendChild(popupBox);
-
-                document.body.appendChild(popupContainer);
-          };
+                      document.body.appendChild(popupContainer);
+                };
 
 
-          const preventDefaultAndShowPopup02 = event => {
-            event.preventDefault();
-            showPopup02();
-          };
-
-          
-          // Project selection 
-
-            projectLinks.forEach(link => {
-
-              link.addEventListener('click', event => {
-                if (!isLoggedIn()) {
+                const preventDefaultAndShowPopup = event => {
                   event.preventDefault();
-                  preventDefaultAndShowPopup(event);
-                } else if (!link.classList.contains('first__project')) {
+                  showPopup();
+                };
+
+                const showPopup02 = () => {
+                      const popupContainer = document.createElement('div');
+                      popupContainer.id = 'popup-container';
+                      popupContainer.classList.add('popup-container');
+
+                      const overlay = document.createElement('div');
+                      overlay.classList.add('overlay');
+
+                      const popupBox = document.createElement('div');
+                      popupBox.classList.add('popup-box');
+
+                      const message = document.createElement('h2');
+                      message.textContent = 'Project unavailable.';
+                      message.style.color = 'white';
+
+                      const closeButton = document.createElement('button');
+                      closeButton.id = 'close-popup';
+                      closeButton.classList.add('close-btn');
+                      closeButton.textContent = 'X';
+                      closeButton.addEventListener('click', () => {
+                      popupContainer.remove();
+                    });
+
+                      popupBox.appendChild(message);
+                      popupBox.appendChild(closeButton);
+
+                      popupContainer.appendChild(overlay);
+                      popupContainer.appendChild(popupBox);
+
+                      document.body.appendChild(popupContainer);
+                };
+
+
+                const preventDefaultAndShowPopup02 = event => {
                   event.preventDefault();
-                  preventDefaultAndShowPopup02(event);
-                }
-              });
-            }
-          );
+                  showPopup02();
+                };
+
+                
+                // Project selection 
+
+                  projectLinks.forEach(link => {
+
+                    link.addEventListener('click', event => {
+                      if (!isLoggedIn()) {
+                        event.preventDefault();
+                        preventDefaultAndShowPopup(event);
+                      } else if (!link.classList.contains('first__project')) {
+                        event.preventDefault();
+                        preventDefaultAndShowPopup02(event);
+                      }
+                    });
+                  }
+                );
 
 
-    </script>
-  </body>
-</html>
+          </script>
+        </body>
+    </html>

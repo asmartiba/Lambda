@@ -258,7 +258,7 @@
                                 sessionStorage.setItem('currentCharId', charId);
                                 })
 
-                            // Fetch quotes by character data
+                            // Fetch quotes by character
                             fetch(`${charUrl}/${characterId}/quote`, {
                                 headers: {
                                 'Authorization': `Bearer ${bearerToken}`
@@ -279,24 +279,23 @@
 
              function showSelectPopup() {
                     document.getElementById('selectModeContainer').style.display = 'flex';
-                    quotePopupContainer.classList.add('selectModeContainer');
+                        quotePopupContainer.classList.add('selectModeContainer');
                     }
 
                     function hideSelectPopup() {
-                    document.getElementById('selectModeContainer').style.display = 'none';
+                        document.getElementById('selectModeContainer').style.display = 'none';
                     }
 
-             // Fetch quotes by character
+             // Show popup for quotes by character
 
              function showQuotesPopup() {
                     document.getElementById('quotePopupContainer').style.display = 'flex';
-                    quotePopupContainer.classList.add('quotePopupContainer');
+                        quotePopupContainer.classList.add('quotePopupContainer');
                     }
 
                     function hideQuotesPopup() {
-                    document.getElementById('quotePopupContainer').style.display = 'none';
+                        document.getElementById('quotePopupContainer').style.display = 'none';
                     }
-
 
              function fetchQuotesByCharacter() {
                     const characterName = sessionStorage.getItem('currentCharacterName');
@@ -353,8 +352,8 @@
                         }
 
                         function openAddToBlacklistPopup() {
-                        resetReasonInput();
-                        showPopup();
+                            resetReasonInput();
+                            showPopup();
                         }
 
                         function resetReasonInput() {
@@ -363,8 +362,8 @@
                         }
 
                         function addToBlacklist() {
-                        const reasonInput = document.getElementById('reasonInput');
-                        const reason = reasonInput.value;
+                            const reasonInput = document.getElementById('reasonInput');
+                            const reason = reasonInput.value;
 
                         if (!reason) {
                             showPopup();

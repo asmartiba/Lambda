@@ -52,7 +52,7 @@
                           <div id="scoreboard" class="scoreboard">
                             <h2>You have made <span id="currentScore" style="color: green;">0</span> correct combinations in a row</h2>
                             <% if (scores.length > 0) { %>
-                            <h2>Highest scores: </h2>
+                            <h2 style="color: crimson">Highest scores: </h2>
                               <ul>
                                 <% scores.forEach(scoreData => { %>
                                   <li>
@@ -91,7 +91,6 @@
                         <div class="quoteBox">
                             <button id="newQuote">New Quote</button>
                             <div id="score" class="score">Score: 0</div>
-                            <button id="reset">Reset</button>
                         </div>
                     </div>
             </div>
@@ -180,7 +179,7 @@
 
                         // Quote
                         function getNewQuote() {
-                        // Increment round
+                        // Increment round count
                         round++;
 
                         // Reset button colors
@@ -301,6 +300,8 @@
                             });
                         }
 
+                        // Check answers
+
                         function updateCharOption() {
                             const selectedCharacterName = this.textContent;
                             const characterName = sessionStorage.getItem('currentCharacterName');
@@ -367,9 +368,9 @@
                     // Favourites
 
                     function addToFavourite() {
-                    const quoteDialog = document.getElementById('quote').textContent;
-                    const characterName = sessionStorage.getItem('currentCharacterName');
-                    const characterId = sessionStorage.getItem('currentCharId');
+                        const quoteDialog = document.getElementById('quote').textContent;
+                        const characterName = sessionStorage.getItem('currentCharacterName');
+                        const characterId = sessionStorage.getItem('currentCharId');
 
 
                     axios.post('/favouriteFetch', { dialog: quoteDialog, character: characterName, characterId: characterId })
@@ -430,6 +431,8 @@
                             console.error('Error:', error);
                             });
                         }
+
+                    // End page
 
                     document.getElementById('newQuote').addEventListener('click', function() {
                             getNewQuote();

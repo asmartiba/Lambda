@@ -89,8 +89,8 @@
 
                     <div>
                         <div class="quoteBox">
-                            <button id="newQuote">New Quote</button>
                             <div id="score" class="score">Score: 0</div>
+                            <button id="newQuote">Next Round</button>
                             <button id="reset">Reset</button>
                         </div>
                     </div>
@@ -186,7 +186,7 @@
 
                         // Quote
                         function getNewQuote() {
-                        // Increment round
+                        // Increment round count
                         round++;
                         document.getElementById('round').textContent = round;
 
@@ -313,6 +313,8 @@
                             });
                         }
 
+                        // Check answers
+
                         function updateCharOption() {
                         const selectedCharacterName = this.textContent;
                         const characterName = sessionStorage.getItem('currentCharacterName');
@@ -437,24 +439,29 @@
                             });
                         }
 
-                        function resetGame() {
-                            round = 0;
-                            score = 0;
-                            const roundElement = document.getElementById('round');
-                            roundElement.textContent = `Round: ${round}`;
-                            const scoreElement = document.getElementById('score');
-                            scoreElement.innerHTML = `Score: ${score}`;
+                            // Reset
+
+                            function resetGame() {
+                                round = 0;
+                                score = 0;
+                                const roundElement = document.getElementById('round');
+                                roundElement.textContent = `Round: ${round}`;
+                                const scoreElement = document.getElementById('score');
+                                scoreElement.innerHTML = `Score: ${score}`;
                             }
 
                             const resetButton = document.getElementById('reset');
-resetButton.addEventListener('click', resetGame);
+                            resetButton.addEventListener('click', resetGame);
 
-                    document.getElementById('newQuote').addEventListener('click', function() {
+
+                            // End page to run functions
+
+                            document.getElementById('newQuote').addEventListener('click', function() {
+                                    getNewQuote();
+                                    resetReasonInput();
+                            });
+                            document.getElementById('round').textContent = round;
                             getNewQuote();
-                            resetReasonInput();
-                    });
-                    document.getElementById('round').textContent = round;
-                    getNewQuote();
 
             </script>
 
