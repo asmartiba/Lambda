@@ -148,11 +148,11 @@ app.get('/favourites', async (req, res) => {
     const favouritesCollection = db.collection('favourites');
     const blacklistCollection = db.collection('blacklist');
 
-    const favorites = await favouritesCollection.find().toArray();
+    const favourites = await favouritesCollection.find().toArray();
     const blacklisted = await blacklistCollection.find().toArray();
 
 
-    res.render('favourites', { favorites, blacklisted  });
+    res.render('favourites', { favourites, blacklisted  });
   } catch (error) {
     console.error('Error:', error);
     res.sendStatus(500);
@@ -163,14 +163,14 @@ app.get('/favourites', async (req, res) => {
 
 app.post('/deleteFavourite', async (req, res) => {
   try {
-    const { favoriteIds } = req.body;
+    const { favouriteIds } = req.body;
 
     await client.connect();
     const db = client.db('LotrDB');
     const collection = db.collection('favourites');
 
-    for (const favoriteId of favoriteIds) {
-      await collection.deleteOne({ _id: new ObjectId(favoriteId) });
+    for (const favouriteId of favouriteIds) {
+      await collection.deleteOne({ _id: new ObjectId(favouriteId) });
     }
 
     res.sendStatus(200);
@@ -207,20 +207,20 @@ app.post('/favouriteFetch', async (req, res) => {
   }
 });
 
-app.get('/downloadFavorites', async (req, res) => {
+app.get('/downloadFavourites', async (req, res) => {
   try {
     await client.connect();
     const db = client.db('LotrDB');
     const collection = db.collection('favourites');
     
-    const favorites = await collection.find().toArray();
-    const textContent = favorites.map((favorite: { character: any; dialog: any; }) => `${favorite.dialog} — ${favorite.character}`).join('\n');
+    const favourites = await collection.find().toArray();
+    const textContent = favourites.map((favourite: { character: any; dialog: any; }) => `${favourite.dialog} — ${favourite.character}`).join('\n');
 
     res.set('Content-Type', 'text/plain');
-    res.set('Content-Disposition', 'attachment; filename="favorites.txt"');
+    res.set('Content-Disposition', 'attachment; filename="favourites.txt"');
     res.send(textContent);
   } catch (error) {
-    console.error('Error downloading favorites:', error);
+    console.error('Error downloading favourites:', error);
     res.sendStatus(500);
   } finally {
     await client.close();

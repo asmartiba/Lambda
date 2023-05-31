@@ -197,6 +197,37 @@
   cursor: pointer;
 }
 
+.quotesPopup {
+  width: 50vw;
+  height: 40vh;
+  background-color: darkgrey;
+  border: 2px solid gold;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.quotesPopup h2 {
+  font-family: 'Dancing Script';
+  font-size: 38px;
+  color: darkred;
+}
+
+#quotesContent {
+  overflow-y: scroll;
+  width: 50vw;
+  height: 35vh;
+  margin: 10px;
+}
+
+
+#quoteContent {
+  text-align: center;
+}
+
 .downloadBtn {
   width: 200px;
   height: 50px;

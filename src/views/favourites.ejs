@@ -28,21 +28,21 @@
             
             <div class="favourites" id="favourites">
               <div class="filter">
-                <input type="text" id="characterFilter" placeholder="Filter by name" oninput="filterFavorites()" />
-                <button id="downloadButton" class="downloadBtn" onclick="downloadFavorites()">Download Favorites</button>
+                <input type="text" id="characterFilter" placeholder="Filter by name" oninput="filterFavourites()" />
+                <button id="downloadButton" class="downloadBtn" onclick="downloadFavourites()">Download Favourites</button>
               </div>
               <div class="favouritesListContainer">
-                <% for (const favorite of favorites) { %>
-                <div class="favouriteList" data-character="<%= favorite.character %>">
+                <% for (const favourite of favourites) { %>
+                <div class="favouriteList" data-character="<%= favourite.character %>">
                   <div class="favouriteQuote">
-                    <h2 class="dialog"><%= favorite.dialog %></h2>
-                    <a href="https://lotr.fandom.com/wiki/<%= favorite.character %>" target="_blank">
-                      <h2 class="author"><%= favorite.character %></h2>
+                    <h2 class="dialog"><%= favourite.dialog %></h2>
+                    <a href="https://lotr.fandom.com/wiki/<%= favourite.character %>" target="_blank">
+                      <h2 class="author"><%= favourite.character %></h2>
                     </a>
-                    <h2 class="invisible" id="<%= favorite._id %>"><%= favorite._id %></h2>
+                    <h2 class="invisible" id="<%= favourite._id %>"><%= favourite._id %></h2>
                   </div>
-                  <button class="btn" onclick="fetchQuotes('<%= favorite.characterId %>')">Fetch Quotes</button>
-                  <button class="btn" onclick="deleteFavourite('<%= favorite._id %>')">Clear</button>
+                  <button class="btn" onclick="fetchQuotes('<%= favourite.characterId %>')">Fetch Quotes</button>
+                  <button class="btn" onclick="deleteFavourite('<%= favourite._id %>')">Clear</button>
                 </div>
                 <% } %>
               </div>
@@ -138,16 +138,16 @@
                 const deletedFavourites = [];
                 const deletedBlacklist = [];
               
-                const deleteFavourite = (favoriteId) => {
-                  const favouriteElement = document.getElementById(favoriteId);
+                const deleteFavourite = (favouriteId) => {
+                  const favouriteElement = document.getElementById(favouriteId);
                   favouriteElement.parentNode.parentNode.remove();
-                  console.log(favoriteId, "LOOK");
+                  console.log(favouriteId, "LOOK");
                   console.log(favouriteElement.id);
-                  console.log('Deleting from favourites...', favoriteId);
+                  console.log('Deleting from favourites...', favouriteId);
               
-                  deletedFavourites.push(favoriteId); 
+                  deletedFavourites.push(favouriteId); 
               
-                  axios.post('/deleteFavourite', { favoriteIds: deletedFavourites })
+                  axios.post('/deleteFavourite', { favouriteIds: deletedFavourites })
                     .then(response => {
                       console.log('Deleted from favourites');
                     })
@@ -214,7 +214,7 @@
                   };
 
                   // Filter by character name
-                  function filterFavorites() {
+                  function filterFavourites() {
                       const input = document.getElementById("characterFilter");
                       const filterValue = input.value.toLowerCase();
                       const favourites = document.getElementById("favourites");
@@ -223,7 +223,7 @@
                       for (let i = 0; i < favouriteLists.length; i++) {
                         const characterName = favouriteLists[i].dataset.character.toLowerCase();
                         if (characterName.includes(filterValue)) {
-                          favouriteLists[i].style.display = "block";
+                          favouriteLists[i].style.display = "flex";
                         } else {
                           favouriteLists[i].style.display = "none";
                         }
@@ -232,14 +232,14 @@
 
                   // Download
 
-                  function downloadFavorites() {
-                      fetch('/downloadFavorites')
+                  function downloadFavourites() {
+                      fetch('/downloadFavourites')
                         .then(response => response.blob())
                         .then(blob => {
                           const url = window.URL.createObjectURL(blob);
                           const a = document.createElement('a');
                           a.href = url;
-                          a.download = 'favorites.txt';
+                          a.download = 'favourites.txt';
                           a.click();
                           window.URL.revokeObjectURL(url);
                         })

@@ -42,8 +42,8 @@
                         <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
                         <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
                         <button id="newQuote">New Quote</button>
-                        <button id="startQuiz" onClick="showSelectPopup()">Start The Quiz </button> 
                     </div>
+                    <button id="startQuiz" onClick="showSelectPopup()">Start The Quiz </button> 
                 </div>
 
                 <div id="popupContainer" class="popup-container">
@@ -158,19 +158,7 @@
                 </div>
 
             </div>
-
-            <div class="linearmain">
-                <div class="linear"></div>
-                    <h2 class="lineartitle">What could come here?</h2>
-                <div class="linear"></div>
-            </div>
-
-            <div class="new__box">
-                <video preload="auto" autoPlay loop>
-                    <source src="/img/moving_logo.webm" type="video/webm">
-                </video>
-                <h2>Coming soon</h2>
-            </div>
+            
 
             <div class="linearmain">
                 <div class="linear"></div>
@@ -265,7 +253,7 @@
                                 const characterName = characterData.docs[0].name;
                                 const charId = characterId;
                                 document.getElementById('quote').textContent = dialog;
-                                document.getElementById('character').textContent = characterName;
+                                document.getElementById('character').textContent = `${characterName} -`;
                                 sessionStorage.setItem('currentCharacterName', characterName);
                                 sessionStorage.setItem('currentCharId', charId);
                                 })

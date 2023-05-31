@@ -198,7 +198,8 @@ header {
   }
 
   .quiz__box {
-    height: 85vh;
+    height: auto;
+    padding: 120px;
     width: 85vw;
     background: linear-gradient(to bottom, rgba(39, 6, 6, 0.918),  rgba(0, 0, 0, 0.979), rgba(2, 31, 29, 0.979), transparent);
     border-radius: 12vh;
@@ -238,27 +239,37 @@ header {
   align-items: center;
 }
 
-#addToBlacklist, #addToFavourite, #fetchQuotes, #newQuote, #startQuiz {
+#addToBlacklist, #addToFavourite, #fetchQuotes, #newQuote {
   height: 50px;
   width: 160px;
   margin: 30px;
   border-radius: 25px;
 }
 
+#startQuiz {
+  height: 70px;
+  width: 260px;
+  margin: 35px;
+  border-radius: 25px;
+}
+
 #addToBlacklist {
   background: #25252583;
+  border: 2px solid black;
   color: white;
   font-size: 1.2em;
 }
 
 #addToFavourite {
   background: #011f0197;
+  border: 2px solid lightgreen;
   color: white;
   font-size: 1.2em;
 }
 
 #fetchQuotes {
   background: #472a0097;
+  border: 2px solid gold;
   color: white;
   font-size: 1.2em;
 }
@@ -267,6 +278,7 @@ header {
   background: #43020297;
   color: white;
   font-size: 1.2em;
+  border: 2px solid coral;
 }
 
 #startQuiz {
@@ -381,6 +393,7 @@ header {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  font-size: 1.2em;
 }
 
 .quotesPopup h2 {
@@ -509,7 +522,7 @@ header {
 
   .quotesNumber {
     font-family:Arial, Helvetica, sans-serif;
-    color: rgb(224, 245, 128);
+    color: rgb(224, 255, 85);
     width: auto;
     font-size: 22px;
     margin-right: 20px;
