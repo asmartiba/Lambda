@@ -55,6 +55,7 @@ header {
     justify-content: space-around;
     position: absolute;
     width: 100%;
+    height: auto;
     top: 0;
     background: linear-gradient(to bottom, #9e9090ab,#4130486e, #380f332a, transparent);
     align-items: center;
@@ -137,6 +138,12 @@ header {
     align-items: center;
   }
 
+  .mainTitle {
+    font-size:62px;
+    color: gold;
+    font-family: 'Dancing Script';
+  }
+
   .linearmain {
     width: 70vw;
     display: flex;
@@ -199,7 +206,7 @@ header {
 
   .quiz__box {
     height: auto;
-    padding: 120px;
+    padding: 30px;
     width: 85vw;
     background: linear-gradient(to bottom, rgba(39, 6, 6, 0.918),  rgba(0, 0, 0, 0.979), rgba(2, 31, 29, 0.979), transparent);
     border-radius: 12vh;
@@ -220,8 +227,8 @@ header {
     color: rgb(236, 219, 123);
     font-size:38px;
     height: auto;
-    width:85vw;
-    background: linear-gradient(to bottom, rgba(180, 74, 25, 0.774),  rgba(36, 7, 3, 0.678), transparent);
+    width:75vw;
+    background: linear-gradient(to bottom, rgba(180, 74, 25, 0.774),  rgba(36, 7, 3, 0.678), transparent, transparent);
     text-align: center;
     display: flex;
     align-items: center;
@@ -229,6 +236,8 @@ header {
     border-top: 2px solid rgb(192, 192, 192);
     font-family: 'Cookie';
     margin-top: 40px;
+    padding: 95px;
+    border-radius: 80%;
 }
 
 #quoteContainer {
@@ -733,6 +742,20 @@ header {
   .btn2:hover {
     background-color: #040d1a8c;
   }
+
+  .hero::-webkit-scrollbar{
+  width: 0;
+  background-color: transparent; 
+}
+
+.hero::-webkit-scrollbar-track {
+  background-color: transparent; 
+}
+
+.hero::-webkit-scrollbar-thumb{
+  background-color: transparent; 
+
+}
   
 
   /* Responsive Media Queries */
@@ -781,7 +804,20 @@ header {
       border-radius: 15vh;
       margin: 15px;
     }
-
+    .quote {
+      width: 100vw;
+      padding: 0px;
+      padding-top:20px;
+      border-radius: 0%;
+      margin:0%;
+    }
+    .quiz__box {
+      border-radius: 0%;
+      width: 100vw;
+      margin:0;
+      padding:0;
+      padding-top:20px;
+    }
   }
 
   @media only screen and (max-width: 767px) {
@@ -913,6 +949,7 @@ header {
     }
     .hero {
       height: auto;
+      width: auto;
       overflow: scroll;
     }
     .linearmain {
@@ -920,11 +957,14 @@ header {
     }
     .lineartitle {
       width:70vw;
-      font-size: 28px;
+      font-size: 42px;
       text-align: center;
     }
     .quote {
       width: 100vw;
+      padding: 0px;
+      margin:0px;
+      border-radius: 0%;
     }
     .author {
       display: flex;
@@ -933,6 +973,9 @@ header {
     .quoteButtons {
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      align-items: center;
     }
     .popup {
       width:85vw;
