@@ -708,6 +708,7 @@ header {
     border: 2px solid rgb(118, 231, 169);
     color:white;
     font-size: 18px;
+    margin-top:20px;
     margin-bottom: 10px;
   }
 
@@ -862,15 +863,12 @@ header {
       align-items: center;
       justify-content: space-around;
     }
-    .character__box h2 {  
-      color: rgb(255, 227, 203);
-      font-size: 0.9em;
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-      text-align: center;
-    }
     .character__box img {  
       height: 350px;
       margin: 0px;
+    }
+    .character__box button {  
+      margin-top:50px;
     }
     .movies__box {
       width: 100vw;

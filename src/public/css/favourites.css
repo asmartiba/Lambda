@@ -140,7 +140,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.777);
+  background-color: rgba(255, 255, 255, 0.877);
   border: 3px solid black;
   padding: 20px;
   border-radius: 8px;
@@ -237,11 +237,14 @@
   border: 2px solid grey;
 }
 
-  @media only screen and (max-width: 1567px) {
+  @media only screen and (max-width: 1867px) {
     .favourites, .blacklist {
         width: 100vw;
         border-radius: 0%;
         height: 80vh;
+    }
+    .filter {
+      width: 100vw;
     }
 }
 
