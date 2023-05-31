@@ -73,7 +73,7 @@
                         passwordVisible = false;
                       } else {
                         tempPasswordElement.textContent = "Generated password: " + password;
-                        viewPasswordButton.style.color = "green";
+                        viewPasswordButton.style.color = "lightgreen";
                         passwordVisible = true;
                       }
                     }
@@ -86,7 +86,7 @@
 
                           navigator.clipboard.writeText(passwordToCopy).then(() => {
                             copyPasswordButton.textContent = "Copied";
-                            copyPasswordButton.style.color = "green";
+                            copyPasswordButton.style.color = "lightgreen";
                           });
                         }
 
