@@ -129,7 +129,7 @@ body {
   border: rgb(230, 138, 78) 2px solid;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 }
 
@@ -142,8 +142,9 @@ body {
 }
 
 .projects {
-display: flex;
-justify-content: center;
+    display: flex;
+    justify-content: center;
+    padding-top:35px;
 }
 
 .project__icon {
