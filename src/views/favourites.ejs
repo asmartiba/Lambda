@@ -29,6 +29,7 @@
             <div class="favourites" id="favourites">
               <div class="filter">
                 <input type="text" id="characterFilter" placeholder="Filter by name" oninput="filterFavorites()" />
+                <button id="downloadButton" class="downloadBtn" onclick="downloadFavorites()">Download Favorites</button>
               </div>
               <div class="favouritesListContainer">
                 <% for (const favorite of favorites) { %>
@@ -228,6 +229,25 @@
                         }
                       }
                     } 
+
+                  // Download
+
+                  function downloadFavorites() {
+                      fetch('/downloadFavorites')
+                        .then(response => response.blob())
+                        .then(blob => {
+                          const url = window.URL.createObjectURL(blob);
+                          const a = document.createElement('a');
+                          a.href = url;
+                          a.download = 'favorites.txt';
+                          a.click();
+                          window.URL.revokeObjectURL(url);
+                        })
+                        .catch(error => {
+                          console.error('Error:', error);
+                        });
+                    }
+
 
                   // Add an event listener to the confirm button
                   const confirmButton = document.getElementById('confirm');

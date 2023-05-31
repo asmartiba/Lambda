@@ -437,6 +437,18 @@
                             });
                         }
 
+                        function resetGame() {
+                            round = 0;
+                            score = 0;
+                            const roundElement = document.getElementById('round');
+                            roundElement.textContent = `Round: ${round}`;
+                            const scoreElement = document.getElementById('score');
+                            scoreElement.innerHTML = `Score: ${score}`;
+                            }
+
+                            const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', resetGame);
+
                     document.getElementById('newQuote').addEventListener('click', function() {
                             getNewQuote();
                             resetReasonInput();

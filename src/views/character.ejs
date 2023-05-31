@@ -31,8 +31,10 @@
                       </div>
                     </div>
                 </div>
-
-                <div id="character-list" class="characters"></div>
+                <div class="characters">
+                    <input type="text" id="name-filter" placeholder="Filter by name" />
+                    <div id="character-list"></div>
+                </div>
 
         </div>
     
@@ -42,15 +44,19 @@
             const charUrl = 'https://the-one-api.dev/v2/character';
             const movieUrl = 'https://the-one-api.dev/v2/movie';
 
-
             fetch(charUrl, {
-              headers: {
+                headers: {
                 Authorization: `Bearer ${bearerToken}`
-              }
+                }
             })
             .then(response => response.json())
             .then(data => {
                 const characterList = document.getElementById('character-list');
+                const nameFilter = document.getElementById('name-filter');
+
+                const displayAllCharacters = () => {
+                characterList.innerHTML = '';
+
                 data.docs.forEach(character => {
                     const div = document.createElement('div');
                     const name = document.createElement('h1');
@@ -58,23 +64,63 @@
                     const gender = document.createElement('h3');
                     const quoteButton = document.createElement('button');
 
-                    
+                    const nameLink = document.createElement('a');
+                    nameLink.href = `https://lotr.fandom.com/wiki/${encodeURIComponent(character.name)}`;
+                    nameLink.textContent = character.name;
 
-                    name.textContent = `${character.name}`;
+                    name.textContent = character.name;
                     race.textContent = `Race: ${character.race}`;
                     gender.textContent = `Gender: ${character.gender}`;
-                    quoteButton.textContent = 'Fetch Quotes'; 
+                    quoteButton.textContent = 'Fetch Quotes';
 
+                    quoteButton.addEventListener('click', () => {
+                    fetchQuotesByCharacter(character._id);
+                    });
 
-                        quoteButton.addEventListener('click', () => {
-                            fetchQuotesByCharacter(character._id); 
-                        });
-
-                    div.appendChild(name);
+                    div.appendChild(nameLink);
                     div.appendChild(race);
                     div.appendChild(gender);
                     div.appendChild(quoteButton);
                     characterList.appendChild(div);
+                });
+                };
+
+                // Display all characters on page load
+                displayAllCharacters();
+
+                nameFilter.addEventListener('input', () => {
+                const filterValue = nameFilter.value.toLowerCase();
+
+                characterList.innerHTML = '';
+
+                data.docs.forEach(character => {
+                    if (character.name.toLowerCase().includes(filterValue)) {
+                    const div = document.createElement('div');
+                    const name = document.createElement('h1');
+                    const race = document.createElement('h3');
+                    const gender = document.createElement('h3');
+                    const quoteButton = document.createElement('button');
+
+                    const nameLink = document.createElement('a');
+                    nameLink.href = `https://lotr.fandom.com/wiki/${encodeURIComponent(character.name)}`;
+                    nameLink.textContent = character.name;
+
+                    name.textContent = character.name;
+                    race.textContent = `Race: ${character.race}`;
+                    gender.textContent = `Gender: ${character.gender}`;
+                    quoteButton.textContent = 'Fetch Quotes';
+
+                    quoteButton.addEventListener('click', () => {
+                        fetchQuotesByCharacter(character._id);
+                    });
+
+                    div.appendChild(nameLink);
+                    div.appendChild(race);
+                    div.appendChild(gender);
+                    div.appendChild(quoteButton);
+                    characterList.appendChild(div);
+                    }
+                });
                 });
             })
             .catch(error => console.error(error));

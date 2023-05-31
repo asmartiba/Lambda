@@ -2,7 +2,8 @@ import express from 'express';
 import path from 'path';
 const { MongoClient, ObjectId } = require('mongodb');
 const cookieParser = require('cookie-parser');
-
+const fs = require('fs');
+const { Transform } = require('stream');
 
 // DB initialisation
 
@@ -205,6 +206,28 @@ app.post('/favouriteFetch', async (req, res) => {
     await client.close();
   }
 });
+
+app.get('/downloadFavorites', async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('favourites');
+    
+    const favorites = await collection.find().toArray();
+    const textContent = favorites.map((favorite: { character: any; dialog: any; }) => `${favorite.dialog} — ${favorite.character}`).join('\n');
+
+    res.set('Content-Type', 'text/plain');
+    res.set('Content-Disposition', 'attachment; filename="favorites.txt"');
+    res.send(textContent);
+  } catch (error) {
+    console.error('Error downloading favorites:', error);
+    res.sendStatus(500);
+  } finally {
+    await client.close();
+  }
+});
+
+
 
 // BLACKLIST
 

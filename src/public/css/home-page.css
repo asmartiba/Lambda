@@ -210,7 +210,7 @@ header {
   }
 
   .theQuote {
-    height: 45vh;
+    height: auto;
     width: auto;
     margin: 20px;
   }
