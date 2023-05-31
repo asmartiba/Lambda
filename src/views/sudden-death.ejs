@@ -50,7 +50,7 @@
                         <div class="scorePopup">
                           <h2>Score Board (Sudden Death)</h2>
                           <div id="scoreboard" class="scoreboard">
-                            <h2>Your score: <span id="currentScore" style="color: green;">0</span> / 10</h2>
+                            <h2>You have made <span id="currentScore" style="color: green;">0</span> correct guesses in a row</h2>
                             <% if (scores.length > 0) { %>
                             <h2>Highest scores: </h2>
                               <ul>
@@ -129,19 +129,14 @@
                                     currentScoreElement.textContent = score;
 
                                     const scoreboard = document.getElementById('scoreboard');
-                                    const currentPlayerScore = `<li><span style="color: white;">Your Score</span> - <span style="color: green;">${score} / 10</span></li>`;
+                                    const currentPlayerScore = `<li>You've had ${score} correct answer in a row</li>`;
+                                    scoreboard.insertAdjacentHTML('beforeend', currentPlayerScore);
 
-                                    const currentUserScoreElement = scoreboard.querySelector(`li span:first-child:contains('${username}')`);
-                                    if (currentUserScoreElement) {
-                                        currentUserScoreElement.nextElementSibling.textContent = `${score} / 10`;
-                                    } else {
-                                        scoreboard.insertAdjacentHTML('afterbegin', currentPlayerScore);
-                                    }
                                 }
 
                             function saveScoreToMongoDB() {
                                 axios
-                                    .post('/scores', {
+                                    .post('/scoresSD', {
                                     username: username,
                                     score: score
                                     })
@@ -158,7 +153,7 @@
                                     scoreContainer.style.display = 'flex';
 
                                     axios
-                                    .get('/scores')
+                                    .get('/scoresSD')
                                     .then(response => {
                                         const scores = response.data;
 
@@ -191,11 +186,6 @@
                         // Reset button colors
                         document.getElementById('addToFavourite').style.background = '#011f0197';
                         document.getElementById('addToBlacklist').style.background = '#25252583';
-
-                        if (round > 10) {
-                                    saveScoreToMongoDB();
-                                    showScorePopup();
-                            }
 
                         // Reset option borders
                         const options = document.querySelectorAll('.option');
@@ -320,6 +310,7 @@
                                 combo = true;
                             } else {
                                 this.style.border = '4px solid red';
+                                saveScoreToMongoDB();
                                 showScorePopup();
                             }
 
@@ -344,6 +335,7 @@
                                 }
                             } else {
                                 this.style.border = '4px solid red';
+                                saveScoreToMongoDB();
                                 showScorePopup();
                             }
 

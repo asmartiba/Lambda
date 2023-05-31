@@ -54,7 +54,7 @@ app.get('/sudden-death', async (req, res) => {
   try {
     await client.connect();
     const db = client.db('LotrDB');
-    const collection = db.collection('score');
+    const collection = db.collection('scoreSD');
 
     const scores = await collection.find({}).sort({ score: -1 }).toArray();
 
@@ -282,6 +282,31 @@ app.post('/scores', async (req, res) => {
     await client.connect();
     const db = client.db('LotrDB');
     const collection = db.collection('score');
+
+    const { username, score } = req.body;
+
+    const response = {
+      username,
+      score,
+    };
+
+
+    await collection.insertOne(response);
+
+    res.status(200).json({ message: 'Score stored in MongoDB' });
+  } catch (error) {
+    console.error('Error storing score in MongoDB:', error);
+    res.status(500).json({ error: 'Failed to store score in MongoDB' });
+  } finally {
+    client.close();
+  }
+});
+
+app.post('/scoresSD', async (req, res) => {
+  try {
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('scoreSD');
 
     const { username, score } = req.body;
 
