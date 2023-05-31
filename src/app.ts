@@ -48,6 +48,25 @@ app.get('/quiz-page', async (req, res) => {
   }
 });
 
+app.get('/sudden-death', async (req, res) => {
+  const username = req.cookies.username;
+
+  try {
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('score');
+
+    const scores = await collection.find({}).sort({ score: -1 }).toArray();
+
+    res.render('sudden-death', { title: 'The Quiz (Sudden Death)', username: username, scores: scores });
+  } catch (error) {
+    console.error(error);
+    res.render('sudden-death', { title: 'The Quiz (Sudden Death)', username: username, scores: [] });
+  } finally {
+    client.close();
+  }
+});
+
 
 
 app.get('/about', (req, res) => {

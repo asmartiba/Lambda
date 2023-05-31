@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/the-quiz.css">
+    <title>Quiz (Sudden Death) | Lord of the Rings</title>
+</head>
+<body>
+    <%- include('partials/header.ejs') %>
+    <main>
+        <div class="emptyspan01">
+
+        </div>
+
+        <div class="hero">
+
+            <div class="linearmain">
+                <div class="linear"></div>
+                    <h2 class="lineartitle">The Quiz</h2>
+                <div class="linear"></div>
+            </div>
+
+            <div class="the_quiz" id="the_quiz">
+
+                    <h1>Welcome to the quiz, <%= username %>!</h1>
+                    <h2 class="roundCount">Sudden Death Mode</h2>
+
+                    <div id="quoteContainer">
+                        <p id="quote" class="quote"></p>
+                        <div class="flexrow">
+                            <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
+                            <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
+                        </div>
+                    </div>
+
+                    <div id="popupContainer" class="popup-container">
+                        <div class="popup">
+                          <h2>Blacklist quote</h2>
+                          <textarea id="reasonInput" placeholder="Just give me a reason..."></textarea>
+                          <div class="popup-buttons">
+                            <button onclick="addToBlacklist()" style="background-color: rgb(26, 71, 26);">Add</button>
+                            <button onclick="hidePopup()" style="background-color: rgb(37, 37, 37);">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div id="scoreContainer" class="scoreContainer">
+                        <div class="scorePopup">
+                          <h2>Score Board (Sudden Death)</h2>
+                          <div id="scoreboard" class="scoreboard">
+                            <h2>Your score: <span id="currentScore" style="color: green;">0</span> / 10</h2>
+                            <% if (scores.length > 0) { %>
+                            <h2>Highest scores: </h2>
+                              <ul>
+                                <% scores.forEach(scoreData => { %>
+                                  <li>
+                                    <span style="color: white;"><%= scoreData.username %></span>
+                                    <span style="color: green;"><%= scoreData.score %></span> / <span style="color: grey;">10</span>
+                                  </li>
+                                <% }); %>
+                              </ul>
+                            <% } else { %>
+                              <p>No scores available.</p>
+                            <% } %>
+                          </div>
+                          
+                          <div class="popup-buttons">
+                            <button onclick="hideScorePopup()" style="background-color: rgb(37, 37, 37);">Close</button>
+                          </div>
+                        </div>
+                      </div>                      
+
+                    <div id="options" >
+                        <div id="charOptions">
+                            <div id="charOption1" class="option"></div>
+                            <div id="charOption2" class="option"></div>
+                            <div id="charOption3" class="option"></div>
+                          </div>
+                          <div id="movieOptions">
+                            <div id="movieOption4" class="option"></div>
+                            <div id="movieOption5" class="option"></div>
+                            <div id="movieOption6" class="option"></div>
+                          </div>
+                    </div> 
+
+                    <div>
+                        <div class="quoteBox">
+                            <button id="newQuote">New Quote</button>
+                            <div id="score" class="score">Score: 0</div>
+                            <button id="reset">Reset</button>
+                        </div>
+                    </div>
+            </div>
+            
+            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+            <script>
+
+                // api 
+
+                const bearerToken = 'OeUeZhk8zm3i_1f4FjF9'; 
+                const quote = 'https://the-one-api.dev/v2/quote'; 
+                const charUrl = 'https://the-one-api.dev/v2/character';
+                const movieUrl = 'https://the-one-api.dev/v2/movie';
+
+                // variables
+                
+                let round = 0;
+                let score = 0;
+                let username = '<%= username %>';
+
+                    // Functions:
+
+                        // Score
+                        function updateScore() {
+                                    score += 1;
+                                    const scoreElement = document.getElementById('score');
+                                    scoreElement.innerHTML = `Score: <span style="color: green;">${score}</span>`;
+                                    console.log('score is incremented by 0.5', score);
+
+                                    const currentScoreElement = document.getElementById('currentScore');
+                                    currentScoreElement.textContent = score;
+
+                                    const scoreboard = document.getElementById('scoreboard');
+                                    const currentPlayerScore = `<li><span style="color: white;">Your Score</span> - <span style="color: green;">${score} / 10</span></li>`;
+
+                                    const currentUserScoreElement = scoreboard.querySelector(`li span:first-child:contains('${username}')`);
+                                    if (currentUserScoreElement) {
+                                        currentUserScoreElement.nextElementSibling.textContent = `${score} / 10`;
+                                    } else {
+                                        scoreboard.insertAdjacentHTML('afterbegin', currentPlayerScore);
+                                    }
+                                }
+
+
+
+                            function saveScoreToMongoDB() {
+                                axios
+                                    .post('/scores', {
+                                    username: username,
+                                    score: score
+                                    })
+                                    .then(response => {
+                                    console.log('Score saved to MongoDB:', response.data);
+                                    })
+                                    .catch(error => {
+                                    console.error('Failed to save score to MongoDB:', error);
+                                    });
+                                }
+                                function showScorePopup() {
+                                    const scoreContainer = document.getElementById('scoreContainer');
+                                    const scoreElement = document.getElementById('scoreboard');
+                                    scoreContainer.style.display = 'flex';
+
+                                    axios
+                                    .get('/scores')
+                                    .then(response => {
+                                        const scores = response.data;
+
+                                        scores.sort((a, b) => b.score - a.score);
+
+                                        let scoreList = '<ul>';
+                                        scores.forEach(scoreData => {
+                                        const { username, score } = scoreData;
+                                        scoreList += `<li><span style="color: white;">${username}</span> - <span style="color: green;">${score} / 10</span></li>`;
+                                        });
+                                        scoreList += '</ul>';
+
+                                        scoreElement.innerHTML = scoreList;
+                                    })
+                                    .catch(error => {
+                                        console.error('Failed to retrieve scores from MongoDB:', error);
+                                    });
+                                }
+
+                            function hideScorePopup() {
+                                    const scoreContainer = document.getElementById('scoreContainer');
+                                    scoreContainer.style.display = 'none';
+                            }
+
+                        // Quote
+                        function getNewQuote() {
+                        // Increment round
+                        round++;
+                        document.getElementById('round').textContent = round;
+
+                        // Reset button colors
+                        document.getElementById('addToFavourite').style.background = '#011f0197';
+                        document.getElementById('addToBlacklist').style.background = '#25252583';
+
+                        if (round > 10) {
+                                    saveScoreToMongoDB();
+                                    showScorePopup();
+                            }
+
+                        // Reset option borders
+                        const options = document.querySelectorAll('.option');
+                        options.forEach(option => {
+                            option.style.border = 'none';
+                        });
+
+                        // Fetch quote
+                        fetch(quote, {
+                            headers: {
+                            'Authorization': `Bearer ${bearerToken}`
+                            }
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                            const randomIndex = Math.floor(Math.random() * data.docs.length);
+                            const dialog = data.docs[randomIndex].dialog;
+                            const characterId = data.docs[randomIndex].character;
+                            const movieId = data.docs[randomIndex].movie;
+
+                            // Fetch character data
+                            fetch(`${charUrl}/${characterId}`, {
+                                headers: {
+                                'Authorization': `Bearer ${bearerToken}`
+                                }
+                            })
+                                .then(response => response.json())
+                                .then(characterData => {
+                                const characterName = characterData.docs[0].name;
+                                document.getElementById('quote').textContent = dialog;
+                                sessionStorage.setItem('currentCharacterName', characterName);
+                                const charId = characterId;
+                                sessionStorage.setItem('currentCharId', charId);
+
+                                // Fetch movie data
+                                fetch(`${movieUrl}/${movieId}`, {
+                                    headers: {
+                                    'Authorization': `Bearer ${bearerToken}`
+                                    }
+                                })
+                                    .then(response => response.json())
+                                    .then(movieData => {
+                                    const movieTitle = movieData.docs[0].name;
+                                    sessionStorage.setItem('currentMovieTitle', movieTitle);
+
+                                    // Fetch two additional random characters
+                                    fetch(`${charUrl}`, {
+                                        headers: {
+                                        'Authorization': `Bearer ${bearerToken}`
+                                        }
+                                    })
+                                        .then(response => response.json())
+                                        .then(allCharactersData => {
+                                        const characters = allCharactersData.docs.filter(doc => doc._id !== characterId);
+                                        const randomCharacters = getRandomElements(characters, 2);
+                                        const characterName = sessionStorage.getItem('currentCharacterName');
+
+                                        console.log('Correct character answer:', characterName);
+
+                                        const charOption1 = document.getElementById('charOption1');
+                                        const charOption2 = document.getElementById('charOption2');
+                                        const charOption3 = document.getElementById('charOption3');
+
+                                        charOption1.textContent = randomCharacters[0].name;
+                                        charOption2.textContent = randomCharacters[1].name;
+                                        charOption3.textContent = characterName;
+
+                                        const charOptions = [charOption1, charOption2, charOption3];
+                                        shuffleArray(charOptions);
+
+                                        const charOptionsContainer = document.getElementById('charOptions');
+                                        charOptions.forEach(option => charOptionsContainer.appendChild(option));
+
+                                        charOptions.forEach(option => {
+                                            option.addEventListener('click', updateCharOption);
+                                        });
+                                        });
+
+                                    // Fetch two additional random movies
+                                    fetch(`${movieUrl}`, {
+                                        headers: {
+                                        'Authorization': `Bearer ${bearerToken}`
+                                        }
+                                    })
+                                        .then(response => response.json())
+                                        .then(allMoviesData => {
+                                        const movies = allMoviesData.docs.filter(doc => doc._id !== movieId);
+                                        const randomMovies = getRandomElements(movies, 2);
+                                        const movieTitle = sessionStorage.getItem('currentMovieTitle');
+
+                                        console.log('Correct movie answer:', movieTitle);
+
+                                        const movieOption4 = document.getElementById('movieOption4');
+                                        const movieOption5 = document.getElementById('movieOption5');
+                                        const movieOption6 = document.getElementById('movieOption6');
+
+                                        movieOption4.textContent = randomMovies[0].name;
+                                        movieOption5.textContent = randomMovies[1].name;
+                                        movieOption6.textContent = movieTitle;
+
+                                        const movieOptions = [movieOption4, movieOption5, movieOption6];
+                                        shuffleArray(movieOptions);
+
+                                        const movieOptionsContainer = document.getElementById('movieOptions');
+                                        movieOptions.forEach(option => movieOptionsContainer.appendChild(option));
+
+                                        movieOptions.forEach(option => {
+                                            option.addEventListener('click', updateMovieOption);
+                                        });
+                                        });
+                                    });
+                                });
+                            });
+                        }
+
+                        function updateCharOption() {
+                        const selectedCharacterName = this.textContent;
+                        const characterName = sessionStorage.getItem('currentCharacterName');
+
+                        if (selectedCharacterName === characterName) {
+                            this.style.border = '4px solid green';
+                        } else {
+                            this.style.border = '4px solid red';
+                        }
+
+                        const charOptions = document.querySelectorAll('.option');
+                        charOptions.forEach(otherOption => {
+                            if (otherOption !== this) {
+                            otherOption.style.border = '';
+                            }
+                        });
+
+                        charOptions.forEach(option => option.removeEventListener('click', updateCharOption));
+                        }
+
+                        function updateMovieOption() {
+                        const selectedMovieTitle = this.textContent;
+                        const movieTitle = sessionStorage.getItem('currentMovieTitle');
+
+                        if (selectedMovieTitle === movieTitle && selectedCharacterName === characterName) {
+                            this.style.border = '4px solid green';
+                            updateScore();
+                        } else {
+                            this.style.border = '4px solid red';
+                        }
+
+                        const movieOptions = document.querySelectorAll('.option');
+                        movieOptions.forEach(otherOption => {
+                            if (otherOption !== this) {
+                            otherOption.style.border = '';
+                            }
+                        });
+
+                        movieOptions.forEach(option => option.removeEventListener('click', updateMovieOption));
+                        }
+
+                            
+                    // Randomise slots
+
+                    function getRandomElements(array, count) {
+                        const shuffled = array.sort(() => Math.random() - 0.5);
+                        return shuffled.slice(0, count);
+                        }
+
+                        function shuffleArray(array) {
+                        for (let i = array.length - 1; i > 0; i--) {
+                            const j = Math.floor(Math.random() * (i + 1));
+                            [array[i], array[j]] = [array[j], array[i]];
+                        }
+                    }
+
+                    // Favourites
+
+                    function addToFavourite() {
+                    const quoteDialog = document.getElementById('quote').textContent;
+                    const characterName = sessionStorage.getItem('currentCharacterName');
+                    const characterId = sessionStorage.getItem('currentCharId');
+
+
+                    axios.post('/favouriteFetch', { dialog: quoteDialog, character: characterName, characterId: characterId })
+                        .then(response => {
+                            console.log('Added to favourites');
+                            console.log('Dialogue:', quoteDialog);
+                            console.log('Character:', characterName);
+                            console.log('Id:', characterId);
+                            document.getElementById('addToFavourite').style.background = '#5ebf45';
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                    });
+                }
+
+                    // Blacklist 
+
+                    function showPopup() {
+                            const popupContainer = document.getElementById('popupContainer');
+                            popupContainer.style.display = 'block';
+                        }
+
+                        function hidePopup() {
+                            const popupContainer = document.getElementById('popupContainer');
+                            popupContainer.style.display = 'none';
+                        }
+
+                        function openAddToBlacklistPopup() {
+                        showPopup();
+                        }
+
+                        function resetReasonInput() {
+                            const reasonInput = document.getElementById('reasonInput');
+                            reasonInput.value = '';
+                        }
+
+                        function addToBlacklist() {
+                        const reasonInput = document.getElementById('reasonInput');
+                        const reason = reasonInput.value;
+
+                        if (!reason) {
+                            showPopup();
+                            return;
+                        }
+
+                        const quoteDialog = document.getElementById('quote').textContent;
+
+                        axios
+                            .post('/blacklistFetch', { dialog: quoteDialog, reason: reason })
+                            .then(response => {
+                            console.log('Added to blacklist');
+                            console.log('Dialogue:', quoteDialog);
+                            console.log('Reason:', reason);
+                            document.getElementById('addToBlacklist').style.background = 'black';
+                            hidePopup();
+                            })
+                            .catch(error => {
+                            console.error('Error:', error);
+                            });
+                        }
+
+                    document.getElementById('newQuote').addEventListener('click', function() {
+                            getNewQuote();
+                            resetReasonInput();
+                    });
+                    document.getElementById('round').textContent = round;
+                    getNewQuote();
+
+            </script>
+
+    </main>
+    <%- include('partials/footer.ejs') %>
+</body>
+</html>
