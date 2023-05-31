@@ -11,6 +11,10 @@
     width: 100vw;
   }
 
+.fetchQuotes {
+    background-color: red;;
+}
+
 .characters {
     width: 90vw;
     height: 80vh;
@@ -35,7 +39,7 @@
 
 .characters h3 {
     color: rgb(206, 166, 166);
-    font-size: 17px;
+    font-size: 22px;
     text-align: center;
     font-style: italic;
 }
@@ -43,27 +47,65 @@
 .characters > div {
     margin-right: 10px;
     margin-bottom: 10px;
-    padding: 10px;
-    background-color: rgba(28, 59, 59, 0.445);
+    background-color: rgba(7, 36, 36, 0.678);
     border-radius: 5px;
-    width: 30vw;
+    width: 40vw;
     text-align: center;
-    display: flex;
-    flex-direction: row;
+    display: block;
     align-items: center;
     justify-content: space-around;
-}
+  }
+  
 
 .characters button {
     background-color: rgba(68, 68, 68, 0.596);
     color: gold;
     height: 50px;
-    width: 50px;
-    font-size: 30px;
+    width: 200px;
+    font-size: 20px;
     border-radius: 25px;
-    margin-top:25px;
+    margin-top:10px;
     align-items: center;
 }
+
+
+.quotePopupContainer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    overflow-y: scroll;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .quotesPopup {
+    width: 50vw;
+    height: 40vh;
+    background-color: darkgrey;
+    border: 2px solid gold;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .quotesPopup h2 {
+    font-family: 'Dancing Script';
+    font-size: 38px;
+    color: darkred;
+  }
+  
+  #quotesContent {
+    overflow-y: scroll;
+    width: 50vw;
+    height: 35vh;
+    margin: 10px;
+  }
 
 @media only screen and (max-width: 767px) {
     .characters {
