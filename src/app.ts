@@ -36,11 +36,12 @@ app.get('/quiz-page', async (req, res) => {
     await client.connect();
     const db = client.db('LotrDB');
     const collection = db.collection('score');
-    const scores = await collection.find({}).toArray();
+
+    const scores = await collection.find({}).sort({ score: -1 }).toArray();
 
     res.render('quiz-page', { title: 'The Quiz', username: username, scores: scores });
   } catch (error) {
-    console.error('Failed to retrieve scores from MongoDB:', error);
+    console.error(error);
     res.render('quiz-page', { title: 'The Quiz', username: username, scores: [] });
   } finally {
     client.close();

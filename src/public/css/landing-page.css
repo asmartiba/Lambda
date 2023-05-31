@@ -51,6 +51,10 @@ body {
   color: gold;
 }
 
+.login-form p {
+  font-size: 22px;
+}
+
 .login-form input {
   width: 140px;
   margin-top: 20px;

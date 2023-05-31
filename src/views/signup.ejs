@@ -78,37 +78,38 @@
                 }
               }
 
-                function handleCopyPassword(event) {
-                        event.preventDefault();
-                        const copyPasswordButton = document.getElementById("copyPasswordButton");
-                        const tempPasswordElement = document.getElementById("tempPassword");
-                        const passwordToCopy = passwordVisible ? password : tempPasswordElement.textContent;
+              function handleCopyPassword(event) {
+                    event.preventDefault();
+                    const copyPasswordButton = document.getElementById("copyPasswordButton");
+                    const tempPasswordElement = document.getElementById("tempPassword");
+                    const passwordToCopy = passwordVisible ? password : password;
 
-                        navigator.clipboard.writeText(passwordToCopy).then(() => {
-                          copyPasswordButton.textContent = "Copied";
-                          copyPasswordButton.style.color = "green";
-                        });
-                    }
+                    navigator.clipboard.writeText(passwordToCopy).then(() => {
+                      copyPasswordButton.textContent = "Copied";
+                      copyPasswordButton.style.color = "green";
+                    });
+                  }
+
         
-                    function handleMakeAccount(event) {
-  event.preventDefault();
-  const username = document.getElementById("username").value;
-  const email = document.getElementById("email").value;
+                  function handleMakeAccount(event) {
+                        event.preventDefault();
+                        const username = document.getElementById("username").value;
+                        const email = document.getElementById("email").value;
 
-  if (username === "" || email === "" || password === "") {
-    const messageElement = document.getElementById("message");
-    messageElement.textContent = "Please fill in the username, email, and generate a password.";
-    return;
-  }
+                        if (username === "" || email === "" || password === "") {
+                          const messageElement = document.getElementById("message");
+                          messageElement.textContent = "Please fill in the username, email, and generate a password.";
+                          return;
+                        }
 
-  axios.post('/signup', { username, email, password })
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-}
+                        axios.post('/signup', { username, email, password })
+                          .then(response => {
+                            console.log(response.data);
+                          })
+                          .catch(error => {
+                            console.error(error);
+                          });
+                      }
 
         
                 const makeAccountButton = document.getElementById('makeAccount');

@@ -37,6 +37,7 @@
     height: auto; 
     border-bottom: 2px rgba(255, 255, 255, 0.192) solid;
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
     overflow: visible; 

@@ -21,7 +21,7 @@
 
 .the_quiz {
     width: 100vw;
-    height: 70vh;
+    height: auto;
     margin-bottom: 100px;
     border-top: 2px solid gold;
     background: linear-gradient(to bottom, rgba(75, 10, 10, 0.774),  rgba(128, 72, 39, 0.425), transparent);
@@ -55,7 +55,7 @@
     font-size:42px;
     height: auto;
     width:80vw;
-    height:150px;
+    height:auto;
     margin:20px;
     border-radius: 60px;
     background: linear-gradient(to bottom, rgba(206, 134, 40, 0.774),  rgba(36, 7, 3, 0.678), transparent);
@@ -287,13 +287,6 @@
     #quoteContainer {
         width: 100vw;
     }
-    .quote {
-        margin-top: 30px;
-        width:80vw;
-        height: 25vh;
-        text-align: center;
-        align-self: center;
-    }
     .quoteBox {
         flex-direction: row;
         justify-content: space-around;
@@ -325,21 +318,18 @@
         width:100vw;
         height: auto;
         margin:0;
-        margin-top:35px;
         border-radius: 0%;
         border: none;
-        padding: 25px;
     }
-
     #options {
-        margin-top:100px;
+        margin-top:25px;
         margin-bottom:25px;
         height: auto;
         flex-direction: column;
     }
     .option {
         width: 60vw;
-        margin-top: 60px;
+        margin-top: 20px;
     }
     .quoteBox {
         flex-direction: column;
