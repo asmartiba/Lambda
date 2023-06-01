@@ -141,7 +141,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-// FAVOURITES
+// FAVOURITES & BLACKLIST
 
 interface Favourite {
   quote: {
@@ -160,7 +160,7 @@ app.get('/favourites', async (req, res) => {
     const blacklistCollection = db.collection('blacklist');
 
     const favourites = await favouritesCollection.find({ username: username }).toArray(); 
-    const blacklisted = await blacklistCollection.find().toArray();
+    const blacklisted = await blacklistCollection.find({ username: username }).toArray();
 
 
       res.render('favourites', { favourites, blacklisted, username  });
@@ -249,6 +249,7 @@ app.get('/downloadFavourites', async (req, res) => {
 //fetch:
 app.post('/blacklistFetch', async (req, res) => {
   try {
+    const username = req.cookies.username;
     const { dialog, reason } = req.body;
     await client.connect();
     const db = client.db('LotrDB');
@@ -256,7 +257,8 @@ app.post('/blacklistFetch', async (req, res) => {
 
     const quoteData = {
       dialog: dialog,
-      reason: reason
+      reason: reason,
+      username: username
     };
 
     await collection.insertOne(quoteData);

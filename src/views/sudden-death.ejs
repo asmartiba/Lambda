@@ -397,7 +397,7 @@
                         }
 
                         function openAddToBlacklistPopup() {
-                        showPopup();
+                            showPopup();
                         }
 
                         function resetReasonInput() {
@@ -406,9 +406,10 @@
                         }
 
                         function addToBlacklist() {
-                        const reasonInput = document.getElementById('reasonInput');
-                        const reason = reasonInput.value;
-
+                            const reasonInput = document.getElementById('reasonInput');
+                            const reason = reasonInput.value;
+                            const username = '<%= username %>';
+                            
                         if (!reason) {
                             showPopup();
                             return;
@@ -417,7 +418,7 @@
                         const quoteDialog = document.getElementById('quote').textContent;
 
                         axios
-                            .post('/blacklistFetch', { dialog: quoteDialog, reason: reason })
+                            .post('/blacklistFetch', { dialog: quoteDialog, reason: reason, username: username })
                             .then(response => {
                             console.log('Added to blacklist');
                             console.log('Dialogue:', quoteDialog);
