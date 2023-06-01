@@ -379,14 +379,12 @@
                     const quoteDialog = document.getElementById('quote').textContent;
                     const characterName = sessionStorage.getItem('currentCharacterName');
                     const characterId = sessionStorage.getItem('currentCharId');
+                    const username = '<%= username %>';
 
 
-                    axios.post('/favouriteFetch', { dialog: quoteDialog, character: characterName, characterId: characterId })
+                    axios.post('/favouriteFetch', { dialog: quoteDialog, character: characterName, characterId: characterId, username: username })
                         .then(response => {
                             console.log('Added to favourites');
-                            console.log('Dialogue:', quoteDialog);
-                            console.log('Character:', characterName);
-                            console.log('Id:', characterId);
                             document.getElementById('addToFavourite').style.background = '#5ebf45';
                         })
                         .catch(error => {

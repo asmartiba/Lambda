@@ -17,8 +17,8 @@
 
         <div class="hero">
 
+            <h2 class="personalTitle">Hi <span class="greenText"><%=username%></span>, welcome to our <span class="mainTitle">Lord of the Rings</span> site</h2>
 
-            <h2 class="mainTitle">Lord of the Rings</h2>
 
             <div class="linearmain">
                 <div class="linear"></div>
@@ -323,9 +323,9 @@
                     const quoteDialog = document.getElementById('quote').textContent;
                     const characterName = sessionStorage.getItem('currentCharacterName');
                     const characterId = sessionStorage.getItem('currentCharId');
+                    const username = '<%= username %>';
 
-
-                    axios.post('/favouriteFetch', { dialog: quoteDialog, character: characterName, characterId: characterId })
+                    axios.post('/favouriteFetch', { dialog: quoteDialog, character: characterName, characterId: characterId, username: username })
                         .then(response => {
                             console.log('Added to favourites in MongoDB');
                             document.getElementById('addToFavourite').style.background = '#5ebf45';

@@ -106,6 +106,15 @@
     font-family: 'Marck Script', Courier, monospace;
 }
 
+.personalTitle {
+  color: white;
+  font-size:44px;
+}
+
+.greenText {
+  color: lightgreen;
+}
+
 .favourites::-webkit-scrollbar,
 .blacklist::-webkit-scrollbar {
   width: 0;

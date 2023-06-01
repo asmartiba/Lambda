@@ -144,7 +144,7 @@ body {
 .projects {
     display: flex;
     justify-content: center;
-    padding-top:35px;
+    padding-top:105px;
 }
 
 .project__icon {

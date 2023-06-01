@@ -138,12 +138,6 @@ header {
     align-items: center;
   }
 
-  .mainTitle {
-    font-size:62px;
-    color: gold;
-    font-family: 'Dancing Script';
-  }
-
   .linearmain {
     width: 70vw;
     display: flex;
@@ -757,6 +751,27 @@ header {
   background-color: transparent; 
 
 }
+
+.personalTitle {
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: white;
+  font-size:40px;
+  font-weight: lighter;
+}
+
+.mainTitle {
+  color: gold;
+  font-family: 'Dancing Script';
+  font-size: 45px;
+}
+
+.greenText {
+  color: lightgreen;
+  text-shadow: 11px 11px 22px rgba(0, 0, 0, 0.8);
+  font-family: 'Dancing Script';
+  font-size: 45px;
+}
+
   
 
   /* Responsive Media Queries */
