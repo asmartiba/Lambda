@@ -247,6 +247,26 @@ app.get('/downloadFavourites', async (req, res) => {
 // BLACKLIST
 
 //fetch:
+app.get('/blacklistFetch', async (req, res) => {
+  try {
+    const username = req.cookies.username;
+    await client.connect();
+    const db = client.db('LotrDB');
+    const collection = db.collection('blacklist');
+
+    // Fetch all blacklisted quotes for the current user
+    const blacklistedQuotes = await collection.find({ username: username }).toArray();
+
+    res.json(blacklistedQuotes);
+  } catch (error) {
+    console.error('Error:', error);
+    res.sendStatus(500);
+  } finally {
+    await client.close();
+  }
+});
+
+
 app.post('/blacklistFetch', async (req, res) => {
   try {
     const username = req.cookies.username;

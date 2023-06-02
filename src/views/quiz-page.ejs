@@ -50,7 +50,8 @@
                         <div class="scorePopup">
                           <h2>Score Board</h2>
                           <div id="scoreboard" class="scoreboard">
-                            <h2>Your score: <span id="currentScore" style="color: lightgreen;">0</span> / 10</h2>
+                            <h2>The quiz is over, <%= username%></h2>
+                            <h2>your score: <span id="currentScore" style="color: lightgreen;">0</span> / 10</h2>
                             <% if (scores.length > 0) { %>
                             <h2>Highest scores: </h2>
                               <ul>
@@ -133,13 +134,6 @@
 
                                     const scoreboard = document.getElementById('scoreboard');
                                     const currentPlayerScore = `<li><span style="color: white;">Your Score</span> - <span style="color: green;">${score} / 10</span></li>`;
-
-                                    const currentUserScoreElement = scoreboard.querySelector(`li span:first-child:contains('${username}')`);
-                                    if (currentUserScoreElement) {
-                                        currentUserScoreElement.nextElementSibling.textContent = `${score} / 10`;
-                                    } else {
-                                        scoreboard.insertAdjacentHTML('afterbegin', currentPlayerScore);
-                                    }
                                 }
 
 
@@ -190,132 +184,157 @@
 
                         // Quote
                         function getNewQuote() {
-                        // Increment round count
-                        round++;
-                        document.getElementById('round').textContent = round;
+                                // Increment round count
+                                round++;
+                                document.getElementById('round').textContent = round;
 
-                        // Reset button colors
-                        document.getElementById('addToFavourite').style.background = '#011f0197';
-                        document.getElementById('addToBlacklist').style.background = '#25252583';
+                                // Reset button colors
+                                document.getElementById('addToFavourite').style.background = '#011f0197';
+                                document.getElementById('addToBlacklist').style.background = '#25252583';
 
-                        if (round > 10) {
+                                if (round > 10) {
                                     saveScoreToMongoDB();
                                     showScorePopup();
-                            }
-
-                        // Reset option borders
-                        const options = document.querySelectorAll('.option');
-                        options.forEach(option => {
-                            option.style.border = 'none';
-                        });
-
-                        // Fetch quote
-                        fetch(quote, {
-                            headers: {
-                            'Authorization': `Bearer ${bearerToken}`
-                            }
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                            const randomIndex = Math.floor(Math.random() * data.docs.length);
-                            const dialog = data.docs[randomIndex].dialog;
-                            const characterId = data.docs[randomIndex].character;
-                            const movieId = data.docs[randomIndex].movie;
-
-                            // Fetch character data
-                            fetch(`${charUrl}/${characterId}`, {
-                                headers: {
-                                'Authorization': `Bearer ${bearerToken}`
                                 }
-                            })
-                                .then(response => response.json())
-                                .then(characterData => {
-                                const characterName = characterData.docs[0].name;
-                                document.getElementById('quote').textContent = dialog;
-                                sessionStorage.setItem('currentCharacterName', characterName);
-                                const charId = characterId;
-                                sessionStorage.setItem('currentCharId', charId);
 
-                                // Fetch movie data
-                                fetch(`${movieUrl}/${movieId}`, {
+                                // Reset option borders
+                                const options = document.querySelectorAll('.option');
+                                options.forEach(option => {
+                                    option.style.border = 'none';
+                                });
+
+                                // Fetch a random quote
+                                fetch(quote, {
                                     headers: {
-                                    'Authorization': `Bearer ${bearerToken}`
+                                        'Authorization': `Bearer ${bearerToken}`
                                     }
                                 })
+                                .then(response => response.json())
+                                .then(data => {
+                                    const quotes = data.docs;
+                                    const blacklistedQuotes = []; // Array to store blacklisted quotes
+
+                                    // Fetch all blacklisted quotes for the current user
+                                    fetch('/blacklistFetch', {
+                                        method: 'GET',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+                                    })
                                     .then(response => response.json())
-                                    .then(movieData => {
-                                    const movieTitle = movieData.docs[0].name;
-                                    sessionStorage.setItem('currentMovieTitle', movieTitle);
+                                    .then(blacklistData => {
+                                        blacklistData.forEach(item => {
+                                            blacklistedQuotes.push(item.dialog); // Add blacklisted quotes to the array
+                                        });
 
-                                    // Fetch two additional random characters
-                                    fetch(`${charUrl}`, {
-                                        headers: {
-                                        'Authorization': `Bearer ${bearerToken}`
+                                        // Filter out blacklisted quotes from the fetched quotes
+                                        const filteredQuotes = quotes.filter(quote => !blacklistedQuotes.includes(quote.dialog));
+                                        
+                                        if (filteredQuotes.length === 0) {
+                                            // No non-blacklisted quotes available
+                                            console.log('No available quotes');
+                                            return;
                                         }
-                                    })
+
+                                        const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+                                        const randomQuote = filteredQuotes[randomIndex];
+
+                                        const dialog = randomQuote.dialog;
+                                        const characterId = randomQuote.character;
+                                        const movieId = randomQuote.movie;
+
+                                        // Fetch character data
+                                        fetch(`${charUrl}/${characterId}`, {
+                                            headers: {
+                                                'Authorization': `Bearer ${bearerToken}`
+                                            }
+                                        })
                                         .then(response => response.json())
-                                        .then(allCharactersData => {
-                                        const characters = allCharactersData.docs.filter(doc => doc._id !== characterId);
-                                        const randomCharacters = getRandomElements(characters, 2);
-                                        const characterName = sessionStorage.getItem('currentCharacterName');
+                                        .then(characterData => {
+                                            const characterName = characterData.docs[0].name;
+                                            document.getElementById('quote').textContent = dialog;
+                                            sessionStorage.setItem('currentCharacterName', characterName);
+                                            const charId = characterId;
+                                            sessionStorage.setItem('currentCharId', charId);
 
-                                        console.log('Correct character answer:', characterName);
+                                            // Fetch movie data
+                                            fetch(`${movieUrl}/${movieId}`, {
+                                                headers: {
+                                                    'Authorization': `Bearer ${bearerToken}`
+                                                }
+                                            })
+                                            .then(response => response.json())
+                                            .then(movieData => {
+                                                const movieTitle = movieData.docs[0].name;
+                                                sessionStorage.setItem('currentMovieTitle', movieTitle);
 
-                                        const charOption1 = document.getElementById('charOption1');
-                                        const charOption2 = document.getElementById('charOption2');
-                                        const charOption3 = document.getElementById('charOption3');
+                                                // Fetch two additional random characters
+                                                fetch(`${charUrl}`, {
+                                                    headers: {
+                                                        'Authorization': `Bearer ${bearerToken}`
+                                                    }
+                                                })
+                                                .then(response => response.json())
+                                                .then(allCharactersData => {
+                                                    const characters = allCharactersData.docs.filter(doc => doc._id !== characterId);
+                                                    const randomCharacters = getRandomElements(characters, 2);
+                                                    const characterName = sessionStorage.getItem('currentCharacterName');
 
-                                        charOption1.textContent = randomCharacters[0].name;
-                                        charOption2.textContent = randomCharacters[1].name;
-                                        charOption3.textContent = characterName;
+                                                    const charOption1 = document.getElementById('charOption1');
+                                                    const charOption2 = document.getElementById('charOption2');
+                                                    const charOption3 = document.getElementById('charOption3');
 
-                                        const charOptions = [charOption1, charOption2, charOption3];
-                                        shuffleArray(charOptions);
+                                                    charOption1.textContent = randomCharacters[0].name;
+                                                    charOption2.textContent = randomCharacters[1].name;
+                                                    charOption3.textContent = characterName;
 
-                                        const charOptionsContainer = document.getElementById('charOptions');
-                                        charOptions.forEach(option => charOptionsContainer.appendChild(option));
+                                                    const charOptions = [charOption1, charOption2, charOption3];
+                                                    shuffleArray(charOptions);
 
-                                        charOptions.forEach(option => {
-                                            option.addEventListener('click', updateCharOption);
-                                        });
-                                        });
+                                                    const charOptionsContainer = document.getElementById('charOptions');
+                                                    charOptions.forEach(option => charOptionsContainer.appendChild(option));
 
-                                    // Fetch two additional random movies
-                                    fetch(`${movieUrl}`, {
-                                        headers: {
-                                        'Authorization': `Bearer ${bearerToken}`
-                                        }
-                                    })
-                                        .then(response => response.json())
-                                        .then(allMoviesData => {
-                                        const movies = allMoviesData.docs.filter(doc => doc._id !== movieId);
-                                        const randomMovies = getRandomElements(movies, 2);
-                                        const movieTitle = sessionStorage.getItem('currentMovieTitle');
+                                                    charOptions.forEach(option => {
+                                                        option.addEventListener('click', updateCharOption);
+                                                    });
+                                                });
 
-                                        console.log('Correct movie answer:', movieTitle);
+                                                // Fetch two additional random movies
+                                                fetch(`${movieUrl}`, {
+                                                    headers: {
+                                                        'Authorization': `Bearer ${bearerToken}`
+                                                    }
+                                                })
+                                                .then(response => response.json())
+                                                .then(allMoviesData => {
+                                                    const movies = allMoviesData.docs.filter(doc => doc._id !== movieId);
+                                                    const randomMovies = getRandomElements(movies, 2);
+                                                    const movieTitle = sessionStorage.getItem('currentMovieTitle');
 
-                                        const movieOption4 = document.getElementById('movieOption4');
-                                        const movieOption5 = document.getElementById('movieOption5');
-                                        const movieOption6 = document.getElementById('movieOption6');
+                                                    const movieOption4 = document.getElementById('movieOption4');
+                                                    const movieOption5 = document.getElementById('movieOption5');
+                                                    const movieOption6 = document.getElementById('movieOption6');
 
-                                        movieOption4.textContent = randomMovies[0].name;
-                                        movieOption5.textContent = randomMovies[1].name;
-                                        movieOption6.textContent = movieTitle;
+                                                    movieOption4.textContent = randomMovies[0].name;
+                                                    movieOption5.textContent = randomMovies[1].name;
+                                                    movieOption6.textContent = movieTitle;
 
-                                        const movieOptions = [movieOption4, movieOption5, movieOption6];
-                                        shuffleArray(movieOptions);
+                                                    const movieOptions = [movieOption4, movieOption5, movieOption6];
+                                                    shuffleArray(movieOptions);
 
-                                        const movieOptionsContainer = document.getElementById('movieOptions');
-                                        movieOptions.forEach(option => movieOptionsContainer.appendChild(option));
+                                                    const movieOptionsContainer = document.getElementById('movieOptions');
+                                                    movieOptions.forEach(option => movieOptionsContainer.appendChild(option));
 
-                                        movieOptions.forEach(option => {
-                                            option.addEventListener('click', updateMovieOption);
-                                        });
+                                                    movieOptions.forEach(option => {
+                                                        option.addEventListener('click', updateMovieOption);
+                                                    });
+                                                });
+                                            });
                                         });
                                     });
                                 });
-                            });
-                        }
+                            }
+
 
                         // Check answers
 

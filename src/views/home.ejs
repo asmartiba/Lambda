@@ -222,56 +222,84 @@
 
              // Quote
              function getNewQuote() {
-
                         // Reset button colors
-                        document.getElementById('addToFavourite').style.background = '#011f0197';
-                        document.getElementById('addToBlacklist').style.background = '#25252583';
+                            document.getElementById('addToFavourite').style.background = '#011f0197';
+                            document.getElementById('addToBlacklist').style.background = '#25252583';
 
-                        // Fetch quote
-                        fetch(quote, {
-                            headers: {
-                            'Authorization': `Bearer ${bearerToken}`
-                            }
-                        })
+                            // Fetch a random quote
+                            fetch(quote, {
+                                headers: {
+                                    'Authorization': `Bearer ${bearerToken}`
+                                }
+                            })
                             .then(response => response.json())
                             .then(data => {
-                            const randomIndex = Math.floor(Math.random() * data.docs.length);
-                            const dialog = data.docs[randomIndex].dialog;
-                            const characterId = data.docs[randomIndex].character;
-                            const movieId = data.docs[randomIndex].movie;
+                                const quotes = data.docs;
+                                const blacklistedQuotes = []; // Array to store blacklisted quotes
 
-                            // Fetch character data
-                            fetch(`${charUrl}/${characterId}`, {
-                                headers: {
-                                'Authorization': `Bearer ${bearerToken}`
-                                }
-                            })
-                                .then(response => response.json())
-                                .then(characterData => {
-                                const characterName = characterData.docs[0].name;
-                                const charId = characterId;
-                                document.getElementById('quote').textContent = dialog;
-                                document.getElementById('character').textContent = `${characterName} -`;
-                                sessionStorage.setItem('currentCharacterName', characterName);
-                                sessionStorage.setItem('currentCharId', charId);
+                                // Fetch and add blacklisted quotes to the array
+                                fetch('/blacklistFetch', {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
                                 })
-
-                            // Fetch quotes by character
-                            fetch(`${charUrl}/${characterId}/quote`, {
-                                headers: {
-                                'Authorization': `Bearer ${bearerToken}`
-                                }
-                            })
                                 .then(response => response.json())
-                                .then(quotesData => {
-                                    const quotes = quotesData.docs.map(quote => quote.dialog);
-                                    const quotesNumber = quotesData.docs.length;
-                                    document.getElementById('quotesNumber').innerHTML = `This character has ${quotesNumber} other quotes`;
-                                    console.log(quotesNumber);
+                                .then(blacklistData => {
+                                    blacklistData.forEach(item => {
+                                        blacklistedQuotes.push(item.dialog); 
+                                    });
+
+                                    // Filter out blacklisted quotes
+                                    const filteredQuotes = quotes.filter(quote => !blacklistedQuotes.includes(quote.dialog));
+                                    
+                                    if (filteredQuotes.length === 0) {
+                                        console.log('No available quotes');
+                                        return;
+                                    }
+
+                                    const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+                                    const randomQuote = filteredQuotes[randomIndex];
+
+                                    const dialog = randomQuote.dialog;
+                                    const characterId = randomQuote.character;
+                                    const movieId = randomQuote.movie;
+
+                                    // Fetch character data
+                                    fetch(`${charUrl}/${characterId}`, {
+                                        headers: {
+                                            'Authorization': `Bearer ${bearerToken}`
+                                        }
+                                    })
+                                    .then(response => response.json())
+                                    .then(characterData => {
+                                        const characterName = characterData.docs[0].name;
+                                        const charId = characterId;
+                                        document.getElementById('quote').textContent = dialog;
+                                        document.getElementById('character').textContent = `${characterName} -`;
+                                        sessionStorage.setItem('currentCharacterName', characterName);
+                                        sessionStorage.setItem('currentCharId', charId);
+                                    });
+
+                                    // Fetch quotes by character
+                                    fetch(`${charUrl}/${characterId}/quote`, {
+                                        headers: {
+                                            'Authorization': `Bearer ${bearerToken}`
+                                        }
+                                    })
+                                    .then(response => response.json())
+                                    .then(quotesData => {
+                                        const quotes = quotesData.docs.map(quote => quote.dialog);
+                                        const quotesNumber = quotesData.docs.length;
+                                        document.getElementById('quotesNumber').innerHTML = `This character has ${quotesNumber} other quotes`;
+                                    });
                                 });
                             })
-                                                   
-             }
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+}
+
 
              // Select mode popup
 
