@@ -46,8 +46,11 @@
   }
 
 #score {
-    color: rgb(230, 230, 230);
-    font-size: 30px;
+  color: rgb(162, 241, 186);
+  font-size: 32px;
+  margin-top:15px;
+  font-family: 'Courier New', Courier, monospace;
+  margin-left: 5px;
 }
 
 .quote {
