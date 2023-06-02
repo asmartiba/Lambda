@@ -37,7 +37,7 @@
     text-align: center;
 }
 
-.characters input {
+#name-filter {
   height: 80px;
   width: 200px;
   border-radius: 40px;
@@ -149,5 +149,8 @@
         width: 95vw;
         flex-direction: column;
     }
-
+    #name-filter {
+      width:80vw;
+      height: 10vh;
+    }
   }

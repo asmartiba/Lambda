@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 
-// router 
+// router   
 
 app.get('/', (req, res) => {
   res.render('index', { title: 'Home' });
@@ -430,6 +430,12 @@ app.get('/movie', async (req, res) => {
       console.error(error);
       res.status(500).send('Server Error');
   }
+});
+
+// 404
+
+app.use((req, res) => {
+  res.status(404).render('404');
 });
 
 export default app;

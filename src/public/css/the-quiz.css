@@ -229,13 +229,14 @@
 
   .scorePopup {
     width:50vw;
-    height:50vh;
+    height:70vh;
     border: 4px solid white;
     background-color: #000000b9;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    overflow: scroll;
   }
 
   .scorePopup h2 {

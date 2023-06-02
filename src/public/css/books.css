@@ -8,7 +8,7 @@
 
 .books {
     width: 90vw;
-    height: 100vh;
+    height: 90vh;
     border-radius: 20vh;
     border-top: 2px solid gold;
     background-color: rgba(34, 6, 6, 0.563);
@@ -24,7 +24,6 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    width: 18vw;
 }
 
 .book h2 {
@@ -36,10 +35,12 @@
 
 .book img {
     margin-top: 25px;
+    margin-bottom: 10px;;
     height: 398px;
     width: 250px;
     border: 2px solid orangered;
 }
+
 
 
 .popup-container {
@@ -93,5 +94,11 @@
         margin-top:50px;
         
     }
-
+    .book img {
+      width: auto;
+      height: auto;
+    }
+    .book h2 {
+      margin-bottom:30px;
+    }
   }
