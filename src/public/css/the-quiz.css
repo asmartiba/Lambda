@@ -46,8 +46,8 @@
   }
 
 #score {
-    color: grey;
-    font-size: 32px;
+    color: rgb(230, 230, 230);
+    font-size: 30px;
 }
 
 .quote {
@@ -56,7 +56,7 @@
     height: auto;
     width:80vw;
     margin:20px;
-    padding:30px;
+    padding:25px;
     border-radius: 60px;
     background: linear-gradient(to bottom, rgba(206, 134, 40, 0.774),  rgba(36, 7, 3, 0.678), transparent);
     text-align: center;
@@ -65,7 +65,7 @@
     justify-content: center;
     border-top: 2px solid rgb(192, 192, 192);
     font-family: 'Cookie';
-    margin-top: 100px;
+    margin-top: 70px;
 }
 
 #quoteContainer {
@@ -82,26 +82,9 @@
 
 .roundCount {
     color: rgb(237, 165, 102);
-    font-size: 36px;
-    margin-top:35px;
+    font-size: 32px;
+    margin-top:15px;
     font-family: 'Courier New', Courier, monospace;
-}
-
-#addToBlacklist, #addToFavourite {
-    height: 50px;
-    width: 160px;
-    margin: 30px;
-    border-radius: 25px;
-}
-
-#addToBlacklist {
-    background: #25252583;
-    color: white;
-}
-
-#addToFavourite {
-    background: #011f0197;
-    color: white;
 }
 
 #options {
@@ -115,15 +98,15 @@
 
 #options h2 {
     color: rgb(255, 195, 65);
-    font-size: 32px;
+    font-size: 26px;
     opacity: 80%;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .option {
-    background: linear-gradient(to bottom, transparent, #240101d5);
+    background: linear-gradient(to bottom, transparent, #160101e4);
     width: 22vw;
-    height: 80px;
+    height: 70px;
     border-radius: 40px;
     margin-top: 20px;
     color: rgb(235, 212, 231);
@@ -153,18 +136,6 @@
     justify-content: center;
     align-items: center;
 }
-
-#reset {
-    height: 50px;
-    width: 160px;
-    margin:30px;
-    border-radius: 25px;
-    background: #43020297;
-    color: white;
-    font-size: 1.2em;
-    border: 2px solid coral;
-}
-
 
   .buttonContainer {
     display: flex;
@@ -277,7 +248,7 @@
   }
 
 
-@media only screen and (max-width: 1667px) {
+@media only screen and (max-width: 1867px) {
     .the_quiz {
         width: 100vw;
         border-radius: 0;
@@ -294,16 +265,6 @@
     }
     .option {
         font-size: 24px;
-    }
-    #newQuote {
-        width: 18vw;
-    }
-    #reset {
-        width: 18vw;
-    }
-    .quoteBox h2 {
-        width: 22vw;
-        margin-top:10px;
     }
 }
 

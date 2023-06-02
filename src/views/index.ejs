@@ -28,7 +28,7 @@
                     <input type="password" value="" placeholder="password" id="password" name="password" required>
                     <button class="btn4">Login</button>
                     <p>Don't have an account yet? <a href="/signup">Sign up</a></p>
-                    <p id="loginStatusMessage" style="color: red;">Login to access projects...</p>
+                    <p id="loginStatusMessage" style="color: rgb(212, 170, 62);">Login to access projects...</p>
                   </form>
                 </div>
               </div>
@@ -97,7 +97,7 @@
                 window.addEventListener('DOMContentLoaded', () => {
                   if (isLoggedIn()) {
                     loginStatusMessage.textContent = 'You are now logged in.';
-                    loginStatusMessage.style.color = 'green';
+                    loginStatusMessage.style.color = 'lightgreen';
                     loginStatusMessage.style.textAlign = 'center';
                   }
                 });

@@ -26,13 +26,10 @@
 
                     <h1>Welcome to the quiz, <span class="greenText"><%= username %>!</span></h1>
                     <h2 class="roundCount">Round <span id="round">1</span>/10</h2>
+                    <div id="score" class="score">Score: 0</div>
 
                     <div id="quoteContainer">
                         <p id="quote" class="quote"></p>
-                        <div class="flexrow">
-                            <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
-                            <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
-                        </div>
                     </div>
 
                     <div id="popupContainer" class="popup-container">
@@ -90,9 +87,13 @@
 
                     <div>
                         <div class="quoteBox">
-                            <div id="score" class="score">Score: 0</div>
-                            <button id="newQuote">Next Round</button>
-                            <button id="reset">Reset</button>
+                            <div class="flexrow">
+                                <button id="addToFavourite" onclick="addToFavourite()">Favourite</button>
+                                <button id="addToBlacklist" onclick="addToBlacklist()">Blacklist</button>
+                                <button id="newQuote">Next Round</button>
+                                <button id="reset">Reset</button>
+                            </div>
+
                         </div>
                     </div>
             </div>

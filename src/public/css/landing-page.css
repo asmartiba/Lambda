@@ -12,9 +12,9 @@
 }
 
 body {
-  background-image: linear-gradient(60deg, #2e314d, #4e0404);
-  background-size: 200% 200%;
-  animation: fadeGradient 5s infinite;
+  background-image: linear-gradient(60deg, #111325, #330a0a);
+  background-size: 400% 400%;
+  animation: fadeGradient 10s infinite;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,7 +48,7 @@ body {
 }
 
 .login-form p a {
-  color: gold;
+  color: rgb(100, 255, 188);
 }
 
 .login-form p {
@@ -57,8 +57,8 @@ body {
 
 .login-form input {
   width: 140px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   height: 30px;
   border-radius: 15px;
   text-align: center;
@@ -124,7 +124,7 @@ body {
 
 .select__menu {
   width: 75vw;
-  height: 96vh;
+  height: 100vh;
   background: linear-gradient(#293a2fc4, #220e15c2);
   border: rgb(230, 138, 78) 2px solid;
   display: flex;
@@ -144,7 +144,7 @@ body {
 .projects {
     display: flex;
     justify-content: center;
-    padding-top:105px;
+    padding-top:70px;
 }
 
 .project__icon {
@@ -159,7 +159,6 @@ body {
   cursor: pointer;
 }
 
-
 .select__menu a {
   text-decoration: none;
   color: white;
@@ -167,7 +166,7 @@ body {
 
 .project__icon:hover {
   border: 3px rgb(228, 207, 91) solid;
-  scale: 1.2;
+  scale: 1.1;
 }
 
 .first__project {
@@ -331,18 +330,18 @@ body {
 @media only screen and (max-width: 767px) {
 
   body {
-    height: 100vh;
+    height: auto;
     width: 100vw;
     overflow: auto;
   }
 
   .select__menu {
     width: 85vw;
-    height: 100vh;
+    height: auto;
     overflow: auto;
   }
   .login-form p {
-    font-size: 12px;
+    font-size: 22px;
     margin-top: 12px;
   }
 

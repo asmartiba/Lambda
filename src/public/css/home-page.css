@@ -202,7 +202,7 @@ header {
     height: auto;
     padding: 30px;
     width: 85vw;
-    background: linear-gradient(to bottom, rgba(39, 6, 6, 0.918),  rgba(0, 0, 0, 0.979), rgba(2, 31, 29, 0.979), transparent);
+    background: linear-gradient(to bottom, rgba(39, 6, 6, 0.918),  rgba(0, 0, 0, 0.979), rgba(11, 29, 28, 0.979),rgba(3, 54, 50, 0.979), transparent);
     border-radius: 12vh;
     text-align: center;
     display: flex;
@@ -242,15 +242,15 @@ header {
   align-items: center;
 }
 
-#addToBlacklist, #addToFavourite, #fetchQuotes {
-  height: 50px;
-  width: 160px;
+#addToBlacklist, #addToFavourite, #fetchQuotes, #reset {
+  height: 60px;
+  width: 170px;
   margin: 30px;
   border-radius: 25px;
 }
 
 #newQuote {
-  height: 50px;
+  height: 60px;
   width: 220px;
   margin: 30px;
   border-radius: 25px;
@@ -265,21 +265,21 @@ header {
 
 #addToBlacklist {
   background: #25252583;
-  border: 2px solid black;
+  border: 3px solid black;
   color: white;
   font-size: 1.2em;
 }
 
 #addToFavourite {
   background: #011f0197;
-  border: 2px solid lightgreen;
+  border: 3px solid lightgreen;
   color: white;
   font-size: 1.2em;
 }
 
 #fetchQuotes {
   background: #472a0097;
-  border: 2px solid gold;
+  border: 3px solid gold;
   color: white;
   font-size: 1.2em;
 }
@@ -288,7 +288,14 @@ header {
   background: #43020297;
   color: white;
   font-size: 1.2em;
-  border: 2px solid coral;
+  border: 3px solid coral;
+}
+
+#reset {
+  background-color: rgba(134, 46, 14, 0.752);
+  font-size: 1.2em;
+  color: white;
+  border: 3px solid rgb(244, 207, 128);
 }
 
 #startQuiz {
@@ -373,7 +380,6 @@ header {
 }
 
 .popup-buttons button {
-  margin-left: 10px;
   width: 120px;
   height: 30px;
   color: white;
@@ -395,8 +401,8 @@ header {
 }
 
 .quotesPopup {
-  width: 50vw;
-  height: 40vh;
+  width: 60vw;
+  height: 55vh;
   background-color: darkgrey;
   border: 2px solid gold;
   display: flex;
@@ -534,9 +540,9 @@ header {
     font-family:Arial, Helvetica, sans-serif;
     color: rgb(224, 255, 85);
     width: auto;
-    font-size: 22px;
+    font-size: 25px;
     margin-right: 20px;
-    margin-left:40px; 
+    margin-left:30px; 
   }
 
   .author {
@@ -544,7 +550,7 @@ header {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 70vw;
+    width: 80vw;
   }
 
   .movies__box {
@@ -755,7 +761,7 @@ header {
 .personalTitle {
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: white;
-  font-size:40px;
+  font-size:32px;
   font-weight: lighter;
 }
 
