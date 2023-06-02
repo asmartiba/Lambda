@@ -246,7 +246,7 @@ app.get('/downloadFavourites', async (req, res) => {
 
 // BLACKLIST
 
-//fetch:
+//fetch to prevent blacklisted quote from showing up in the quiz
 app.get('/blacklistFetch', async (req, res) => {
   try {
     const username = req.cookies.username;
@@ -266,7 +266,7 @@ app.get('/blacklistFetch', async (req, res) => {
   }
 });
 
-
+//blacklist fetch post request
 app.post('/blacklistFetch', async (req, res) => {
   try {
     const username = req.cookies.username;
