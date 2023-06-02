@@ -31,6 +31,7 @@
     align-items: center;
     overflow-x: hidden;
     overflow-y: hidden;
+    text-align: center;
 }
 
 .the_quiz h1 {
@@ -308,5 +309,12 @@
         width: 100vw;
         border-radius: 0%;
         margin-top:15px;
+    }
+    .flexrow {
+      flex-direction: column;
+    }
+    .scorePopup {
+      width: 100vw;
+      height: 70vh;
     }
 }

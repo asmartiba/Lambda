@@ -101,4 +101,9 @@
     .book h2 {
       margin-bottom:30px;
     }
+    .popup-content {
+      width: 100vw;
+      height:70vh;
+      overflow: scroll;
+    }
   }
